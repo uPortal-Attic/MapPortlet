@@ -297,7 +297,7 @@
                             <groupId>org.jasig.resourceserver</groupId>
                             <artifactId>resource-server-content</artifactId>
                             <includes>
-                                <include>rs/jquery/1.4.2/</include>
+                                <include>rs/jquery/1.5/</include>
                                 <include>rs/jqueryui/1.8/</include>
                                 <include>rs/fluid/1.2/</include>
                             </includes>
