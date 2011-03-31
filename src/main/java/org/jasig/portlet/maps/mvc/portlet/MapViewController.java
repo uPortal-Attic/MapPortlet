@@ -31,7 +31,7 @@ public class MapViewController {
     //public static final String PREFERENCE_UNIT_OF_MEASURE ="miles";
     //public static final String PREFERENCE_
 
-    @RequestMapping
+    /*@RequestMapping
 	public ModelAndView getView(RenderRequest request) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
 		
@@ -42,13 +42,13 @@ public class MapViewController {
 		String startingLocation = preferences.getValue(PREFERENCE_STARTING_LOCATION, null);
         map.put(PREFERENCE_STARTING_LOCATION, startingLocation);
 
-        /*String startingZoom = preferences.getValue(PREFERENCE_STARTING_ZOOM, "13");
-        map.put(PREFERENCE_STARTING_ZOOM, startingZoom);*/
+        String startingZoom = preferences.getValue(PREFERENCE_STARTING_ZOOM, "13");
+        map.put(PREFERENCE_STARTING_ZOOM, startingZoom);
 
         //String startingZoom = preferences.getValue(PREFERENCE_STARTING_ZOOM, "");
 		
 		return new ModelAndView("googleMaps", map);
-	}
+	}*/
 
     @RequestMapping
     public String getMapView() {

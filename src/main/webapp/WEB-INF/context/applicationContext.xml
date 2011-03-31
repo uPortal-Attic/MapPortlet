@@ -45,7 +45,7 @@
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>mapmessages</value>
+				<value>message</value>
 			</list>
 		</property>										
 	</bean>
