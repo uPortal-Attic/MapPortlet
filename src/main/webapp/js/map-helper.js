@@ -21,6 +21,7 @@ var mapHelper = mapHelper || {};
 
 /* this contains a number of utility methods for the google API v3 portlet.   Moved here entirely for readability */
 (function ($) {
+        mapHelper.markerList =[];
 
         /*  makes the info window appear.  LocInfo needs to be a reference to the metadata of the location.  The map and info should be initalized already */
         mapHelper.deployInfoWindow = function(mapRef, infoWindowRef, locInfo){
@@ -43,11 +44,12 @@ var mapHelper = mapHelper || {};
          *              searchString = what the user is searching to get
          *              maxDistance = the maximum distance the object should be in (optional)
          *              originPosition = the position from where the max distance is measured (optional) 
-         *              infoArea = a div area for outputting basic text.  TODO: Remove this one
+         *              infoArea = a div area for outputting basic text.  TODO: Remove this one because it really should have another way of communicating with user
          */
-        mapHelper.searchLocations = function(theMap, infoWindow, searchString, maxDistance, originPosition, infoArea)
+        mapHelper.searchLocations = function(theMap, infoWindow, addressString, maxDistance, originPosition, defaultPosition, infoArea)
         {
-            var resultsList = new Array();
+            mapHelper.clearMarkers();  // clears the markers to start a new search.
+
 
             /* this checks the JSON location information. When completed remove 'console.log' calls */            
             var getInfo = $.get(
@@ -67,7 +69,7 @@ var mapHelper = mapHelper || {};
 
                     for (i = 0; i < locData.buildings.length; i++)
                     {
-                        if (locData.buildings[i].searchText.indexOf(searchString.toLowerCase()) >= 0) 
+                        if (locData.buildings[i].searchText.indexOf(addressString.toLowerCase()) >= 0) 
                         {
                             currentLocation = new google.maps.LatLng(locData.buildings[i].latitude, locData.buildings[i].longitude);
                             var marker = new google.maps.Marker({
@@ -87,7 +89,7 @@ var mapHelper = mapHelper || {};
                                                                             )(marker) // specifies this reference to 'marker' NEEDS to be the current reference to 'marker'
                                                          );
                                                                                               
-                            resultsList.push(locData.buildings[i]); // TODO, presently don't really need.could be Ok to be INT;I'm not sure I don't still need this info once 'marker' is out of local
+                            mapHelper.markerList.push(marker);
                         }
                         
                         /* TODO:  consider this:  compare locations of all the results and scale zoom accordingly.  If originLocation != default, include it in scaling. */
@@ -130,17 +132,57 @@ var mapHelper = mapHelper || {};
                     
                 },
                 "json" // this is the TYPE of thing we are getting, which is a JSON file
-                )
+            )
                 .complete(function() { 
-                    if (resultsList.length == 1)
+                    if (mapHelper.markerList.length == 1)
                     {
-                        infoArea.innerHTML="there is only one result. Centering on it for convenience."; 
-                        mapHelper.deployInfoWindow(theMap, infoWindow, resultsList.pop());
+                        infoArea.innerHTML="nyr"; 
+                        mapHelper.deployInfoWindow(theMap, infoWindow, mapHelper.markerList[0].extraMeta);
                     } else
                     {
-                        infoArea.innerHTML="there are " + resultsList.length + " results. click a marker to see info.";  
+                        infoArea.innerHTML="there are " + mapHelper.markerList.length + " results. click a marker to see info.";  
                     }
                 });
-            
+        }
+
+        mapHelper.geoCodeFromString = function(address, theMap, startingMarker, infoArea)
+        {
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode( { 'address': address}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    theMap.setCenter(results[0].geometry.location);
+                    startingMarker.setPosition(results[0].geometry.location);
+                } else {
+                    infoArea.innerHTML = ("Geocode was not successful for the following reason: " + status);
+                }
+            });
+        }
+
+
+        /* runs a handle to deal with the cases where there cannot be a strating location based on geolocation.  Not actually doing anything while geoLocation() is not being called */
+        mapHelper.handleGeolocationErrors = function(errorFlag, theMap, usableInfoWindow, addressBox) {
+            var contentString; // Move to spring
+            if (errorFlag === true) {
+                startingPoint = undefined;
+                addressBox.value = "test";
+                contentString = "failed but passed";
+            } else {
+                startingLocation = undefined;
+                contentString = "something apparently broke, get back to work and fix it.";
+            }
+        }
+
+        mapHelper.clearMarkers = function() {
+            console.log(" clearing markers " + mapHelper.markerList.length);
+            if (mapHelper.markerList)
+            {
+                for (i = 0; i< mapHelper.markerList.length; i++)
+                {
+                    
+                    mapHelper.markerList[i].setMap(null);
+                    mapHelper.markerList[i] = null;
+                }
+            }
+            mapHelper.markerList.length = 0;
         }
 })(jQuery);

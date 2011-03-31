@@ -41,4 +41,12 @@
         p:order="10" p:cache="true" p:viewClass="org.springframework.web.servlet.view.JstlView"
         p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
 
+    <!-- mapmessages.propreties Configuration -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>mapmessages</value>
+			</list>
+		</property>										
+	</bean>
 </beans>
