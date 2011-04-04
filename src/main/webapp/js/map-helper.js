@@ -63,7 +63,6 @@ var mapHelper = mapHelper || {};
                     // variables required for searching
                     var xCoord = originPosition.lng();  // longitude of search origin
                     var yCoord = originPosition.lat();// latitude of search origin
-                    var scaleConstant = 3959;  // 3959 = in miles, 6371 = kilometers. This is measurement of the earth's radius that sets the standard for distance in the forumla
                     // end of variables required for searching
 
 
@@ -114,7 +113,7 @@ var mapHelper = mapHelper || {};
                             // totally found this one on the internet somewhere. Do not promise functionality, but seems to work close enough.  Use above if problems appear 
                             var distance = Math.acos(Math.sin(yCoord)*Math.sin(currentY) + 
                                   Math.cos(yCoord)*Math.cos(currentY) *
-                                  Math.cos(dX)) * scaleConstant;
+                                  Math.cos(dX)) * theMap.systemOfMeasure;
 
                             // if distance to location is within the maxDistance.
                             if (distance <= maxDistance)
@@ -136,7 +135,7 @@ var mapHelper = mapHelper || {};
                 .complete(function() { 
                     if (mapHelper.markerList.length == 1)
                     {
-                        infoArea.innerHTML="nyr"; 
+                        infoArea.innerHTML="temp string reporting there is only 1 result, so centering for convenience"; 
                         mapHelper.deployInfoWindow(theMap, infoWindow, mapHelper.markerList[0].extraMeta);
                     } else
                     {

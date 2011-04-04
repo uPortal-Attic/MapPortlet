@@ -33,9 +33,10 @@
 
 <!-- assigning a variable to the name so it can be called in a non-conflicting way -->
 <c:set var="n"><portlet:namespace/></c:set>
+<c:set var="context" value="${pageContext.request.contextPath}"/>
 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-<script src="<c:url value="/rs/jquery/1.5/jquery-1.5.min.js"/>" type="text/javascript"></script>
-<script src="<c:url value="/js/map-helper.js"/>" type="text/javascript"></script>
+<script src="${context}/rs/jquery/1.5/jquery-1.5.min.js" type="text/javascript"></script>
+<script src="${context}/js/map-helper.js" type="text/javascript"></script>
 
 <!-- so called 'boilerplate' namespace.  This allows '.jQuery' to be used without conflict -->
 <script type="text/javascript"> 
@@ -78,41 +79,75 @@
             All of the "___Control" (fill in blank) can have "___ControlOptions: { google.maps.ControlPosition.X }" where X is something like "TOP_RIGHT" or "BOTTOM_CENTER"
         */
         var initializeMap = function() {
+
+        // pull settings from the java view controller for map creation
+        var zoomInt = parseInt(${startingZoom});
+        var mapTypeControlBool = ${mapTypeControlBool};
+        var panControlBool = ${panControlBool};
+        var zoomControlBool = ${zoomControlBool};
+        var streetViewBool = ${streetViewBool};
+        var scaleControlBool = ${scaleControlBool};
+        var rotateControlBool = ${rotateControlBool};
+        var overviewControlBool = ${overviewControlBool};
+        // 3959 = in miles, 6371 = kilometers. This is measurement of the earth's radius that sets the standard for distance in the forumla
+        var startingScale = parseInt(${startingScale}); 
+
+
             /* currently left mostly to default values, however may want to change depending on purpose of map and expected interface (PC W/mouse vs. touch screen PC vs. mobile device)*/
             mapOptions = {   // most options present for future development ease of reference.  Enable or disable as one pleases
-                zoom: 10,
-                mapTypeControl: true,
+                zoom: zoomInt,
+                mapTypeControl: mapTypeControlBool,
                 mapTypeControlOptions: {
                     style: google.maps.MapTypeControlStyle.DEFAULT     // also could be "HORIZONTAL_BAR" or "DROPDOWN_MENU"
                 },
-                panControl: true,
-                zoomControl: true,
+                panControl: panControlBool,
+                zoomControl: zoomControlBool,
                 zoomControlOptions: {
                     style: google.maps.ZoomControlStyle.DEFAULT       // also could be "SMALL" or "LARGE"
                 },
-                scaleControl: true,
-                streetViewControl: true,                     // only appears if street view is currently the view
-                rotateControl: true,                        // only functions if "set Tilt" below is set to 45, so currently disabled
-                overviewMapControl: true,
-                mapTypeId: google.maps.MapTypeId.ROADMAP   // can be ROADMAP, SATELLITE, HYBRID, or TERRAIN
+                scaleControl: scaleControlBool,
+                streetViewControl: streetViewBool,                     // only appears if street view is currently the view
+                rotateControl: rotateControlBool,                        // only functions if "set Tilt" below is set to 45, so currently disabled
+                overviewMapControl: overviewControlBool,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,   // can be ROADMAP, SATELLITE, HYBRID, or TERRAIN
+                systemOfMeasure: startingScale
 
             };
-
-            ${n}.unicon = new google.maps.LatLng(33.303919,-111.768572); // TODO: remove - temp variable for testing locations based on Unicon
-            ${n}.cthulhu = new google.maps.LatLng(-47.15, -126.716667);  // TODO: remove - temp variable for testing locations based on the estimated whereabouts of Cthulhu, the sunken city of R'lyeh
 
             ${n}.infoWindow = new google.maps.InfoWindow();
             ${n}.campusMap = new google.maps.Map($("#${n}mapArea").get(0), mapOptions); 
 
-            ${n}.campusMap.setTilt(0); // this can be set to 45 to allow for 45 degree angles if in satalight mode.  This forces top-down (until 45degree is requested)
-                    // Might be useful for navigating since "road map" and/or "top down" makes landmarks hard to spot for somebody traveling on foot/bike/car
+            /* this can be set to 45 to allow for 45 degree angles if in satalight mode.  This forces top-down (until 45degree is requested)
+            * Might be useful for navigating since "road map" and/or "top down" makes landmarks hard to spot for somebody traveling on foot/bike/car
+            */ 
+            if (rotateControlBool) // if rotate control is turned on, its assumed that 45 degree viewing is ok for satilight, same as reverse.
+            {
+                ${n}.campusMap.setTilt(45); 
+            }
+            else
+            {
+                ${n}.campusMap.setTilt(0);
+            }
 
-            /* info for custom controls http://code.google.com/apis/maps/documentation/javascript/controls.html#CustomDrawing */
+             /* info for custom controls http://code.google.com/apis/maps/documentation/javascript/controls.html#CustomDrawing */
+                    
 
-            $("#${n}originBox").get(0).disabled = true;
-            $("#${n}originBox").get(0).value="default Location";
-            ${n}.defaultLocation = new google.maps.LatLng(41.300937,-72.932103);
+                        
+            
+            // sets the default View from java view controller
+            
+            //if (startingLocation == undefined)
+            //{
+                var latString = "41.300937";
+                var longString = "-72.932103";
+                ${n}.defaultLocation = new google.maps.LatLng(parseFloat(latString), parseFloat(longString));
+            //}
+
+
+            ${n}.defaultLocation = new google.maps.LatLng(parseFloat(latString),parseFloat(longString));
             ${n}.originLocation = ${n}.defaultLocation;   // sets the location of the user at the default location.
+
+
             ${n}.contentString = ("This is the default position");
             ${n}.campusMap.setCenter(${n}.defaultLocation);
 
@@ -130,6 +165,11 @@
                 map: ${n}.campusMap,
                 icon: markerImage
             });
+
+           
+            //  this is for the buttons to switch between locations.
+            $("#${n}originBox").get(0).disabled = true;
+            $("#${n}originBox").get(0).value="default Location";
         }
 
         /* 
@@ -241,6 +281,6 @@
            <p> <input id="${n}geoButton" type="radio" name="location" onclick="${n}.disableGeoLocation();" /> <spring:message code="body.radio.button.type"/> <input id="${n}originBox" autocomplete="on" type="text" size="10" name="Origin Address" title="yourLocation" onblur="${n}.typeOrigin();"/>
            <p> <input id="${n}geoButton" type="radio" name="location" onclick="${n}.geoLocationButton();" /> <spring:message code="body.radio.button.geoLocation"/>
         
-        <p> <input id="${n}goButton" type="submit" value="search" onclick="${n}.clickSearch();" />
+        <p> <input id="${n}goButton" type="submit" value="search" onclick="${n}.clickSearch();" /> 
     </div>
 </div> 
