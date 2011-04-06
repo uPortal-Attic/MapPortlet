@@ -71,62 +71,65 @@ var mapHelper = mapHelper || {};
                         if (locData.buildings[i].searchText.indexOf(addressString.toLowerCase()) >= 0) 
                         {
                             currentLocation = new google.maps.LatLng(locData.buildings[i].latitude, locData.buildings[i].longitude);
-                            var marker = new google.maps.Marker({
-                                position: currentLocation,          // the actual location on the map. 
-                                map: theMap,                // which map they go on
-                                draggable: false,                   // if you can move the marker - in this case 'no' we don't want users moving them
-                                title: (locData.buildings[i].name),  // for tool-tip that appears when you hold your mouse over the marker
-                                extraMeta: locData.buildings[i]    // the meta data that calls it.  Makes it so any reference to the marker knows all it needs to know about the location
-                            });
-                            google.maps.event.addListener(marker, 'click', (function (marker)
-                                                                                {   // runs a function, making note to keep the
-                                                                                    return function()
-                                                                                    {
-                                                                                        mapHelper.deployInfoWindow(marker.map, infoWindow, marker.extraMeta); 
-                                                                                    };
-                                                                                }
-                                                                            )(marker) // specifies this reference to 'marker' NEEDS to be the current reference to 'marker'
-                                                         );
-                                                                                              
-                            mapHelper.markerList.push(marker);
-                        }
-                        
-                        /* TODO:  consider this:  compare locations of all the results and scale zoom accordingly.  If originLocation != default, include it in scaling. */
 
-                        if (maxDistance > 0)
-                        {
-                            // distance code start
-                            var currentX = parseFloat(locData.buildings[i].longitude); // longitude of currently inspected location
-                            var currentY = parseFloat(locData.buildings[i].latitude); // latitude of currently inspected location
-                            var dX = (currentX - xCoord).toRad(); // distance of longitude = distance formula 
-                            var dY = (currentY - yCoord).toRad(); // distance of latitude = ''
 
-                            /* Dirty square root heavy version I created for testing. not recommended, but didn't want to remove because I trust it more than the current method because Landis ran the math
-                            var arbitraryN = Math.sin(dY/2) * Math.sin(dY/2) +  // square half the distance over our X axis
-                                                Math.cos(yCoord.toRad()) * Math.cos(currentY.toRad()) *  // heaven help us if order of opperations in javascript changes
-                                                Math.sin(dX/2) * Math.sin(dX/2); // square of half the distance over our Y axis
-                            var c = 2 * Math.atan2(Math.sqrt(arbitraryN), Math.sqrt(1-arbitraryN));  // getting angular distance
-                            var distance = scaleConstant * c; // and solving for distance
-                            // distance code end*/
-
-                            
-                            // totally found this one on the internet somewhere. Do not promise functionality, but seems to work close enough.  Use above if problems appear 
-                            var distance = Math.acos(Math.sin(yCoord)*Math.sin(currentY) + 
-                                  Math.cos(yCoord)*Math.cos(currentY) *
-                                  Math.cos(dX)) * theMap.systemOfMeasure;
-
-                            // if distance to location is within the maxDistance.
-                            if (distance <= maxDistance)
+                            /* TODO:  consider this:  compare locations of all the results and scale zoom accordingly.  If originLocation != default, include it in scaling. */
+                            if (maxDistance > 0)
                             {
-                                currentLocation = new google.maps.LatLng(locData.buildings[i].latitude, locData.buildings[i].longitude);
+                                // distance code start
+                                var currentX = parseFloat(locData.buildings[i].longitude); // longitude of currently inspected location
+                                var currentY = parseFloat(locData.buildings[i].latitude); // latitude of currently inspected location
+                                var dX = numberToRad(currentX - xCoord); // distance of longitude = distance formula 
+                                var dY = numberToRad(currentY - yCoord); // distance of latitude = ''
+
+                                /* Dirty square root heavy version I created for testing. not recommended, 
+                                        but didn't want to remove because I trust it more than the current method because Landis ran the math
+
+                                var arbitraryN = Math.sin(dY/2) * Math.sin(dY/2) +  // square half the distance over our X axis
+                                                    Math.cos(yCoord.toRad()) * Math.cos(currentY.toRad()) *  // heaven help us if order of opperations in javascript changes
+                                                    Math.sin(dX/2) * Math.sin(dX/2); // square of half the distance over our Y axis
+                                var c = 2 * Math.atan2(Math.sqrt(arbitraryN), Math.sqrt(1-arbitraryN));  // getting angular distance
+                                var distance = scaleConstant * c; // and solving for distance
+                                // distance code end*/
+
+                                
+                                // totally found this one on the internet somewhere. Do not promise functionality, but seems to work close enough.  Use above if problems appear 
+                                var distance = Math.acos(Math.sin(yCoord)*Math.sin(currentY) + 
+                                      Math.cos(yCoord)*Math.cos(currentY) *
+                                      Math.cos(dX)) * theMap.systemOfMeasure;
+
+                                // if distance to location is within the maxDistance.
+                                if (distance <= maxDistance)
+                                {
+                                    currentLocation = new google.maps.LatLng(locData.buildings[i].latitude, locData.buildings[i].longitude);
+                                    var marker = new google.maps.Marker({
+                                        position: currentLocation,          // the actual location on the map. 
+                                        map: theMap,                // which map they go on
+                                        draggable: false,                   // if you can move the marker - in this case 'no' we don't want users moving them
+                                        title: (locData.buildings[i].name),  // for tool-tip that appears when you hold your mouse over the marker
+                                        extraMeta: locData.buildings[i]    // the meta data that calls it.  Makes it so any reference to the marker knows all it needs to know about the location
+                                    });
+                                } // end of if statement
+                                addListenerToMarker(marker, infoWindow);
+                                mapHelper.markerList.push(marker);
+                            }
+                            else
+                            {
+
                                 var marker = new google.maps.Marker({
                                     position: currentLocation,          // the actual location on the map. 
                                     map: theMap,                // which map they go on
                                     draggable: false,                   // if you can move the marker - in this case 'no' we don't want users moving them
-                                    title: (locData.buildings[i].name)  // for tool-tip that appears when you hold your mouse over the marker
+                                    title: (locData.buildings[i].name),  // for tool-tip that appears when you hold your mouse over the marker
+                                    extraMeta: locData.buildings[i]    // the meta data that calls it.  Makes it so any reference to the marker knows all it needs to know about the location
                                 });
-                            } // end of if statement
+                                addListenerToMarker(marker, infoWindow);
+
+                                mapHelper.markerList.push(marker);
+                            }
                         }
+                        
+                        
                     }
                     
                 },
@@ -172,7 +175,6 @@ var mapHelper = mapHelper || {};
         }
 
         mapHelper.clearMarkers = function() {
-            console.log(" clearing markers " + mapHelper.markerList.length);
             if (mapHelper.markerList)
             {
                 for (i = 0; i< mapHelper.markerList.length; i++)
@@ -184,4 +186,25 @@ var mapHelper = mapHelper || {};
             }
             mapHelper.markerList.length = 0;
         }
+
+        var addListenerToMarker = function(marker, infoWindow)
+        {
+            google.maps.event.addListener(marker, 'click', (function (marker)
+                        {   // runs a function, making note to keep the
+                            return function()
+                            {
+                                mapHelper.deployInfoWindow(marker.map, infoWindow, marker.extraMeta); 
+                            };
+                        }
+                    )(marker) // specifies this reference to 'marker' NEEDS to be the current reference to 'marker'
+                 );
+        }
+    /* I use these to add radial math to numbers.  The fact is that the map is converting from a sphere to a flat screen, and this is used to help calculate that */
+    var numberToRad = function(number) {
+       return number * Math.PI / 180;
+    }
+
+    var numberToDeg = function(number) {
+       return number * 180 / Math.PI;
+    }// end of radial math
 })(jQuery);

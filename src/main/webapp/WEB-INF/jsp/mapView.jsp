@@ -45,16 +45,6 @@
     ${n}.google = google || {};
     ${n}.google.maps = google.maps || {};  // these exist in an effort to prevent conflict in case multiple google map portlets are on the same uportal page.
 
-    /* I use these to add radial math to numbers.  The fact is that the map is converting from a sphere to a flat screen, and this is used to help calculate that */
-    Number.prototype.toRad = function() {
-       return this * Math.PI / 180;
-    }
-
-    Number.prototype.toDeg = function() {
-       return this * 180 / Math.PI;
-    }// end of radial math
-    
-
     
     /*  runs when the document is finished loading.  This prevents things like the 'div' from being fully created */
     ${n}.jQuery(document).ready(function () { 
@@ -198,7 +188,6 @@
             // run code for a browser that doesn't support Geolocation.
                 ${n}.geoSupport = false;
                 mapHelper.handleGeolocationErrors(${n}.geoSupport, theMap, usableInfoWindow, addressBox);
-                
             }
         }
 
@@ -270,11 +259,11 @@
 
 <!-- the 1st div is to allow the 2nd div to have space.  The map must be inside a div measured in pixels, not '%'.  In this case I've created an outer 'shell' and let the inner div be as big or small as it wants.  There is no way I can see around forcing a 'minimum' size for this portlet of some kind. -->
 <div id="${n}shellBody" style="height: 800px; width: 800px"> 
-    <div id="${n}mapArea" style="background-color:green;height: 65%; width:100%"> <spring:message code="map.error.loading"/>
+    <div id="${n}mapArea" style="height: 65%; width:100%"> <spring:message code="map.error.loading"/>
     </div>
-    <div id="${n}textSpace" style="height: 5%; width:100%">
+    <div id="${n}textSpace" style="border: 2px solid #fff; height: 5%; width:100%">
     </div>
-    <div id="${n}infoArea" style="background-color:pink;height:30%; width:100%"> <spring:message code="body.instructions.search.words"/> <input id="${n}searchParamBox" autocomplete="off" type="text" size="10" name="search" title="search"/> 
+    <div id="${n}infoArea" style="height:30%; width:100%"> <spring:message code="body.instructions.search.words"/> <input id="${n}searchParamBox" autocomplete="off" type="text" size="10" name="search" title="search"/> 
         <p> <spring:message code="body.instructions.distance.optional"/> <input id="${n}distanceBox" autocomplete="off" type="text" size="10" name="Distance" title="search"/> <spring:message code="body.instructions.distance.explain"/>
            
            <p> <input id="${n}geoButton" type="radio" name="location" checked="checked" onclick="${n}.resetOrigin();" /> <spring:message code="body.radio.button.default"/>
