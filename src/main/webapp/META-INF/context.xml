@@ -19,28 +19,4 @@
 
 -->
 
-
-<portlet-definition script="classpath://org/jasig/portal/io/import-portlet_v3-3.crn">
-  <title>Campus Map</title>
-  <name>Campus Map</name>
-  <fname>campus-map</fname>
-  <desc>Campus Map Portlet</desc>
-  <type>Portlet</type>
-  <portlet-descriptor>
-    <webAppName>/MapPortlet</webAppName>
-    <portletName>map</portletName>
-    <isFramework>false</isFramework>
-  </portlet-descriptor>
-  <timeout>60000</timeout>
-  <hasedit>false</hasedit>
-  <hashelp>false</hashelp>
-  <hasabout>false</hasabout>
-  <categories>
-    <category>Information</category>
-  </categories>
-  <groups>
-    <group>Everyone</group>
-  </groups>
-  <parameters/>
-  <portletPreferences/>
-</portlet-definition>
+<Context crossContext="true"/>

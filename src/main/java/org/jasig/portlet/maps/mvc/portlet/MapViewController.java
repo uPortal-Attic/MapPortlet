@@ -32,18 +32,16 @@ import org.springframework.web.portlet.ModelAndView;
 @RequestMapping("VIEW")
 public class MapViewController {
 
-    public static final String PREFERENCE_STARTING_LOCATION ="startinglocation";
-    public static final String PREFERENCE_STARTING_LATITUDE ="startinglocation";
-    public static final String PREFERENCE_STARTING_LONGITUDE ="startinglocation";
-    public static final String PREFERENCE_STARTING_ZOOM = "startingZoom";
-    public static final String PREFERENCE_UNIT_OF_MEASURE ="startingScale";
-    public static final String MAP_OPTION_MAPTYPE_CONTROL = "mapTypeControlBool";
-    public static final String MAP_OPTIONS_PAN_CONTROL = "panControlBool";
-    public static final String MAP_OPTIONS_ZOOM_CONTROL = "zoomControlBool";
-    public static final String MAP_OPTIONS_STREET_VIEW = "streetViewBool";
-    public static final String MAP_OPTIONS_SCALE_CONTROL = "scaleControlBool";
-    public static final String MAP_OPTIONS_ROTATE_CONTROL = "rotateControlBool";
-    public static final String MAP_OPTIONS_OVERVIEW_CONTROL = "overviewControlBool";
+    public static final String PREFERENCE_STARTING_LATITUDE ="latitude";
+    public static final String PREFERENCE_STARTING_LONGITUDE ="longitude";
+    public static final String PREFERENCE_STARTING_ZOOM = "zoom";
+    public static final String MAP_OPTION_MAPTYPE_CONTROL = "mapTypeControl";
+    public static final String MAP_OPTIONS_PAN_CONTROL = "panControl";
+    public static final String MAP_OPTIONS_ZOOM_CONTROL = "zoomControl";
+    public static final String MAP_OPTIONS_STREET_VIEW = "streetView";
+    public static final String MAP_OPTIONS_SCALE_CONTROL = "scaleControl";
+    public static final String MAP_OPTIONS_ROTATE_CONTROL = "rotateControl";
+    public static final String MAP_OPTIONS_OVERVIEW_CONTROL = "overviewControl";
 
     @RequestMapping
 	public ModelAndView getView(RenderRequest request) throws Exception {
@@ -51,54 +49,39 @@ public class MapViewController {
 		
 		PortletPreferences preferences = request.getPreferences();
 		
-		
-		// Optional starting location & zoom level
-		String startingLocation = preferences.getValue(PREFERENCE_STARTING_LOCATION, null);
-        map.put(PREFERENCE_STARTING_LOCATION, startingLocation);
-        
-     // Optional starting location & zoom level
-        String startingLatitude = preferences.getValue(PREFERENCE_STARTING_LATITUDE, "41.300937");
+        double startingLatitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LATITUDE, "41.300937"));
         map.put(PREFERENCE_STARTING_LATITUDE, startingLatitude);
         
-     // Optional starting location & zoom level
-        String startingLongitude = preferences.getValue(PREFERENCE_STARTING_LONGITUDE, "-72.932103");
+        double startingLongitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LONGITUDE, "-72.932103"));
         map.put(PREFERENCE_STARTING_LONGITUDE, startingLongitude);
 
-        String startingZoom = preferences.getValue(PREFERENCE_STARTING_ZOOM, "1");
+        int startingZoom = Integer.parseInt(preferences.getValue(PREFERENCE_STARTING_ZOOM, "18"));
         map.put(PREFERENCE_STARTING_ZOOM, startingZoom);
 
-     // 3959 = in miles, 6371 = kilometers. This is measurement of the earth's radius that sets the standard for distance in the forumla
-        String startingScale = preferences.getValue(PREFERENCE_UNIT_OF_MEASURE, "3959");
-        map.put(PREFERENCE_UNIT_OF_MEASURE, startingScale);
-
-        
-        String mapTypeControlBool = preferences.getValue(MAP_OPTION_MAPTYPE_CONTROL, "true");
+        boolean mapTypeControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTION_MAPTYPE_CONTROL, "true"));
         map.put(MAP_OPTION_MAPTYPE_CONTROL, mapTypeControlBool);
         
-        String panControlBool = preferences.getValue(MAP_OPTIONS_PAN_CONTROL, "true");
+        boolean panControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTIONS_PAN_CONTROL, "false"));
         map.put(MAP_OPTIONS_PAN_CONTROL, panControlBool);
         
-        String zoomControlBool = preferences.getValue(MAP_OPTIONS_ZOOM_CONTROL, "true");
+        boolean zoomControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTIONS_ZOOM_CONTROL, "true"));
         map.put(MAP_OPTIONS_ZOOM_CONTROL, zoomControlBool);
         
-        String streetViewBool = preferences.getValue(MAP_OPTIONS_STREET_VIEW, "true");
+        boolean streetViewBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTIONS_STREET_VIEW, "true"));
         map.put(MAP_OPTIONS_STREET_VIEW, streetViewBool);
         
-        String scaleControlBool = preferences.getValue(MAP_OPTIONS_SCALE_CONTROL, "true");
+        boolean scaleControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTIONS_SCALE_CONTROL, "true"));
         map.put(MAP_OPTIONS_SCALE_CONTROL, scaleControlBool);
         
-        String rotateControlBool = preferences.getValue(MAP_OPTIONS_ROTATE_CONTROL, "false");
+        boolean rotateControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTIONS_ROTATE_CONTROL, "false"));
         map.put(MAP_OPTIONS_ROTATE_CONTROL, rotateControlBool);
         
-        String overviewControlBool = preferences.getValue(MAP_OPTIONS_OVERVIEW_CONTROL, "false");
+        boolean overviewControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTIONS_OVERVIEW_CONTROL, "false"));
         map.put(MAP_OPTIONS_OVERVIEW_CONTROL, overviewControlBool);
+        
+        map.put("isHttps", request.isSecure());
 		
 		return new ModelAndView("mapView", map);
 	}
-/*
-    @RequestMapping
-    public String getMapView() {
-        return "mapView";
-    }*/
     
 }

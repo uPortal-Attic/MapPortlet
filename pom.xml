@@ -77,11 +77,6 @@
                 <version>${resource-server.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.jasig</groupId>
-                <artifactId>AjaxPortletSupport</artifactId>
-                <version>1.0.8</version> 
-            </dependency>
-            <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>1.8.5</version>
@@ -208,10 +203,6 @@
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jasig</groupId>
-            <artifactId>AjaxPortletSupport</artifactId>
-        </dependency>
 
 
         <!-- ===== Runtime Dependencies ================================== -->
@@ -286,6 +277,26 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>net.sf.alchim</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+                <version>0.7.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compress</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*.min.js</exclude>
+                    </excludes>
+                    <linebreakpos>10000</linebreakpos>
+                    <suffix>.min</suffix>
+                    <jswarn>false</jswarn>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1</version>
@@ -299,7 +310,6 @@
                             <includes>
                                 <include>rs/jquery/1.5/</include>
                                 <include>rs/jqueryui/1.8/</include>
-                                <include>rs/fluid/1.2/</include>
                             </includes>
                         </overlay>
                     </overlays>
@@ -311,12 +321,12 @@
                 <configuration>
                     <basedir>${basedir}</basedir>
                     <header>${jasig-short-license-url}</header>
-
                     <aggregate>true</aggregate>
                     <strictCheck>true</strictCheck>
                     <excludes>
                         <exclude>LICENSE</exclude>
                         <exclude>NOTICE</exclude>
+                        <exclude>src/main/resources/mapData.json</exclude>
                     </excludes>
                     <mapping>
                         <tld>XML_STYLE</tld>

@@ -30,12 +30,6 @@
     <!-- 
      | View resolvers, look for a named view bean before going to JSP resolution
      +-->
-    <bean class="org.springframework.web.servlet.view.XmlViewResolver"
-            p:order="0" p:location="/WEB-INF/context/views.xml"/>
-
-    <!-- 
-     | View resolvers, look for a named view bean before going to JSP resolution
-     +-->
     <bean id="jspViewResolver"
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"
         p:order="10" p:cache="true" p:viewClass="org.springframework.web.servlet.view.JstlView"

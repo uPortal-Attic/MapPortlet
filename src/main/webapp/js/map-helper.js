@@ -20,191 +20,148 @@
 var mapHelper = mapHelper || {};
 
 /* this contains a number of utility methods for the google API v3 portlet.   Moved here entirely for readability */
-(function ($) {
-        mapHelper.markerList =[];
+(function ($, google) {
 
-        /*  makes the info window appear.  LocInfo needs to be a reference to the metadata of the location.  The map and info should be initalized already */
-        mapHelper.deployInfoWindow = function(mapRef, infoWindowRef, locInfo){
-            currentLocation = new google.maps.LatLng(locInfo.latitude, locInfo.longitude);
-            var tempString = ("This is " + locInfo.name + '<br> <IMG src='+locInfo.img
-                                                + '> <br> direct Link: <a target="_blank" href="http://maps.google.com/?q=' 
-                                                + locInfo.address + '" > Click Here </a>'  );  // onclick="window.open(this.href);return false;" might also work instead of target
-            mapRef.setCenter(currentLocation);
+    var markers, locations;
+    
+    markers = [];
 
-            infoWindowRef.setContent(tempString);    // makes the pop-up message.
-            infoWindowRef.setPosition(currentLocation);
-            infoWindowRef.open(mapRef);
+    /**
+     * Open an info window for the specified location.
+     */
+    var openInfoWindow = function(marker, infoWindow){
+        var location, html;
+        
+        // center the map on the just-clicked location
+        marker.map.setCenter(marker.position);
+        
+        // update our info window to show the just-clicked location and 
+        // open it
+        location = marker.extraMeta;
+        html = '<h3>' + location.name + ' (' + location.abbreviation + ')</h3>';
+        html += '<br/> <img src="' + location.img + '"/>';
+        html += '<p><a target="_blank" href="http://maps.google.com/?q=';
+        html += encodeURIComponent(location.address + ' ' + location.zip) + '" >Directions</a></p>';
+        infoWindow.setContent(html);
+        infoWindow.open(marker.map, marker);
 
-            /*  I've decided this totally needs to be done by a UI guy.   Its got pictures and stuff that aught to go here */
+    };
+
+    /**
+     * Retrieve the list of map locations via AJAX.
+     */
+    var getAllLocations = function () {
+        var allLocations;
+        $.ajax({ 
+            url: "/MapPortlet/api/locations.json",
+            async: false,
+            success: function (data) {
+                allLocations = data;
+            }
+        });
+        return allLocations;
+    };
+    
+    /**
+     * Sort function capable of sorting two locations by distance.
+     */
+    var sortByDistance = function (l1, l2) {
+        return (l1.distance - l2.distance);
+    };
+
+    /**
+     * Remove all markers from the map
+     */
+    var clearMarkers = function() {
+        $(markers).each(function (idx, marker) {
+            marker.setMap(null);
+        });
+        markers = [];
+    };
+
+    /**
+     * Utility function for converting degrees to radians.
+     */
+    var degreesToRadians = function (number) {
+        return number * Math.PI / 180;
+     };
+
+     /**
+      * Get the distance in kilometers between two points.  This implementation
+      * uses a Javascript implementation of the Haversine formula provided at
+      * http://www.movable-type.co.uk/scripts/latlong.html.
+      */
+    var getDistance = function (point1, point2) {
+        var lat1 = degreesToRadians(point1.latitude);
+        var lon1 = degreesToRadians(point2.longitude);
+        var lat2 = degreesToRadians(point2.latitude);
+        var lon2 = degreesToRadians(point2.longitude);
+        
+        var R = 6371; // km
+        var dLat = lat2-lat1;
+        var dLon = lon2-lon1; 
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1) * Math.cos(lat2) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2); 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c;
+        return d;
+    };
+
+    mapHelper.search = function(map, infoWindow, query) {
+
+        // make sure the query is all lower-case to facilitate string matching
+        query = query.toLowerCase();
+
+        // clear out any markers currently on the map
+        clearMarkers();
+
+        // if the locations list has not yet been retrieved, request it from
+        // the server.  otherwise, use the cached copy
+        if (!locations) {
+            locations = getAllLocations();
         }
+        
+        // check each location to see if it matches our search string
+        $(locations.buildings).each(function (idx, location) {
+            if (location.searchText.indexOf(query) >= 0) {
 
-        /* loads the JSON with locations and searches through them drawing any on the screen within 'max distance' of 'position' where position is a google.maps.LatLng
-         * @params:     theMap = a ref to the map
-         *              infoWindow = a ref to the infoWindow
-         *              searchString = what the user is searching to get
-         *              maxDistance = the maximum distance the object should be in (optional)
-         *              originPosition = the position from where the max distance is measured (optional) 
-         *              infoArea = a div area for outputting basic text.  TODO: Remove this one because it really should have another way of communicating with user
-         */
-        mapHelper.searchLocations = function(theMap, infoWindow, addressString, maxDistance, originPosition, defaultPosition, infoArea)
-        {
-            mapHelper.clearMarkers();  // clears the markers to start a new search.
-
-
-            /* this checks the JSON location information. When completed remove 'console.log' calls */            
-            var getInfo = $.get(
-
-                "/MapPortlet/api/locations.json",
-                {
-                    //this is data... I don't know what actually goes here
-                }, 
-                function(locData, txtStatus, jqXHRthingy) { 
-                    
-                    // variables required for searching
-                    var xCoord = originPosition.lng();  // longitude of search origin
-                    var yCoord = originPosition.lat();// latitude of search origin
-                    // end of variables required for searching
-
-
-                    for (i = 0; i < locData.buildings.length; i++)
-                    {
-                        if (locData.buildings[i].searchText.indexOf(addressString.toLowerCase()) >= 0) 
-                        {
-                            currentLocation = new google.maps.LatLng(locData.buildings[i].latitude, locData.buildings[i].longitude);
-
-
-                            /* TODO:  consider this:  compare locations of all the results and scale zoom accordingly.  If originLocation != default, include it in scaling. */
-                            if (maxDistance > 0)
-                            {
-                                // distance code start
-                                var currentX = parseFloat(locData.buildings[i].longitude); // longitude of currently inspected location
-                                var currentY = parseFloat(locData.buildings[i].latitude); // latitude of currently inspected location
-                                var dX = numberToRad(currentX - xCoord); // distance of longitude = distance formula 
-                                var dY = numberToRad(currentY - yCoord); // distance of latitude = ''
-
-                                /* Dirty square root heavy version I created for testing. not recommended, 
-                                        but didn't want to remove because I trust it more than the current method because Landis ran the math
-
-                                var arbitraryN = Math.sin(dY/2) * Math.sin(dY/2) +  // square half the distance over our X axis
-                                                    Math.cos(yCoord.toRad()) * Math.cos(currentY.toRad()) *  // heaven help us if order of opperations in javascript changes
-                                                    Math.sin(dX/2) * Math.sin(dX/2); // square of half the distance over our Y axis
-                                var c = 2 * Math.atan2(Math.sqrt(arbitraryN), Math.sqrt(1-arbitraryN));  // getting angular distance
-                                var distance = scaleConstant * c; // and solving for distance
-                                // distance code end*/
-
-                                
-                                // totally found this one on the internet somewhere. Do not promise functionality, but seems to work close enough.  Use above if problems appear 
-                                var distance = Math.acos(Math.sin(yCoord)*Math.sin(currentY) + 
-                                      Math.cos(yCoord)*Math.cos(currentY) *
-                                      Math.cos(dX)) * theMap.systemOfMeasure;
-
-                                // if distance to location is within the maxDistance.
-                                if (distance <= maxDistance)
-                                {
-                                    currentLocation = new google.maps.LatLng(locData.buildings[i].latitude, locData.buildings[i].longitude);
-                                    var marker = new google.maps.Marker({
-                                        position: currentLocation,          // the actual location on the map. 
-                                        map: theMap,                // which map they go on
-                                        draggable: false,                   // if you can move the marker - in this case 'no' we don't want users moving them
-                                        title: (locData.buildings[i].name),  // for tool-tip that appears when you hold your mouse over the marker
-                                        extraMeta: locData.buildings[i]    // the meta data that calls it.  Makes it so any reference to the marker knows all it needs to know about the location
-                                    });
-                                } // end of if statement
-                                addListenerToMarker(marker, infoWindow);
-                                mapHelper.markerList.push(marker);
-                            }
-                            else
-                            {
-
-                                var marker = new google.maps.Marker({
-                                    position: currentLocation,          // the actual location on the map. 
-                                    map: theMap,                // which map they go on
-                                    draggable: false,                   // if you can move the marker - in this case 'no' we don't want users moving them
-                                    title: (locData.buildings[i].name),  // for tool-tip that appears when you hold your mouse over the marker
-                                    extraMeta: locData.buildings[i]    // the meta data that calls it.  Makes it so any reference to the marker knows all it needs to know about the location
-                                });
-                                addListenerToMarker(marker, infoWindow);
-
-                                mapHelper.markerList.push(marker);
-                            }
-                        }
-                        
-                        
-                    }
-                    
-                },
-                "json" // this is the TYPE of thing we are getting, which is a JSON file
-            )
-                .complete(function() { 
-                    if (mapHelper.markerList.length == 1)
-                    {
-                        infoArea.innerHTML="temp string reporting there is only 1 result, so centering for convenience"; 
-                        mapHelper.deployInfoWindow(theMap, infoWindow, mapHelper.markerList[0].extraMeta);
-                    } else
-                    {
-                        infoArea.innerHTML="there are " + mapHelper.markerList.length + " results. click a marker to see info.";  
-                    }
+                // create a new marker representing this location and
+                // add it to the list
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(location.latitude, location.longitude), 
+                    map: map,
+                    draggable: false,
+                    title: location.name,
+                    extraMeta: location
                 });
-        }
+                
+                // add the distance from the current map center to the 
+                // location object so we can sort on it later
+                marker.distance = getDistance(
+                    { latitude: map.getCenter().lat(), longitude: map.getCenter().lng() }, 
+                    { latitude: location.latitude, longitude: location.longitude }
+                );
 
-        mapHelper.geoCodeFromString = function(address, theMap, startingMarker, infoArea)
-        {
-            geocoder = new google.maps.Geocoder();
-            geocoder.geocode( { 'address': address}, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    theMap.setCenter(results[0].geometry.location);
-                    startingMarker.setPosition(results[0].geometry.location);
-                } else {
-                    infoArea.innerHTML = ("Geocode was not successful for the following reason: " + status);
-                }
-            });
-        }
-
-
-        /* runs a handle to deal with the cases where there cannot be a strating location based on geolocation.  Not actually doing anything while geoLocation() is not being called */
-        mapHelper.handleGeolocationErrors = function(errorFlag, theMap, usableInfoWindow, addressBox) {
-            var contentString; // Move to spring
-            if (errorFlag === true) {
-                startingPoint = undefined;
-                addressBox.value = "test";
-                contentString = "failed but passed";
-            } else {
-                startingLocation = undefined;
-                contentString = "something apparently broke, get back to work and fix it.";
+                google.maps.event.addListener(
+                    marker,
+                    'click',
+                    function () {
+                        openInfoWindow(marker, infoWindow); 
+                    }
+                );
+                markers.push(marker);
             }
-        }
+        });
 
-        mapHelper.clearMarkers = function() {
-            if (mapHelper.markerList)
-            {
-                for (i = 0; i< mapHelper.markerList.length; i++)
-                {
-                    
-                    mapHelper.markerList[i].setMap(null);
-                    mapHelper.markerList[i] = null;
-                }
-            }
-            mapHelper.markerList.length = 0;
-        }
+        // order the markers by distance
+        markers.sort(sortByDistance);
 
-        var addListenerToMarker = function(marker, infoWindow)
-        {
-            google.maps.event.addListener(marker, 'click', (function (marker)
-                        {   // runs a function, making note to keep the
-                            return function()
-                            {
-                                mapHelper.deployInfoWindow(marker.map, infoWindow, marker.extraMeta); 
-                            };
-                        }
-                    )(marker) // specifies this reference to 'marker' NEEDS to be the current reference to 'marker'
-                 );
+        // if at least one location was returned,  pan to the closest location 
+        // and open the info window
+        if (markers.length > 0) {
+            openInfoWindow(markers[0], infoWindow);
         }
-    /* I use these to add radial math to numbers.  The fact is that the map is converting from a sphere to a flat screen, and this is used to help calculate that */
-    var numberToRad = function(number) {
-       return number * Math.PI / 180;
-    }
-
-    var numberToDeg = function(number) {
-       return number * 180 / Math.PI;
-    }// end of radial math
-})(jQuery);
+    };
+    
+})(jQuery, google);
