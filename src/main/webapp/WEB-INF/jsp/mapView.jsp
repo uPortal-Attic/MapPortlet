@@ -32,7 +32,7 @@
 
 <c:set var="n"><portlet:namespace/></c:set>
 <c:set var="context" value="${pageContext.request.contextPath}"/>
-<script src="${ isHttps ? 'https' : 'http' }://maps.google.com/maps/api/js?sensor=true"></script>
+<script src="${ isHttps ? 'https' : 'http' }://maps.google.com/maps/api/js?sensor=true&amp;key=${apiKey}"></script>
 <script src="<rs:resourceURL value="/rs/jquery/1.5/jquery-1.5.min.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/js/map-helper.min.js"/>" type="text/javascript"></script>
 

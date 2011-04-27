@@ -32,6 +32,7 @@ import org.springframework.web.portlet.ModelAndView;
 @RequestMapping("VIEW")
 public class MapViewController {
 
+    public static final String PREFERENCE_API_KEY = "apiKey";
     public static final String PREFERENCE_STARTING_LATITUDE ="latitude";
     public static final String PREFERENCE_STARTING_LONGITUDE ="longitude";
     public static final String PREFERENCE_STARTING_ZOOM = "zoom";
@@ -48,6 +49,9 @@ public class MapViewController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		
 		PortletPreferences preferences = request.getPreferences();
+		
+		String apiKey = preferences.getValue(PREFERENCE_API_KEY, "ABQIAAAA6IxXqpYkVvIBECmLUV99fRTwM0brOpm-All5BF6PoaKBxRWWERT7EOEqD89hlpB20tCIxwLUa9Y9rw");
+		map.put(PREFERENCE_API_KEY, apiKey);
 		
         double startingLatitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LATITUDE, "41.300937"));
         map.put(PREFERENCE_STARTING_LATITUDE, startingLatitude);
