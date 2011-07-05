@@ -84,6 +84,7 @@ public class MapViewController {
         map.put(MAP_OPTIONS_OVERVIEW_CONTROL, overviewControlBool);
         
         map.put("isHttps", request.isSecure());
+        map.put("isMobile", "UniversalityMobile".equals(request.getProperty("themeName")));
 		
 		return new ModelAndView("mapView", map);
 	}

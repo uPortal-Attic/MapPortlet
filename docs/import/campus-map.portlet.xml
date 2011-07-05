@@ -38,4 +38,8 @@
   </portlet-descriptor>
     <category>Information</category>
     <group>Everyone</group>
+    <parameter>
+        <name>mobileIconUrl</name>
+        <value>/uPortal/media/skins/icons/mobile/map.png</value>
+    </parameter>
 </portlet-definition>

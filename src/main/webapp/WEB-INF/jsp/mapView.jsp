@@ -95,14 +95,21 @@
 </rs:compressJs></script>
 
 <div> 
-    <div id="${n}mapArea" style="height: 500px; margin-bottom: 10px"> 
+    <c:if test="${ isMobile }">
+        <form id="${n}searchForm">
+            <input id="${n}searchParamBox" autocomplete="off" type="text" size="10" name="search" title="search"/> 
+        </form>
+    </c:if>
+    <div id="${n}mapArea" style="height: ${ isMobile ? '350px' : '500px' }; margin-bottom: 10px"> 
         <spring:message code="map.data.unavailable"/>
     </div>
-    <form id="${n}searchForm">
-        <p>
-            <c:set var="input"><input id="${n}searchParamBox" autocomplete="off" type="text" size="10" name="search" title="search"/></c:set> 
-            <spring:message code="search.for.name.within.number.miles" arguments="${ input }"/> 
-            <input id="${n}goButton" type="submit" value="Go"/> 
-        </p>
-    </form>
+    <c:if test="${ !isMobile }">
+        <form id="${n}searchForm">
+            <p>
+                <c:set var="input"><input id="${n}searchParamBox" autocomplete="off" type="text" size="10" name="search" title="search"/></c:set> 
+                <spring:message code="search.for.name.within.number.miles" arguments="${ input }"/> 
+                <input id="${n}goButton" type="submit" value="Go"/> 
+            </p>
+        </form>
+    </c:if>
 </div> 
