@@ -7,14 +7,15 @@
     </parent>
     <groupId>org.jasig.portlet.map</groupId>
     <artifactId>MapPortlet</artifactId>
-    <version>1.0.0-M1</version>
+    <version>1.0.0-M2-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Maps Portlet</name>
 
     <scm>
-        <connection>scm:svn:https://source.jasig.org/sandbox/MapPortlet/tags/MapPortlet-1.0.0-M1</connection>
-        <developerConnection>scm:svn:https://source.jasig.org/sandbox/MapPortlet/tags/MapPortlet-1.0.0-M1</developerConnection>
-    </scm>
+        <connection>scm:svn:https://source.jasig.org/sandbox/MapPortlet/trunk</connection>
+        <developerConnection>scm:svn:https://source.jasig.org/sandbox/MapPortlet/trunk</developerConnection>
+      <url>https://developer.jasig.org/source/browse/jasigsvn/jasig-parent/tags/jasig-parent-30/MapPortlet</url>
+  </scm>
 
     <properties>
         <!-- Dependency versions -->
