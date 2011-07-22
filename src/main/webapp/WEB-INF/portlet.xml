@@ -26,12 +26,33 @@
                         http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
 
     <portlet>
-        <portlet-name>map</portlet-name>
-        <display-name xml:lang="en">Campus Map</display-name>
+        <portlet-name>MapDisplay</portlet-name>
+        <display-name xml:lang="en">Map Display Portlet</display-name>
         <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
         <init-param>
             <name>contextConfigLocation</name>
             <value>/WEB-INF/context/portlet/map.xml</value>
+        </init-param>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>VIEW</portlet-mode>
+        </supports>
+        <supported-locale>en</supported-locale>
+        <portlet-info>
+            <title>Map Display</title>
+            <short-title>Map</short-title>
+            <keywords>Local Map</keywords>
+        </portlet-info>
+    </portlet>
+    
+    <portlet>
+        <portlet-name>LocationEditor</portlet-name>
+        <display-name xml:lang="en">Location Editor</display-name>
+        <portlet-class>org.springframework.web.portlet.DispatcherPortlet</portlet-class>
+        <init-param>
+            <name>contextConfigLocation</name>
+            <value>/WEB-INF/context/portlet/editor.xml</value>
         </init-param>
         <expiration-cache>0</expiration-cache>
         <supports>

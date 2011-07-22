@@ -43,4 +43,8 @@
 			</list>
 		</property>										
 	</bean>
+	
+	<!-- The default mapData.JSON file.  Change this to change where and how the data for the map is stored -->
+	<bean id="dataSource" class="org.jasig.portlet.maps.data.impl.MapDataSourceFileImpl">
+	</bean>
 </beans>

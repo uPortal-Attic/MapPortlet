@@ -1,0 +1,24 @@
+table.building-list {
+    width: 100%;
+}
+
+table.building-list tr th{ 
+    background-color: #2758B3; color: #fff; text-align: left;  padding:3px;
+    border: none;
+}
+
+.building-list tr td {
+    padding:6px;
+}
+
+.building-list tr.main td {
+    background-color: #fff;
+}
+
+.building-list tr.alt td {
+    background-color: #E6EEFB; 
+}
+
+.building-list tr.bottom td {
+    border-bottom: thin solid #999;
+}
