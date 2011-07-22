@@ -20,6 +20,9 @@
 package org.jasig.portlet.maps.mvc.servlet;
 
 import org.apache.commons.io.IOUtils;
+import org.jasig.portlet.maps.data.IMapDataSource;
+
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,15 +41,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MapDataController implements ApplicationContextAware {
     
-    private Resource mapData;
+    private IMapDataSource dataSource;
     
     @RequestMapping(value="/locations.json", method = RequestMethod.GET)
     public void getData(HttpServletResponse response) throws IOException {
-        
+        byte[] mapData = dataSource.getDataAsString().getBytes();
         response.setContentType("application/json;charset=UTF-8");
-        response.setContentLength((int) mapData.getFile().length());
+        response.setContentLength(mapData.length);
         
-        InputStream stream = mapData.getInputStream();
+        InputStream stream = new ByteArrayInputStream(mapData);
         
         OutputStream output = response.getOutputStream();
         OutputStreamWriter out = new OutputStreamWriter(output , "UTF-8");
@@ -59,7 +62,7 @@ public class MapDataController implements ApplicationContextAware {
 
     public void setApplicationContext(ApplicationContext context)
             throws BeansException {
-        this.mapData = context.getResource("classpath:mapData.json");
+        this.dataSource = (IMapDataSource) context.getBean("dataSource");
     }
 
 }
