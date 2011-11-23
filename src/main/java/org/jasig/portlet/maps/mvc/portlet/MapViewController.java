@@ -19,14 +19,20 @@
 
 package org.jasig.portlet.maps.mvc.portlet;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.RenderRequest;
+import javax.portlet.ResourceRequest;
 
+import org.jasig.portlet.maps.dao.IMapDao;
+import org.jasig.portlet.maps.model.xml.MapData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
 @Controller
 @RequestMapping("VIEW")
@@ -43,6 +49,13 @@ public class MapViewController {
     public static final String MAP_OPTIONS_SCALE_CONTROL = "scaleControl";
     public static final String MAP_OPTIONS_ROTATE_CONTROL = "rotateControl";
     public static final String MAP_OPTIONS_OVERVIEW_CONTROL = "overviewControl";
+
+    private IMapDao dao;
+    
+    @Autowired(required = true)
+    public void setMapDao(IMapDao dao) {
+        this.dao = dao;
+    }
 
     @RequestMapping
 	public ModelAndView getView(RenderRequest request) throws Exception {
@@ -88,5 +101,13 @@ public class MapViewController {
 		
 		return new ModelAndView("mapView", map);
 	}
+    
+    @ResourceMapping 
+    public ModelAndView getMapData(ResourceRequest request) {
+        MapData map = dao.getMap(request);
+        ModelAndView mv = new ModelAndView("json");
+        mv.addObject(map);
+        return mv;
+    }
     
 }

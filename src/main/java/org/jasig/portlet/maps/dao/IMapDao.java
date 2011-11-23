@@ -17,27 +17,27 @@
  * under the License.
  */
 
-table.building-list {
-    width: 100%;
-}
+package org.jasig.portlet.maps.dao;
 
-table.building-list tr th{ 
-    background-color: #2758B3; color: #fff; text-align: left;  padding:3px;
-    border: none;
-}
+import javax.portlet.PortletRequest;
 
-.building-list tr td {
-    padding:6px;
-}
+import org.jasig.portlet.maps.model.xml.MapData;
 
-.building-list tr.main td {
-    background-color: #fff;
-}
+/**
+ * IMapDao represents a generic interface for retrieving map data for a
+ * particular portlet request.
+ * 
+ * @author Jen Bourey, jennifer.bourey@gmail.com
+ * @version $Revision$
+ */
+public interface IMapDao {
+    
+    /**
+     * Retrieve map data for the specified PortletRequest.
+     * 
+     * @param request
+     * @return
+     */
+    public MapData getMap(PortletRequest request);
 
-.building-list tr.alt td {
-    background-color: #E6EEFB; 
-}
-
-.building-list tr.bottom td {
-    border-bottom: thin solid #999;
 }

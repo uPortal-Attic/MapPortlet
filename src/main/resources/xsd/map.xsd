@@ -1,0 +1,62 @@
+<!--
+
+    Licensed to Jasig under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Jasig licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a
+    copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+
+<xs:schema xmlns="https://source.jasig.org/schemas/portlet/maps/map-data"
+    targetNamespace="https://source.jasig.org/schemas/portlet/maps/map-data"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+
+    <xs:element name="map-data">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="defaultLocation"/>
+                <xs:element ref="location" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="defaultLocation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="latitude" type="xs:decimal"/>
+                <xs:element name="longitude" type="xs:decimal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="location">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="latitude" type="xs:decimal"/>
+                <xs:element name="longitude" type="xs:decimal"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="abbreviation" type="xs:string"/>
+                <xs:element name="address" type="xs:string"/>
+                <xs:element name="zip" type="xs:string"/>
+                <xs:element name="img" type="xs:string" minOccurs="0"/>
+                <xs:element name="searchText" type="xs:string" minOccurs="0"/>
+                <xs:element name="searchKey" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element name="category" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
