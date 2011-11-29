@@ -149,9 +149,7 @@
 			<th><spring:message code="map.admin.rowtitle.abbreviation"/></th>
 			<th><spring:message code="map.admin.rowtitle.searchtext"/></th>
 		</tr>
-        <script>console.log("about to cross loop");</script>
 		<c:forEach items="${buildings}" var="building" varStatus="status">
-            <script>console.log("punching a building");</script>
 			<tr class="${ status.index % 2 == 0 ? 'main' : 'alt' }">
 				<td style="width: 25px; text-align: center; border-bottom: thin solid #999; vertical-align: top" ><img src="<c:url value="/images/${ fn:toLowerCase(building.img) }.png"/>"/></td>
 				<td>${ building.name }</td>
