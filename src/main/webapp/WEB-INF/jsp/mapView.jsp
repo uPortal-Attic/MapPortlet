@@ -20,96 +20,72 @@
 --%>
 
 <!-- required includes -->
-<%@ page contentType="text/html" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="portlet" uri="http://java.sun.com/portlet" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="rs" uri="http://www.jasig.org/resource-server" %>
+<jsp:directive.include file="/WEB-INF/jsp/include.jsp"/>
 <portlet:defineObjects/>
 
 <c:set var="n"><portlet:namespace/></c:set>
-<c:set var="context" value="${pageContext.request.contextPath}"/>
 <script src="${ isHttps ? 'https' : 'http' }://maps.google.com/maps/api/js?sensor=true&amp;key=${apiKey}"></script>
-<script src="<rs:resourceURL value="/rs/jquery/1.5/jquery-1.5.min.js"/>" type="text/javascript"></script>
-<script src="<c:url value="/js/map-helper.min.js"/>" type="text/javascript"></script>
+<c:if test="${ !usePortalJsLibs }">
+    <script src="<rs:resourceURL value="/rs/jquery/1.5/jquery-1.5.min.js"/>" type="text/javascript"></script>
+    <script src="<rs:resourceURL value="/rs/jqueryui/1.8.13/jquery-ui-1.8.13.min.js"/>" type="text/javascript"></script>
+    <script src="<rs:resourceURL value="/rs/fluid/1.4.0/js/fluid-all-1.4.0.min.js"/>" type="text/javascript"></script>
+</c:if>
+<script src="<c:url value="/js/map-helper.js"/>" type="text/javascript"></script>
 
 <script type="text/javascript"><rs:compressJs>
     var ${n} = ${n} || {};
-    ${n}.jQuery = jQuery.noConflict(true);
-    ${n}.google = google || {};
-    ${n}.google.maps = google.maps || {};
+    <c:choose>
+        <c:when test="${!usePortalJsLibs}">
+            ${n}.jQuery = jQuery.noConflict(true);
+            ${n}.fluid = fluid;
+            fluid = null; 
+            fluid_1_4 = null;
+        </c:when>
+        <c:otherwise>
+            <c:set var="ns"><c:if test="${ not empty portalJsNamespace }">${ portalJsNamespace }.</c:if></c:set>
+            ${n}.jQuery = ${ ns }jQuery;
+            ${n}.fluid = ${ ns }fluid;
+        </c:otherwise>
+    </c:choose>
+    if (!map.initialized) map.init(${n}.jQuery, ${n}.fluid, google);
+    ${n}.map = map;
 
     ${n}.jQuery(document).ready(function () { 
 
         var $ = ${n}.jQuery;
-        var google = ${n}.google;
         
-        var map, infoWindow, mapOptions, currentLocation;
-
-        var initializeMap = function() {
-
-            mapOptions = {
-                zoom: ${ zoom },
-                mapTypeControl: ${ mapTypeControl },
-                mapTypeControlOptions: {
-                    style: google.maps.MapTypeControlStyle.DEFAULT
-                },
-                panControl: ${ panControl },
-                zoomControl: ${ zoomControl },
-                zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL
-                },
-                scaleControl: ${ scaleControl },
-                streetViewControl: ${ streetView },
-                rotateControl: ${ rotateControl },
-                overviewMapControl: ${ overviewControl },
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-
-            };
-
-            infoWindow = new google.maps.InfoWindow();
-            map = new google.maps.Map($("#${n}mapArea").get(0), mapOptions); 
-
-            map.setTilt(${ rotateControl } ? 45 : 0); 
-            
-            currentLocation = new google.maps.LatLng(${ latitude }, ${ longitude });
-            map.setCenter(currentLocation);
-            
+        mapOptions = {
+            zoom: ${ zoom },
+            mapTypeControl: ${ mapTypeControl },
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.DEFAULT
+            },
+            panControl: ${ panControl },
+            zoomControl: ${ zoomControl },
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+            },
+            scaleControl: ${ scaleControl },
+            streetViewControl: ${ streetView },
+            rotateControl: ${ rotateControl },
+            overviewMapControl: ${ overviewControl },
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-        var search = function() {
-            var query = $("#${n}searchParamBox").val();
-            mapHelper.search(map, infoWindow, query, currentLocation);
-            return false;
-        };
-
-        $("#${n}searchForm").submit(search);
-
-        initializeMap();
-        
+        map.view($("#${n}map"), {
+            defaultCoordinates: { latitude: ${ latitude }, longitude: ${ longitude } },
+            location: '${ location }',
+            mapOptions: mapOptions,
+            mapDataUrl: '<portlet:resourceURL/>'
+        });
     });
 
 </rs:compressJs></script>
 
-<div> 
-    <c:if test="${ isMobile }">
-        <form id="${n}searchForm">
-            <input id="${n}searchParamBox" autocomplete="off" type="text" size="10" name="search" title="search"/> 
-        </form>
-    </c:if>
-    <div id="${n}mapArea" style="height: ${ isMobile ? '350px' : '500px' }; margin-bottom: 10px"> 
-        <spring:message code="map.data.unavailable"/>
+<div id="${n}map"> 
+    <form class="map-search-form">
+        <input class="map-search-input" autocomplete="off" type="text" size="10" name="search" title="search"/> 
+    </form>
+    <div class="map-display" style="height: 500px; margin-bottom: 10px">
     </div>
-    <c:if test="${ !isMobile }">
-        <form id="${n}searchForm">
-            <p>
-                <c:set var="input"><input id="${n}searchParamBox" autocomplete="off" type="text" size="10" name="search" title="search"/></c:set> 
-                <spring:message code="search.for.name.within.number.miles" arguments="${ input }"/> 
-                <input id="${n}goButton" type="submit" value="Go"/> 
-            </p>
-        </form>
-    </c:if>
 </div> 

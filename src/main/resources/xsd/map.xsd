@@ -27,8 +27,8 @@
     <xs:element name="map-data">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="defaultLocation"/>
-                <xs:element ref="location" maxOccurs="unbounded"/>
+                <xs:element ref="defaultLocation" minOccurs="0"/>
+                <xs:element ref="location" maxOccurs="unbounded" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -45,12 +45,11 @@
     <xs:element name="location">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="latitude" type="xs:decimal"/>
-                <xs:element name="longitude" type="xs:decimal"/>
-                <xs:element name="name" type="xs:string"/>
-                <xs:element name="abbreviation" type="xs:string"/>
-                <xs:element name="address" type="xs:string"/>
-                <xs:element name="zip" type="xs:string"/>
+                <xs:element name="latitude" type="xs:decimal" minOccurs="0"/>
+                <xs:element name="longitude" type="xs:decimal" minOccurs="0"/>
+                <xs:element name="name" type="xs:string" minOccurs="0"/>
+                <xs:element name="abbreviation" type="xs:string" minOccurs="0"/>
+                <xs:element name="address" type="xs:string" minOccurs="0"/>
                 <xs:element name="img" type="xs:string" minOccurs="0"/>
                 <xs:element name="searchText" type="xs:string" minOccurs="0"/>
                 <xs:element name="searchKey" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>

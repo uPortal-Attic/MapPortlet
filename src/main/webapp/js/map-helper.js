@@ -17,151 +17,209 @@
  * under the License.
  */
 
-var mapHelper = mapHelper || {};
+var map = map || {};
 
-/* this contains a number of utility methods for the google API v3 portlet.   Moved here entirely for readability */
-(function ($, google) {
+if (!map.init) {
+    map.init = function ($, fluid, google) {
 
-    var markers, locations;
+        fluid.defaults("map.view", {
+            gradeNames: ["fluid.viewComponent", "autoInit"],
+            defaultCoordinates: {
+                latitude: 0,
+                longitude: 0
+            },
+            location: null,
+            mapDataUrl: null,
+            includeAbbreviation: true,
+            mapOptions: {},
+            selectors: {
+                mapSearchForm: ".map-search-form",
+                mapSearchInput: ".map-search-input",
+                mapDisplay: ".map-display"
+            },
+            finalInitFunction: function(that) {
     
-    markers = [];
-
-    /**
-     * Open an info window for the specified location.
-     */
-    var openInfoWindow = function(marker, infoWindow){
-        var location, html;
-        
-        // center the map on the just-clicked location
-        marker.map.setCenter(marker.position);
-        
-        // update our info window to show the just-clicked location and 
-        // open it
-        location = marker.extraMeta;
-        html = '<h3>' + location.name + ' (' + location.abbreviation + ')</h3>';
-        html += '<br/> <img src="' + location.img + '"/>';
-        html += '<p><a target="_blank" href="http://maps.google.com/?q=';
-        html += encodeURIComponent(location.address + ' ' + location.zip) + '" >Directions</a></p>';
-        infoWindow.setContent(html);
-        infoWindow.open(marker.map, marker);
-
-    };
-
-    /**
-     * Retrieve the list of map locations via AJAX.
-     */
-    var getAllLocations = function () {
-        var allLocations;
-        $.ajax({ 
-            url: "/MapPortlet/api/locations.json",
-            async: false,
-            success: function (data) {
-                allLocations = data;
-            }
-        });
-        return allLocations;
-    };
+                /**
+                 * Remove all markers from the map
+                 */
+                that.clearMarkers = function() {
+                    $(that.markers).each(function (idx, marker) {
+                        marker.setMap(null);
+                    });
+                    that.markers = [];
+                };
     
-    /**
-     * Sort function capable of sorting two locations by distance.
-     */
-    var sortByDistance = function (l1, l2) {
-        return (l1.distance - l2.distance);
-    };
-
-    /**
-     * Remove all markers from the map
-     */
-    var clearMarkers = function() {
-        $(markers).each(function (idx, marker) {
-            marker.setMap(null);
-        });
-        markers = [];
-    };
-
-    /**
-     * Utility function for converting degrees to radians.
-     */
-    var degreesToRadians = function (number) {
-        return number * Math.PI / 180;
-     };
-
-     /**
-      * Get the distance in kilometers between two points.  This implementation
-      * uses a Javascript implementation of the Haversine formula provided at
-      * http://www.movable-type.co.uk/scripts/latlong.html.
-      */
-    var getDistance = function (point1, point2) {
-        var lat1 = degreesToRadians(point1.latitude);
-        var lon1 = degreesToRadians(point2.longitude);
-        var lat2 = degreesToRadians(point2.latitude);
-        var lon2 = degreesToRadians(point2.longitude);
-        
-        var R = 6371; // km
-        var dLat = lat2-lat1;
-        var dLon = lon2-lon1; 
-        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1) * Math.cos(lat2) * 
-                Math.sin(dLon/2) * Math.sin(dLon/2); 
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-        var d = R * c;
-        return d;
-    };
-
-    mapHelper.search = function(map, infoWindow, query) {
-
-        // make sure the query is all lower-case to facilitate string matching
-        query = query.toLowerCase();
-
-        // clear out any markers currently on the map
-        clearMarkers();
-
-        // if the locations list has not yet been retrieved, request it from
-        // the server.  otherwise, use the cached copy
-        if (!locations) {
-            locations = getAllLocations();
-        }
-        
-        // check each location to see if it matches our search string
-        $(locations.buildings).each(function (idx, location) {
-            if (location.searchText.indexOf(query) >= 0) {
-
-                // create a new marker representing this location and
-                // add it to the list
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(location.latitude, location.longitude), 
-                    map: map,
-                    draggable: false,
-                    title: location.name,
-                    extraMeta: location
-                });
-                
-                // add the distance from the current map center to the 
-                // location object so we can sort on it later
-                marker.distance = getDistance(
-                    { latitude: map.getCenter().lat(), longitude: map.getCenter().lng() }, 
-                    { latitude: location.latitude, longitude: location.longitude }
-                );
-
-                google.maps.event.addListener(
-                    marker,
-                    'click',
-                    function () {
-                        openInfoWindow(marker, infoWindow); 
+                /**
+                 * Open an info window for the specified location.
+                 */
+                that.openInfoWindow = function(marker){
+                    var location, html;
+    
+                    // center the map on the just-clicked location
+                    marker.map.setCenter(marker.position);
+    
+                    // update our info window to show the just-clicked location and 
+                    // open it
+                    location = marker.extraMeta;
+                    html = '<h3>' + location.name;
+                    if (that.options.includeAbbreviation) {
+                        html += ' (' + location.abbreviation + ')';
                     }
-                );
-                markers.push(marker);
+                    html += '</h3><br/> <img src="' + location.img + '"/>';
+                    html += '<p><a target="_blank" href="http://maps.google.com/?q=';
+                    html += encodeURIComponent(location.address) + '" >Directions</a></p>';
+                    that.infoWindow.setContent(html);
+                    that.infoWindow.open(marker.map, marker);
+    
+                };
+    
+                that.findLocation = function(code) {
+                    code = code.toLowerCase();
+                    
+                    // clear out any markers currently on the map
+                    that.clearMarkers();
+    
+                    // if the locations list has not yet been retrieved, request it from
+                    // the server.  otherwise, use the cached copy
+                    if (!that.locations) {
+                        loadMapData(that);
+                    }
+    
+                    for (var i = 0; i < that.locations.length; i++) {
+                        var location = that.locations[i];
+                        if (location.abbreviation.toLowerCase() === code) {
+                            that.markers.push(createMarker(location, that));
+                            that.openInfoWindow(that.markers[0]);
+                            return;
+                        }
+                    }
+                };
+    
+                that.search = function(query) {
+    
+                    // clear out any markers currently on the map
+                    that.clearMarkers();
+    
+                    // if the locations list has not yet been retrieved, request it from
+                    // the server.  otherwise, use the cached copy
+                    if (!that.locations) {
+                        loadMapData(that);
+                    }
+    
+                    // check each location to see if it matches our search string
+                    query = query.toLowerCase();
+                    $(that.locations).each(function (idx, location) {
+                        if (location.searchText.indexOf(query) >= 0) {
+                            console.log("matched", location);
+                            that.markers.push(createMarker(location, that));
+                        }
+                    });
+    
+                    // order the markers by distance
+                    that.markers.sort(sortByDistance);
+    
+                    // if at least one location was returned,  pan to the closest location 
+                    // and open the info window
+                    if (that.markers.length > 0) {
+                        that.openInfoWindow(that.markers[0]);
+                    }
+                };
+                
+                // initialize map and set to default location
+                that.map = new google.maps.Map(that.locate("mapDisplay").get(0), that.options.mapOptions); 
+                that.infoWindow = new google.maps.InfoWindow();
+                
+                that.currentLocation = new google.maps.LatLng(that.options.defaultCoordinates.latitude, that.options.defaultCoordinates.longitude);
+                that.map.setCenter(that.currentLocation);
+                
+                if (that.options.location) {
+                    that.findLocation(that.options.location);
+                }
+                
+                that.locate("mapSearchForm").submit(function () { that.search(that.locate("mapSearchInput").val()); return false; });
+                
             }
         });
-
-        // order the markers by distance
-        markers.sort(sortByDistance);
-
-        // if at least one location was returned,  pan to the closest location 
-        // and open the info window
-        if (markers.length > 0) {
-            openInfoWindow(markers[0], infoWindow);
-        }
-    };
     
-})(jQuery, google);
+        /**
+         * Retrieve the list of map locations via AJAX.
+         */
+        var loadMapData = function (that) {
+            $.ajax({ 
+                url: that.options.mapDataUrl,
+                async: false,
+                success: function (data) {
+                    that.locations = data.mapData.locations;
+                }
+            });
+        };
+    
+        var createMarker = function (location, that) {
+    
+            // create a new marker representing this location and
+            // add it to the list
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(location.latitude, location.longitude), 
+                map: that.map,
+                draggable: false,
+                title: location.name,
+                extraMeta: location
+            });
+    
+            // add the distance from the current map center to the 
+            // location object so we can sort on it later
+            marker.distance = getDistance(
+                { latitude: that.map.getCenter().lat(), longitude: that.map.getCenter().lng() }, 
+                { latitude: location.latitude, longitude: location.longitude }
+            );
+    
+            google.maps.event.addListener(
+                marker,
+                'click',
+                function () {
+                    that.openInfoWindow(marker); 
+                }
+            );
+    
+            return marker;
+            
+        };
+    
+        /**
+         * Sort function capable of sorting two locations by distance.
+         */
+        var sortByDistance = function (l1, l2) {
+            return (l1.distance - l2.distance);
+        };
+    
+        /**
+         * Utility function for converting degrees to radians.
+         */
+        var degreesToRadians = function (number) {
+            return number * Math.PI / 180;
+         };
+    
+         /**
+          * Get the distance in kilometers between two points.  This implementation
+          * uses a Javascript implementation of the Haversine formula provided at
+          * http://www.movable-type.co.uk/scripts/latlong.html.
+          */
+        var getDistance = function (point1, point2) {
+            var lat1 = degreesToRadians(point1.latitude);
+            var lon1 = degreesToRadians(point2.longitude);
+            var lat2 = degreesToRadians(point2.latitude);
+            var lon2 = degreesToRadians(point2.longitude);
+            
+            var R = 6371; // km
+            var dLat = lat2-lat1;
+            var dLon = lon2-lon1; 
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(lat1) * Math.cos(lat2) * 
+                    Math.sin(dLon/2) * Math.sin(dLon/2); 
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            var d = R * c;
+            return d;
+        };
+    
+    };
+}

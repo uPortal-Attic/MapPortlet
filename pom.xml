@@ -24,7 +24,7 @@
         <jackson.version>1.8.3</jackson.version>
         <jaxb2basics.version>0.6.0</jaxb2basics.version>
         <spring.version>3.0.5.RELEASE</spring.version>
-        <resource-server.version>1.0.14</resource-server.version>
+        <resource-server.version>1.0.21</resource-server.version>
     </properties>
 
     <repositories>
@@ -431,7 +431,8 @@
                             <artifactId>resource-server-content</artifactId>
                             <includes>
                                 <include>rs/jquery/1.5/</include>
-                                <include>rs/jqueryui/1.8/</include>
+                                <include>rs/jqueryui/1.8.13/</include>
+                                <include>rs/fluid/1.4.0/js</include>
                             </includes>
                         </overlay>
                     </overlays>
