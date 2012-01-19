@@ -36,7 +36,7 @@
                 </releases>
                 <id>geogoogle</id>
                 <name>geogoogle repo</name>
-                <url>http://www.cs.drexel.edu/~zl25/maven2/repo</url>
+                <url>https://www.cs.drexel.edu/~zl25/maven2/repo</url>
         </repository>
     </repositories>
 
