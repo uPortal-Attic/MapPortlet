@@ -44,6 +44,9 @@
         <jaxb:bindings node="//xs:element[@name='category']">
             <jaxb:property name="categories"/>
         </jaxb:bindings>
+        <jaxb:bindings node="//xs:element[@name='campus']">
+            <jaxb:property name="campuses"/>
+        </jaxb:bindings>
         <jaxb:schemaBindings>
             <jaxb:package name="org.jasig.portlet.maps.model.xml" />
         </jaxb:schemaBindings>
