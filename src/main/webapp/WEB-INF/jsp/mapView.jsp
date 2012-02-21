@@ -24,13 +24,12 @@
 <portlet:defineObjects/>
 
 <c:set var="n"><portlet:namespace/></c:set>
-<script src="${ isHttps ? 'https' : 'http' }://maps.google.com/maps/api/js?sensor=true&amp;key=${apiKey}"></script>
-<c:if test="${ !usePortalJsLibs }">
-    <script src="<rs:resourceURL value="/rs/jquery/1.5/jquery-1.5.min.js"/>" type="text/javascript"></script>
-    <script src="<rs:resourceURL value="/rs/jqueryui/1.8.13/jquery-ui-1.8.13.min.js"/>" type="text/javascript"></script>
-    <script src="<rs:resourceURL value="/rs/fluid/1.4.0/js/fluid-all-1.4.0.min.js"/>" type="text/javascript"></script>
+<c:set var="apiUrl">${ isHttps ? 'https' : 'http' }://maps.google.com/maps/api/js?sensor=true</c:set>
+<c:if test="${ not empty apiKey }">
+    <c:set var="apiUrl">${ apiUrl }&amp;key=${ apiKey }</c:set>
 </c:if>
-<script src="<c:url value="/js/map-helper.js"/>" type="text/javascript"></script>
+<script src="${apiUrl}"></script>
+<rs:aggregatedResources path="${ usePortalJsLibs ? '/skin-shared.xml' : '/skin.xml' }"/>
 
 <script type="text/javascript"><rs:compressJs>
     var ${n} = ${n} || {};

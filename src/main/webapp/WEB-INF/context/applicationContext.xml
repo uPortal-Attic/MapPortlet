@@ -32,6 +32,43 @@
 
     <context:annotation-config/>
 
+    <!-- mapmessages.propreties Configuration -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+        p:basename="message" p:useCodeAsDefaultMessage="true"/>
+
+	<!-- EHCache Configuration -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>classpath:ehcache.xml</value>
+		</property>
+	</bean>
+
+    <bean id="elementsProvider" class="org.jasig.resourceserver.utils.aggr.ResourcesElementsProviderImpl"/>
+
+    <bean id="pageCachingFilter" class="org.jasig.portlet.maps.mvc.AggregationAwareFilterBean">
+        <property name="elementsProvider" ref="elementsProvider"/>
+        <property name="filter">
+            <bean class="org.jasig.resourceserver.utils.cache.ConfigurablePageCachingFilter">
+                <constructor-arg ref="cacheManager"/>
+                <constructor-arg value="org.jasig.portal.utils.cache.ConfigurablePageCachingFilter.PAGE_CACHE"/>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="CacheExpiresFilter" class="org.jasig.portlet.maps.mvc.AggregationAwareFilterBean">
+        <property name="elementsProvider" ref="elementsProvider"/>
+        <property name="filter">
+            <bean class="org.jasig.resourceserver.utils.filter.PathBasedCacheExpirationFilter">
+                <property name="cacheMaxAges">
+                    <map>
+                        <entry key="/**/*.aggr.min.js" value="31536000"/>
+                        <entry key="/**/*.aggr.min.css" value="31536000"/>
+                    </map>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
     <!-- 
      | View resolvers, look for a named view bean before going to JSP resolution
      +-->
@@ -39,10 +76,6 @@
         class="org.springframework.web.servlet.view.InternalResourceViewResolver"
         p:order="10" p:cache="true" p:viewClass="org.springframework.web.servlet.view.JstlView"
         p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
-
-    <!-- mapmessages.propreties Configuration -->
-	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
-        p:basename="message" p:useCodeAsDefaultMessage="true"/>
 
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
         <property name="messageConverters">

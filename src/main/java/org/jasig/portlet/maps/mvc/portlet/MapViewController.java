@@ -68,7 +68,7 @@ public class MapViewController {
 		
 		PortletPreferences preferences = request.getPreferences();
 		
-		String apiKey = preferences.getValue(PREFERENCE_API_KEY, "ABQIAAAA6IxXqpYkVvIBECmLUV99fRTwM0brOpm-All5BF6PoaKBxRWWERT7EOEqD89hlpB20tCIxwLUa9Y9rw");
+		String apiKey = preferences.getValue(PREFERENCE_API_KEY, null);
 		map.put(PREFERENCE_API_KEY, apiKey);
 		
         double startingLatitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LATITUDE, "41.300937"));

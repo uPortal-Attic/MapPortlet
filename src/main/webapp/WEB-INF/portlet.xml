@@ -44,6 +44,16 @@
             <short-title>Map</short-title>
             <keywords>Local Map</keywords>
         </portlet-info>
+        <portlet-preferences>
+            <preference>
+                <name>usePortalJsLibs</name>
+                <value>false</value>
+            </preference>
+            <preference>
+                <name>portalJsNamespace</name>
+                <value>up</value>
+            </preference>
+        </portlet-preferences>
     </portlet>
     
 </portlet-app>
