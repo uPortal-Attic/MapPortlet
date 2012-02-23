@@ -468,7 +468,7 @@
                         <exclude>NOTICE.template</exclude>
                         <exclude>**/src/main/webapp/rs/**</exclude>
                         <exclude>bin/**</exclude>
-                        <exclude>src/main/resources/mapData.json</exclude>
+                        <exclude>src/main/webapp/data/map.json</exclude>
                     </excludes>
                     <mapping>
                         <channel>XML_STYLE</channel>
