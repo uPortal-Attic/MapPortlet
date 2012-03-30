@@ -444,7 +444,7 @@
                             <includes>
                                 <include>rs/jquery/1.6.1/</include>
                                 <include>rs/jqueryui/1.8.13/</include>
-                                <include>rs/fluid/1.4.0/js</include>
+                                <include>rs/fluid/1.4.0/js/</include>
                             </includes>
                         </overlay>
                     </overlays>
