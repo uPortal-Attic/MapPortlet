@@ -36,6 +36,10 @@
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
         p:basename="message" p:useCodeAsDefaultMessage="true"/>
 
+    <!-- Properties configuration -->
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"
+        p:location="classpath:configuration.properties"/>
+
 	<!-- EHCache Configuration -->
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation">

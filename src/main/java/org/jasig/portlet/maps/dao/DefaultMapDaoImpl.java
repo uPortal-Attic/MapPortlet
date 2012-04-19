@@ -29,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jasig.portlet.maps.model.xml.Location;
 import org.jasig.portlet.maps.model.xml.MapData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -48,37 +49,24 @@ public class DefaultMapDaoImpl implements IMapDao {
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+    
+    private String mapDataUrl;
 
+    @Value("${map.defaultdao.url:http://localhost:8080/MapPortlet/data/map.json}")
+    public void setMapDataUrl(String mapDataUrl) {
+        this.mapDataUrl = mapDataUrl;
+    }
+    
     @Override
     public MapData getMap(PortletRequest request) {
         
-        final String urlTemplate = getUrlTemplate(request);
-        final MapData map = restTemplate.getForObject(urlTemplate,
+        final MapData map = restTemplate.getForObject(mapDataUrl,
                 MapData.class, Collections.<String, String> emptyMap());
         
         // perform any required post-processing
         postProcessData(map);
 
         return map;
-    }
-    
-    /**
-     * Get the REST url template for the current portlet request.
-     * 
-     * @param request
-     * @return
-     */
-    protected String getUrlTemplate(PortletRequest request) {
-        StringBuffer urlBuffer = new StringBuffer();
-        urlBuffer.append(request.getScheme()).append("://");
-        urlBuffer.append(request.getServerName());
-        int port = request.getServerPort();
-        if (port != 80 && port != 443) {
-            urlBuffer.append(":").append(port);
-        }
-        urlBuffer.append(request.getContextPath());
-        urlBuffer.append("/data/map.json");
-        return urlBuffer.toString();
     }
     
     /**

@@ -19,8 +19,8 @@
 
 package org.jasig.portlet.maps.dao;
 
-import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
@@ -46,16 +46,6 @@ public class DefaultMapDaoImplTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-    }
-    
-    @Test
-    public void testGetUrlTemplate() {
-        when(request.getScheme()).thenReturn("http");
-        when(request.getServerName()).thenReturn("localhost");
-        when(request.getServerPort()).thenReturn(8080);
-        when(request.getContextPath()).thenReturn("/MapPortlet");
-        String url = dao.getUrlTemplate(request);
-        assertEquals("http://localhost:8080/MapPortlet/data/map.json", url);
     }
     
     @Test

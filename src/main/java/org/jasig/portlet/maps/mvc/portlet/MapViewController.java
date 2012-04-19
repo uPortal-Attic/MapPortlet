@@ -31,6 +31,7 @@ import javax.portlet.ResourceResponse;
 import org.jasig.portlet.maps.dao.IMapDao;
 import org.jasig.portlet.maps.model.xml.MapData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +61,13 @@ public class MapViewController {
     @Autowired(required = true)
     public void setMapDao(IMapDao dao) {
         this.dao = dao;
+    }
+    
+    private String portalProtocol;
+
+    @Value("${portal.protocol:http}")
+    public void setPortalProtocol(String portalProtocol) {
+        this.portalProtocol = portalProtocol;
     }
 
     @RequestMapping
@@ -104,7 +112,7 @@ public class MapViewController {
         map.put(PREFERENCE_USE_PORTAL_JS_LIBS, preferences.getValue(PREFERENCE_USE_PORTAL_JS_LIBS, "true"));
         map.put(PREFERENCE_PORTAL_JS_NAMESPACE, preferences.getValue(PREFERENCE_PORTAL_JS_NAMESPACE, "up"));
 
-        map.put("isHttps", request.isSecure());
+        map.put("portalProtocol", portalProtocol);
         map.put("isMobile", "UniversalityMobile".equals(request.getProperty("themeName")));
         map.put("location", location);
 		
