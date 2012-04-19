@@ -3,7 +3,7 @@
     <parent>
         <artifactId>jasig-parent</artifactId>
         <groupId>org.jasig.parent</groupId>
-        <version>30</version>
+        <version>33</version>
     </parent>
     <groupId>org.jasig.portlet.map</groupId>
     <artifactId>MapPortlet</artifactId>
@@ -85,7 +85,7 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
-                <version>2.4</version>
+                <version>2.5</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -488,5 +488,62 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>localdev</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.portals.pluto</groupId>
+                        <artifactId>maven-pluto-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>assemble</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.1</version>
+                        <configuration>
+                            <classifier>localdev</classifier>
+                            <warName>${project.artifactId}</warName>
+                            <webXml>${project.build.directory}/pluto-resources/web.xml</webXml>
+                            <overlays>
+                                <overlay>
+                                    <groupId>org.jasig.resourceserver</groupId>
+                                    <artifactId>resource-server-content</artifactId>
+                                    <includes>
+                                        <include>rs/jquery/1.6.1/</include>
+                                        <include>rs/jqueryui/1.8.13/</include>
+                                        <include>rs/fluid/1.4.0/js</include>
+                                    </includes>
+                                </overlay>
+                            </overlays>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-uportal-plugin</artifactId>
+                        <groupId>org.jasig.portal</groupId>
+                        <version>1.0.0-M4-SNAPSHOT</version>
+                        <configuration>
+                            <contextName>${pom.artifactId}</contextName>
+                            <artifactId>${pom.artifactId}</artifactId>
+                            <artifactGroupId>${pom.groupId}</artifactGroupId>
+                            <artifactVersion>${pom.version}</artifactVersion>
+                            <artifactClassifier>localdev</artifactClassifier>
+                            <removeExistingDirectories>true</removeExistingDirectories>
+                            <extractWars>true</extractWars>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     
 </project>
