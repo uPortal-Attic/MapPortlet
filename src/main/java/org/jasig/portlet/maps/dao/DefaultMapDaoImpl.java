@@ -60,6 +60,7 @@ public class DefaultMapDaoImpl implements IMapDao {
     @Override
     public MapData getMap(PortletRequest request) {
         
+        log.debug("Requesting map data from " + this.mapDataUrl);
         final MapData map = restTemplate.getForObject(mapDataUrl,
                 MapData.class, Collections.<String, String> emptyMap());
         
