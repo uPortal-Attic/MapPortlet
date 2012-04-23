@@ -29,6 +29,7 @@
     <c:set var="apiUrl">${ apiUrl }&amp;key=${ apiKey }</c:set>
 </c:if>
 <script src="${apiUrl}"></script>
+<c:set var="usePortalJsLibs" value="${ false }"/>
 <rs:aggregatedResources path="${ usePortalJsLibs ? '/skin-shared.xml' : '/skin.xml' }"/>
 
 <script type="text/javascript"><rs:compressJs>
@@ -71,7 +72,7 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-        map.view($("#${n}map"), {
+        map.CampusMap($("#${n}map"), {
             defaultCoordinates: { latitude: ${ latitude }, longitude: ${ longitude } },
             location: '${ location }',
             mapOptions: mapOptions,
@@ -81,10 +82,86 @@
 
 </rs:compressJs></script>
 
-<div id="${n}map"> 
-    <form class="map-search-form">
-        <input class="map-search-input" autocomplete="off" type="text" size="10" name="search" title="search"/> 
-    </form>
-    <div class="map-display" style="height: 500px; margin-bottom: 10px">
+<div id="${n}map" class="portlet"> 
+
+    <div class="map-search-form">
+        <div data-role="header" class="titlebar portlet-titlebar">
+            <a data-role="button" data-icon="back" data-inline="true" class="map-browse-link" id="${n}gridViewLink" href="javascript:;">Browse</a>
+            <h2>Search</h2>
+        </div>
+        <div class="portlet-content" data-role="content">
+            <input class="map-search-input" autocomplete="off" type="text" size="10" name="search" title="search"/>
+        </div>
     </div>
+    
+    <div class="map-search-results" style="display:none">
+        <div class="portlet-content" data-role="content">
+            <ul data-role="listview">
+                <li class="map-search-result">
+                    <a href="javascript:;" class="map-search-result-link"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="map-categories" style="display:none">
+        <div data-role="header" class="titlebar portlet-titlebar">
+            <a data-role="button" data-icon="back" data-inline="true" class="map-search-link" id="${n}gridViewLink" href="javascript:;">Search</a>
+            <h2>Browse</h2>
+        </div>
+    
+        <div class="portlet">
+            <div class="portlet-content" data-role="content">
+                <ul>
+                    <li class="map-category">
+                        <a href="javascript:;" class="map-category-link">Category Name</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="map-category-detail" style="display:none">
+        
+        <div data-role="header" class="titlebar portlet-titlebar search-back-div">
+            <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
+            <h2 class="map-location-name">Location</h2>
+        </div>
+    
+        <div class="portlet">
+            <div class="portlet-content" data-role="content">
+                <h3 class="map-category-name"></h3>
+                <ul>
+                    <li class="map-location">
+                        <a href="javascript:;" class="map-location-link">Location Name</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="map-location-detail portlet" style="display:none">
+    
+        <div data-role="header" class="titlebar portlet-titlebar search-back-div">
+            <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
+            <h2 class="map-location-name">Location</h2>
+        </div>
+
+        <div class="portlet">        
+            <div class="portlet-content" data-role="content">
+                <h3 class="map-location-name"></h3>
+                <p class="map-location-address"></p>
+                <p><a class="map-location-directions-link" href="javascript:;">Get Directions</a>
+                <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
+                <p><img class="map-location-image"/></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="map-container">
+        <div class="portlet-content" data-role="content">
+            <div class="map-display" style="width: 100%; height: 500px;"></div>
+        </div>
+    </div>    
+    
 </div> 
