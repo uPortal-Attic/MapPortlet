@@ -150,6 +150,7 @@
         <div class="portlet">        
             <div class="portlet-content" data-role="content">
                 <h3 class="map-location-name"></h3>
+                <p class="map-location-description"></p>
                 <p class="map-location-address"></p>
                 <p><a class="map-location-directions-link" href="javascript:;">Get Directions</a>
                 <p><a class="map-location-map-link" href="javascript:;">View in Map</a>

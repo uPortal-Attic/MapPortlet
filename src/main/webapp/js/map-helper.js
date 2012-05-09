@@ -505,6 +505,7 @@ if (!map.init) {
             selectors: {
                 backLink: ".map-location-back-link",
                 locationName: ".map-location-name",
+                locationDescription: ".map-location-description",
                 locationAddress: ".map-location-address",
                 directionsLink: ".map-location-directions-link",
                 mapLink: ".map-location-map-link",
@@ -526,6 +527,7 @@ if (!map.init) {
             protoTree: {
                 backLink: { value: "Back", target: "javascript:;" },
                 locationName: "${location.name}",
+                locationDescription: "${location.description}",
                 locationAddress: "${location.address}",
                 directionsLink: { linktext: "Directions", target: "javascript:;" },
                 mapLink: { value: "View in Map", target: "javascript:;" },
@@ -542,7 +544,7 @@ if (!map.init) {
                 });
 
                 that.locate("directionsLink").live("click", function () {
-                    window.location = "http://maps.google.com?q=" + that.model.location.address;
+                    window.location = "http://maps.google.com?q=" + ( that.model.location.address ? that.model.location.address : that.model.location.latitude + "," + that.model.location.longitude ) ;
                 });
 
             }
