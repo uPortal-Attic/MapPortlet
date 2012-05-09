@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://earth.google.com/kml/2.2" xmlns:kml="http://earth.google.com/kml/2.2">
+  <xs:element name="kml">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="kml:Document"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Document">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="kml:name"/>
+        <xs:element ref="kml:description"/>
+        <xs:element maxOccurs="unbounded" ref="kml:Style"/>
+        <xs:element maxOccurs="unbounded" ref="kml:Placemark"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Style">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="kml:IconStyle"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IconStyle">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="kml:Icon"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Icon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="kml:href"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="href" type="xs:anyURI"/>
+  <xs:element name="Placemark">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="kml:name"/>
+        <xs:element ref="kml:description"/>
+        <xs:element ref="kml:styleUrl"/>
+        <xs:element ref="kml:Point"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="styleUrl" type="xs:string"/>
+  <xs:element name="Point">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="kml:coordinates"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="coordinates" type="xs:string"/>
+  <xs:element name="name" type="xs:string"/>
+  <xs:element name="description" type="xs:string"/>
+</xs:schema>

@@ -52,4 +52,10 @@
         </jaxb:schemaBindings>
     </jaxb:bindings>
 
+    <jaxb:bindings schemaLocation="../resources/xsd/google-mymaps.xsd">
+        <jaxb:schemaBindings>
+            <jaxb:package name="com.google.map.kml" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
 </jaxb:bindings>

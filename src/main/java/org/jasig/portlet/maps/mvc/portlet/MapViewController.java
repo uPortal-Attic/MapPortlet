@@ -70,6 +70,27 @@ public class MapViewController {
         this.portalProtocol = portalProtocol;
     }
 
+    private String defaultLatitude;
+    
+    @Value("${map.default.latitude:41.300937}")
+    public void setDefaultLatitude(String defaultLatitude) {
+        this.defaultLatitude = defaultLatitude;
+    }
+    
+    private String defaultLongitude;
+    
+    @Value("${map.default.longitude:-72.932103}")
+    public void setDefaultLongitude(String defaultLongitude) {
+        this.defaultLongitude = defaultLongitude;
+    }
+    
+    private String defaultZoom;
+    
+    @Value("${map.default.zoom:18}")
+    public void setDefaultZoom(String defaultZoom) {
+        this.defaultZoom = defaultZoom;
+    }
+    
     @RequestMapping
 	public ModelAndView getView(RenderRequest request, @RequestParam(required=false) String location) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -79,13 +100,13 @@ public class MapViewController {
 		String apiKey = preferences.getValue(PREFERENCE_API_KEY, null);
 		map.put(PREFERENCE_API_KEY, apiKey);
 		
-        double startingLatitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LATITUDE, "41.300937"));
+        double startingLatitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LATITUDE, defaultLatitude));
         map.put(PREFERENCE_STARTING_LATITUDE, startingLatitude);
         
-        double startingLongitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LONGITUDE, "-72.932103"));
+        double startingLongitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LONGITUDE, defaultLongitude));
         map.put(PREFERENCE_STARTING_LONGITUDE, startingLongitude);
 
-        int startingZoom = Integer.parseInt(preferences.getValue(PREFERENCE_STARTING_ZOOM, "18"));
+        int startingZoom = Integer.parseInt(preferences.getValue(PREFERENCE_STARTING_ZOOM, defaultZoom));
         map.put(PREFERENCE_STARTING_ZOOM, startingZoom);
 
         boolean mapTypeControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTION_MAPTYPE_CONTROL, "true"));
@@ -122,7 +143,7 @@ public class MapViewController {
     @ResourceMapping 
     public ModelAndView getMapData(ResourceRequest request, ResourceResponse response) {
         
-        MapData map = dao.getMap(request);
+        MapData map = dao.prefetchMap(request);
         String etag = String.valueOf(map.hashCode());
         String requestEtag = request.getETag();
         
