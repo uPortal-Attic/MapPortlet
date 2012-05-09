@@ -37,7 +37,7 @@ public abstract class AbstractPrefetchableMapDaoImpl implements IPrefetchableMap
     }
 
     @Override
-    public MapData prefetchMap(PortletRequest request) {
+    public MapData getMap(PortletRequest request) {
         final Element cachedMap = this.cache.get(CACHE_KEY);
         if (cachedMap != null) {
             return (MapData) cachedMap.getValue();
