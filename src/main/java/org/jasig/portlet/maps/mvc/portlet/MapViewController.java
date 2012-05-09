@@ -143,7 +143,7 @@ public class MapViewController {
     @ResourceMapping 
     public ModelAndView getMapData(ResourceRequest request, ResourceResponse response) {
         
-        MapData map = dao.prefetchMap(request);
+        MapData map = dao.getMap(request);
         String etag = String.valueOf(map.hashCode());
         String requestEtag = request.getETag();
         
