@@ -25,12 +25,17 @@
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="
            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
-           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 
     <context:annotation-config/>
+
+    <task:annotation-driven scheduler="taskScheduler"/>
+    <task:scheduler id="taskScheduler" pool-size="5"/>
 
     <!-- mapmessages.propreties Configuration -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
@@ -47,6 +52,10 @@
 		</property>
 	</bean>
 
+    <!-- Main map cache -->
+    <bean id="mapCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
+        p:cacheManager-ref="cacheManager" p:cacheName="mapCache"/>
+    
     <bean id="elementsProvider" class="org.jasig.resourceserver.utils.aggr.ResourcesElementsProviderImpl"/>
 
     <bean id="pageCachingFilter" class="org.jasig.portlet.maps.mvc.AggregationAwareFilterBean">

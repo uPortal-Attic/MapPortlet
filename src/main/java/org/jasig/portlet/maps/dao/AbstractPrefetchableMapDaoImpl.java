@@ -26,25 +26,14 @@ public abstract class AbstractPrefetchableMapDaoImpl implements IPrefetchableMap
         return this.cache;
     }
     
-    private int prefetchInterval = 60;
-    
-    public void setPrefetchInterval(int minutes) {
-        this.prefetchInterval = minutes;
-    }
-    
-    public int getPrefetchInterval() {
-        return this.prefetchInterval;
-    }
-
     @Override
     public MapData getMap(PortletRequest request) {
-        final Element cachedMap = this.cache.get(CACHE_KEY);
-        if (cachedMap != null) {
-            return (MapData) cachedMap.getValue();
-        } else {
-            return prefetchMap();
+        Element cachedMap = this.cache.get(CACHE_KEY);
+        if (cachedMap == null) {
+            prefetchMap();
+            cachedMap = this.cache.get(CACHE_KEY);
         }
+        return (MapData) cachedMap.getValue();
     }
-    
 
 }

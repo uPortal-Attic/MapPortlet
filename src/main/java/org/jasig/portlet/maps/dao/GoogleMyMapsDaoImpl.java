@@ -26,6 +26,7 @@ import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.google.map.kml.Document;
 import com.google.map.kml.Kml;
@@ -43,6 +44,12 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
     @Required
     public void setCategories(Map<String, String> categories) {
         this.categories = categories;
+    }
+    
+    private Map<String,String> addresses;
+    
+    public void setAddresses(Map<String, String> addresses) {
+        this.addresses = addresses;
     }
     
     private Resource kmlFile;
@@ -75,7 +82,8 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
     }
     
     @Override
-    public MapData prefetchMap() {
+    @Scheduled(fixedRate=900000)
+    public void prefetchMap() {
         
         final MapData map = new MapData();
 
@@ -88,13 +96,10 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
             kml = (Kml) u.unmarshal(kmlFile.getInputStream());
         } catch (JAXBException e) {
             log.error("Failed to parse KML file", e);
-            return null;
         } catch (FileNotFoundException e) {
             log.error("Failed to locate KML file", e);
-            return null;
         } catch (IOException e) {
             log.error("IO Exception reading KML file", e);
-            return null;
         }
         
         final Document doc = (Document) kml.getDocument();
@@ -131,6 +136,10 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
                 log.warn("Exception cleaning description", e);
             }
             
+            if (this.addresses != null && this.addresses.containsKey(placemark.getName())) {
+                location.setAddress(this.addresses.get(placemark.getName()));
+            }
+            
             // set the coordinates for the location
             final String[] coordinates = placemark.getPoint().getCoordinates().split(",");
             location.setLatitude(new BigDecimal(Double.parseDouble(coordinates[1])));
@@ -156,7 +165,6 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
         final Element cachedElement = new Element(CACHE_KEY, map);
         this.getCache().put(cachedElement);
         
-        return map;
     }
 
     /**

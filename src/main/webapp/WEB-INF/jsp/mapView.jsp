@@ -84,13 +84,16 @@
 
 <div id="${n}map" class="portlet"> 
 
-    <div class="map-search-form">
+    <div class="map-search-container">
         <div data-role="header" class="titlebar portlet-titlebar">
-            <a data-role="button" data-icon="back" data-inline="true" class="map-browse-link" id="${n}gridViewLink" href="javascript:;">Browse</a>
+            <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
             <h2>Search</h2>
         </div>
         <div class="portlet-content" data-role="content">
-            <input class="map-search-input" autocomplete="off" type="text" size="10" name="search" title="search"/>
+            <form class="map-search-form">
+                <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
+                <input data-role="button" data-inline="true" type="submit" value="Go"/>
+            </form>
         </div>
     </div>
     
@@ -106,18 +109,16 @@
     
     <div class="map-categories" style="display:none">
         <div data-role="header" class="titlebar portlet-titlebar">
-            <a data-role="button" data-icon="back" data-inline="true" class="map-search-link" id="${n}gridViewLink" href="javascript:;">Search</a>
             <h2>Browse</h2>
+            <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search">Search</a>
         </div>
     
-        <div class="portlet">
-            <div class="portlet-content" data-role="content">
-                <ul>
-                    <li class="map-category">
-                        <a href="javascript:;" class="map-category-link">Category Name</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="portlet-content" data-role="content">
+            <ul data-role="listview">
+                <li class="map-category">
+                    <a href="javascript:;" class="map-category-link">Category Name</a>
+                </li>
+            </ul>
         </div>
     </div>
     
@@ -125,13 +126,12 @@
         
         <div data-role="header" class="titlebar portlet-titlebar search-back-div">
             <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
-            <h2 class="map-location-name">Location</h2>
+            <h2 class="map-category-name">Browse</h2>
         </div>
     
         <div class="portlet">
             <div class="portlet-content" data-role="content">
-                <h3 class="map-category-name"></h3>
-                <ul>
+                <ul data-role="listview">
                     <li class="map-location">
                         <a href="javascript:;" class="map-location-link">Location Name</a>
                     </li>

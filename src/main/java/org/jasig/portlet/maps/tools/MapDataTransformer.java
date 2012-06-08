@@ -33,6 +33,12 @@ import java.util.Set;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
@@ -62,18 +68,18 @@ public class MapDataTransformer {
     public static void main(String[] args) {
 
         // translate the KML file to the map portlet's native data format
-//        File kml = new File("map-data.xml");
-//        File xslt = new File("google-earth.xsl");
-//        
-//        try {
-//            TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance( );
-//            Transformer trans = transFact.newTransformer(new StreamSource(xslt));
-//            trans.transform(new StreamSource(kml), new StreamResult(System.out));
-//        } catch (TransformerConfigurationException e) {
-//            e.printStackTrace();
-//        } catch (TransformerException e) {
-//            e.printStackTrace();
-//        }
+        File kml = new File("map-data.xml");
+        File xslt = new File("google-earth.xsl");
+        
+        try {
+            TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance( );
+            Transformer trans = transFact.newTransformer(new StreamSource(xslt));
+            trans.transform(new StreamSource(kml), new StreamResult(System.out));
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }
         
         // deserialize the map data from XML
         MapData data = null;

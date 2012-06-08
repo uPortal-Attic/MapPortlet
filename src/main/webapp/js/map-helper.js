@@ -33,7 +33,7 @@ if (!map.init) {
             includeAbbreviation: true,
             mapOptions: {},
             selectors: {
-                searchContainer: ".map-search-form",
+                searchContainer: ".map-search-container",
                 searchResultsContainer: ".map-search-results",
                 mapContainer: ".map-container",
                 categoriesContainer: ".map-categories",
@@ -63,10 +63,15 @@ if (!map.init) {
                 showBrowse: {
                     event: "onShowBrowseView",
                     args: [ "{CampusMap}" ]
+                },
+                showCategoryDetails: {
+                    event: "onCategorySelect",
+                    args: [ "{CampusMap}" ]
                 }
             },
             listeners: {
                 showSearch: function(that) {
+                    that.model.lastView = 'search';
                     that.locate("searchContainer").show();
                     that.locate("mapContainer").show();
                     that.locate("searchResultsContainer").hide();
@@ -88,11 +93,19 @@ if (!map.init) {
                     that.locate("categoryDetailContainer").hide();
                 },
                 showBrowse: function(that) {
+                    that.model.lastView = 'browse';
                     that.locate("searchContainer").hide();
                     that.locate("searchResultsContainer").hide();
                     that.locate("mapContainer").hide();
                     that.locate("categoriesContainer").show();
                     that.locate("categoryDetailContainer").hide();
+                },
+                showCategoryDetails: function(that) {
+                    that.locate("searchContainer").hide();
+                    that.locate("searchResultsContainer").hide();
+                    that.locate("mapContainer").show();
+                    that.locate("categoriesContainer").hide();
+                    that.locate("categoryDetailContainer").show();
                 }
             },
             components: {
@@ -149,18 +162,6 @@ if (!map.init) {
                         }
                     }
                 },
-                SearchResultsView: {
-                    type: "map.SearchResultsView",
-                    createOnEvent: "onReady",
-                    container: "{CampusMap}.dom.searchResultsContainer",
-                    options: {
-                        model: "{CampusMap}.model",
-                        events: {
-                            onUpdateSearchResults: "{CampusMap}.events.onUpdateSearchResults",
-                            onLocationSelect: "{CampusMap}.events.onLocationSelect"
-                        }
-                    }
-                },
                 LocationDetailView: {
                     type: "map.LocationDetailView",
                     createOnEvent: "onReady",
@@ -170,6 +171,7 @@ if (!map.init) {
                         events: {
                             onLocationSelect: "{CampusMap}.events.onLocationSelect",
                             onShowSearchView: "{CampusMap}.events.onShowSearchView",
+                            onShowBrowseView: "{CampusMap}.events.onShowBrowseView",
                             onLocationMapView: "{CampusMap}.events.onLocationMapView"
                         }
                     }
@@ -208,9 +210,12 @@ if (!map.init) {
         fluid.defaults("map.SearchView", {
             gradeNames: ["fluid.viewComponent", "autoInit"],
             selectors: {
+                mapSearchForm: ".map-search-form",
                 mapBrowseLink: ".map-browse-link",
                 mapSearchInput: ".map-search-input",
-                mapSearchResults: ".map-search-results"
+                mapSearchResults: ".map-search-results",
+                mapLink: ".map-search-map-link",
+                listLink: ".map-search-list-link"
             },
             events: {
                 onUpdateSearchResults: null,
@@ -239,8 +244,8 @@ if (!map.init) {
                      
                 };
 
-                $(that.options.selectors.mapSearchInput).live('keyup', function () {
-                    that.search($(this).val()); 
+                $(that.options.selectors.mapSearchForm).live('submit', function () {
+                    that.search($(that.locate("mapSearchInput")).val()); 
                     return false; 
                 });
                 
@@ -311,9 +316,10 @@ if (!map.init) {
             gradeNames: ["fluid.rendererComponent", "autoInit"],
             renderOnInit: true,
             selectors: {
-                searchLink: ".map-search-link",
                 category: ".map-category",
-                categoryLink: ".map-category-link"
+                categoryLink: ".map-category-link",
+                mapLink: ".map-search-map-link",
+                listLink: ".map-search-list-link"
             },
             events: {
                 onShowSearchView: null
@@ -321,7 +327,6 @@ if (!map.init) {
             repeatingSelectors: [ "category" ],
             // renderer proto-tree defining how data should be bound
             protoTree: {
-                searchLink: { value: "Search" },
                 expander: {
                     type: "fluid.renderer.repeat",
                     repeatID: "category",
@@ -344,7 +349,7 @@ if (!map.init) {
                     that.events.onCategorySelect.fire(that.model.category);
                 });
 
-                $(that.options.selectors.searchLink).live('click', function () {
+                $(".map-search-link").live('click', function () {
                     that.events.onShowSearchView.fire();
                 });
 
@@ -359,7 +364,6 @@ if (!map.init) {
             gradeNames: ["fluid.rendererComponent", "autoInit"],
             renderOnInit: true,
             selectors: {
-                backLink: ".map-category-back-link",
                 categoryName: ".map-category-name",
                 location: ".map-location",
                 locationLink: ".map-location-link"
@@ -381,16 +385,16 @@ if (!map.init) {
             },
             // renderer proto-tree defining how data should be bound
             protoTree: {
-                backLink: { linktext: "Back", target: "javascript:;" },
-                expander: {
-                    type: "fluid.renderer.repeat",
-                    repeatID: "location",
-                    controlledBy: "matchingLocations",
-                    pathAs: "location",
-                    tree: {
-                        locationLink: { value: "${{location}.name}", target: "javascript:;" }
-                    }
-                }
+                categoryName: { value: "${category.name}" },
+//                expander: {
+//                    type: "fluid.renderer.repeat",
+//                    repeatID: "location",
+//                    controlledBy: "matchingLocations",
+//                    pathAs: "location",
+//                    tree: {
+//                        locationLink: { value: "${{location}.name}", target: "javascript:;" }
+//                    }
+//                }
             },
             finalInitFunction: function(that) {
 
@@ -403,7 +407,7 @@ if (!map.init) {
                     that.events.onLocationSelect.fire(that.model.location);
                 });
                 
-                $(that.options.selectors.backLink).live("click", function () {
+                $(".map-category-back-link").live("click", function () {
                     that.events.onShowBrowseView.fire();
                 });
 
@@ -423,6 +427,7 @@ if (!map.init) {
                 onCategorySelect: null,
                 onLocationMapView: null,
                 onLocationSelect: null,
+                onUpdateSearchResults: null,
                 onShowCategory: {
                     event: "onCategorySelect",
                     args: [ "{MapView}" ]
@@ -430,10 +435,17 @@ if (!map.init) {
                 onShowLocation: {
                     event: "onLocationMapView",
                     args: [ "{MapView}" ]
+                },
+                onShowResults: {
+                    event: "onUpdateSearchResults",
+                    args: [ "{MapView}" ]
                 }
             },
             listeners: {
                 onShowCategory: function(that) {
+                    that.refreshView();
+                },
+                onShowResults: function(that) {
                     that.refreshView();
                 },
                 onShowLocation: function(that) {
@@ -464,8 +476,7 @@ if (!map.init) {
                             .click(function() {
                                 var link = $(document.createElement("a")).attr("target", "javascript:;")
                                     .text(location.name + " (" + location.abbreviation + ")")
-                                    .click(function () { that.events.onLocationSelect.fire(location); });
-                                console.log(link);
+                                    .click(function () { that.model.location = location; that.events.onLocationSelect.fire(location); });
                                 that.map.openInfoWindow({ 'content': link.get(0) }, this);
                             });
                         
@@ -519,7 +530,9 @@ if (!map.init) {
                 }
             },
             listeners: {
-                onShowLocation: function(that, location) {
+                onShowLocation: function(that) {
+                    console.log(that.model.location);
+                    console.log($(that.options.selectors.locationDescription));
                     that.refreshView();
                     that.container.show();
                 }
@@ -536,7 +549,11 @@ if (!map.init) {
             finalInitFunction: function(that) {
                 that.locate("backLink").live("click", function () {
                     that.container.hide();
-                    that.events.onShowSearchView.fire();
+                    if (that.model.lastView == 'browse') {
+                        that.events.onShowBrowseView.fire();
+                    } else {
+                        that.events.onShowSearchView.fire();
+                    }
                 });
                 that.locate("mapLink").live("click", function () {
                     that.container.hide();
