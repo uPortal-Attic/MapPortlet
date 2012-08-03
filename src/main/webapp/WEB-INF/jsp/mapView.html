@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MapPortlet</title>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  
+<!-- JAVACRIPT FROM UPORTAL -->
+<script type="text/javascript" src="../../js/uPortal-served/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="../../js/uPortal-served/jquery-ui-1.8.13.js"></script>
+<script type="text/javascript" src="../../js/uPortal-served/fluid-all-1.4.0.js"></script>
+<!-- / JAVACRIPT FROM UPORTAL -->
+<!-- FROM SKIN.XML -->
+<script type="text/javascript" src="../../js/jquery.ui.map.js"></script>
+<script type="text/javascript" src="../../js/jquery.ui.map.extensions.js"></script>
+<script type="text/javascript" src="../../js/jquery.ui.map.overlays.js"></script>
+<script type="text/javascript" src="../../js/map-helper.js"></script>
+<!-- / FROM SKIN.XML -->
+  
+<link rel="stylesheet" href="../../css/uPortal.css"/>
+  
+</head>
+<body id="portal" class="up fl-theme-mist">
+  <div id="portalPage">
+    <div id="portalPageInner">
+      <div id="portalPageHeader"></div>
+      <div id="portalNavigation"></div>
+      <div id="portalPageBody">
+        <div id="portalPageBodyInner" style="overflow:hidden">
+          <div id="portalPageBodyLayout">
+            <div id="portalPageBodyColumns" class="columns-1">
+              <div class="portal-page-column fl-container-flex75">
+                <div class="portal-page-column-inner">
+                  
+            
+            
+            
+            
+
+<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript">
+  var N_ = N_ || {};
+  N_.jQuery = jQuery.noConflict(true);
+  N_.fluid = fluid;
+  fluid = null;
+  fluid_1_4 = null;
+  
+  
+  console.log(map)
+  if (!map.initialized) map.init(N_.jQuery, N_.fluid, google);
+  N_.map = map;
+
+  N_.jQuery(document).ready(function () {
+
+    var $ = N_.jQuery;
+
+    mapOptions = {
+      zoom: 18,//${ zoom },
+      mapTypeControl: true,//${ mapTypeControl },
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DEFAULT
+      },
+      panControl: false,//${ panControl },
+      zoomControl: true,//${ zoomControl },
+      zoomControlOptions: {
+        style: google.maps.ZoomControlStyle.SMALL
+      },
+      scaleControl: true,//${ scaleControl },
+      streetViewControl: true,//${ streetView },
+      rotateControl: false,//${ rotateControl },
+      overviewMapControl: false,//${ overviewControl },
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    map.CampusMap($("#N_map"), {
+      defaultCoordinates: { latitude: 41.300937/*${ latitude }*/, longitude: -72.932103/*${ longitude }*/ },
+      location: '${ location }',
+      mapOptions: mapOptions,
+      mapDataUrl: '../../data/map-new.json'//<portlet:resourceURL/>'
+    });
+  });
+
+  </script>
+
+
+<div id="N_map" class="portlet">
+
+  <div class="map-search-container">
+    <div data-role="header" class="titlebar portlet-titlebar">
+      <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
+      <h2>Search</h2>
+    </div>
+    <div class="portlet-content" data-role="content">
+      <form class="map-search-form" onsubmit="return false;">
+        <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
+        <input data-role="button" data-inline="true" type="submit" value="Go" onclick="console.log('click submit')"/>
+      </form>
+    </div>
+  </div>
+
+  <div class="map-search-results" style="display:none">
+    <div class="portlet-content" data-role="content">
+      <ul data-role="listview">
+        <li class="map-search-result">
+          <a href="javascript:;" class="map-search-result-link"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="map-categories" style="display:none">
+    <div data-role="header" class="titlebar portlet-titlebar">
+      <h2>Browse</h2>
+      <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search">Search</a>
+    </div>
+
+    <div class="portlet-content" data-role="content">
+      <ul data-role="listview">
+        <li class="map-category">
+          <a href="javascript:;" class="map-category-link">Category Name</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="map-category-detail" style="display:none">
+
+    <div data-role="header" class="titlebar portlet-titlebar search-back-div">
+      <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
+      <h2 class="map-category-name">Browse</h2>
+    </div>
+
+    <div class="portlet">
+      <div class="portlet-content" data-role="content">
+        <ul data-role="listview">
+          <li class="map-location">
+            <a href="javascript:;" class="map-location-link">Location Name</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-location-detail portlet" style="display:none">
+
+    <div data-role="header" class="titlebar portlet-titlebar search-back-div">
+      <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
+      <h2 class="map-location-name">Location</h2>
+    </div>
+
+    <div class="portlet">
+      <div class="portlet-content" data-role="content">
+        <h3 class="map-location-name"></h3>
+        <p class="map-location-description"></p>
+        <p class="map-location-address"></p>
+        <p><a class="map-location-directions-link" href="javascript:;">Get Directions</a>
+        <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
+        <p><img class="map-location-image"/></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-container">
+    <div class="portlet-content" data-role="content">
+      <div class="map-display" style="width: 100%; height: 500px;"></div>
+    </div>
+  </div>
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
