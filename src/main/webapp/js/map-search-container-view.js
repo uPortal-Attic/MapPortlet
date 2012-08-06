@@ -6,10 +6,12 @@ MapSearchContainerView= Backbone.View.extend({
     'click input[type=submit]' : 'onSubmitSearch'
   },
   
-  initialize : function () {
-    this.locations= new MapLocations();
-    this.locations.fetch();
-    this.matchingMapLocations= new MatchingMapLocations();
+  initialize : function (options) {
+    this.mapLocations= options.mapLocations;
+    this.mapLocations.fetch();
+    this.matchingMapLocations= options.matchingMapLocations;
+    
+    //this.matchingMapLocations.on('reset', function () {console.log("\n\nSUCKERS!\n")});
   },
   
   onSubmitSearch : function (e){
@@ -21,13 +23,13 @@ MapSearchContainerView= Backbone.View.extend({
   
   search : function (query) {
     console.log('2. search() query:', query);
-    this.matchingLocations= [];
     if( query ) {
       query= query.toLowerCase(query);
-      matchingLocations= _.filter( this.locations.models, function (location) {
+      matches= _.filter( this.mapLocations.models, function (location) {
         return location.get('searchText') && location.get('searchText').indexOf(query) > -1;
       });
-      console.log('3. matching locations:', matchingLocations.length);
+      this.matchingMapLocations.reset(matches);
+      console.log('3. matching locations:', this.matchingMapLocations.length);
       //fire
     }
   },
@@ -35,8 +37,8 @@ MapSearchContainerView= Backbone.View.extend({
   render : function (manage) {
     console.log('MapSearchContainerView.render()');
     //console.log( $('#map-container', this.$el) );
-    //console.log(this.locations);
-    this.setView( '#map-container', new MapView({collection:this.matchingMapLocations}));
+    //console.log(this.mapLocations);
+    //this.setView( '#map-container', new MapView({collection:this.matchingMapLocations}));
     r=manage(this).render();
     return r;
   }

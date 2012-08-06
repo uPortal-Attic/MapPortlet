@@ -14,10 +14,18 @@ MapPortletRouter= Backbone.Router.extend({
   
   home : function () {
     console.log("ROUTE: home");
-    //var view= new MapView();
-    //layout.setView( '#map-search-container', new MapView() );
-    layout.setView( '#map-search-container', new MapSearchContainerView() );
-    
+    var mapLocations= new MapLocations(),
+        matchingMapLocations= new MatchingMapLocations(),
+        mapSearchContainerView= new MapSearchContainerView({
+          mapLocations : mapLocations,
+          matchingMapLocations : matchingMapLocations
+        }),
+        mapView= new MapView({
+          matchingMapLocations : matchingMapLocations
+        });
+    //matchingMapLocations.on('reset', function () {console.log("\n\nSUCKERS!\n")});
+    layout.setView( '#map-search-container', mapSearchContainerView );
+    layout.setView( '#map-container', mapView );
     layout.render();
   }
   

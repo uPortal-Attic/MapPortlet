@@ -2,10 +2,10 @@ MapView= Backbone.View.extend({
   template: '#N_map-view-template',
   className: 'portlet',
 
-  initialize: function () {
+  initialize: function (options) {
     console.log('MapView.initilize()');
-    console.log(this.collection);
-    //this.collection= collection;
+    this.matchingMapLocations= options.matchingMapLocations;
+    this.matchingMapLocations.on('reset', function () {console.log("\n\nRENDER MAP!\n\n")});
   },
 
   render: function (manage) {
