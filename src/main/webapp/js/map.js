@@ -14,7 +14,7 @@ MapPortletRouter= Backbone.Router.extend({
   
   home : function () {
     console.log("ROUTE: home");
-    var view= new MapView();
+    //var view= new MapView();
     //layout.setView( '#map-search-container', new MapView() );
     layout.setView( '#map-search-container', new MapSearchContainerView() );
     

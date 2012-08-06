@@ -1,17 +1,15 @@
 MapView= Backbone.View.extend({
   template: '#N_map-view-template',
   className: 'portlet',
-  /*
+
   initialize: function () {
-    console.log('MapView.initialize()', $('#N_map-template'));
-    //_.bindAll(this, 'render');
-    this.template= _.template( $('#N_map-view-template').html() );
+    console.log('MapView.initilize()');
+    console.log(this.collection);
+    //this.collection= collection;
   },
-  */
+
   render: function (manage) {
-    //$(this.el).html( this.template({}) );
-    var r= manage(this).render();
-    console.log('MapView.render()', r );
-    return r;
+    console.log('MapView.render()', this.$el);
+    return manage(this).render();
   }
 });

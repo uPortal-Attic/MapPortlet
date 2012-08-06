@@ -9,6 +9,7 @@ MapSearchContainerView= Backbone.View.extend({
   initialize : function () {
     this.locations= new MapLocations();
     this.locations.fetch();
+    this.matchingMapLocations= new MatchingMapLocations();
   },
   
   onSubmitSearch : function (e){
@@ -23,7 +24,20 @@ MapSearchContainerView= Backbone.View.extend({
     this.matchingLocations= [];
     if( query ) {
       query= query.toLowerCase(query);
-      console.log('locations:', this.locations);
+      matchingLocations= _.filter( this.locations.models, function (location) {
+        return location.get('searchText') && location.get('searchText').indexOf(query) > -1;
+      });
+      console.log('3. matching locations:', matchingLocations.length);
+      //fire
     }
+  },
+
+  render : function (manage) {
+    console.log('MapSearchContainerView.render()');
+    //console.log( $('#map-container', this.$el) );
+    //console.log(this.locations);
+    this.setView( '#map-container', new MapView({collection:this.matchingMapLocations}));
+    r=manage(this).render();
+    return r;
   }
 });
