@@ -471,6 +471,9 @@ console.log('4. onShowResults()')
                 that.refreshView = function() {
 console.log('5. refreshView()');
                     // clear out any markers currently on the map
+                  console.log('THAT', that);
+                  console.log('THAT MAP', that.map);
+                  console.log('THAT MAP CLEAR', that.map.clear);
                     that.map.clear('markers');
                     var bounds= new google.maps.LatLngBounds();
                   
@@ -510,9 +513,11 @@ console.log('5. refreshView()');
     
     
                 };
-                
+console.log('MAPOPTIONS CALLBACK', that.options.mapOptions);
+              // "callback" is part of the jQuery.ui.map API
                 // initialize map and set to default location
                 that.options.mapOptions.callback = function () {
+//return;
                     that.map = this;
                     that.currentLocation = new google.maps.LatLng(that.options.defaultCoordinates.latitude, that.options.defaultCoordinates.longitude);
                     that.map.option('center', that.currentLocation);

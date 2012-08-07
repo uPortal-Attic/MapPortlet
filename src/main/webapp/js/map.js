@@ -1,3 +1,7 @@
+if( ! window.google ) {
+  throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
+}
+
 window.mapPortlet= {};
 
 layout= new Backbone.LayoutManager({
@@ -21,6 +25,7 @@ MapPortletRouter= Backbone.Router.extend({
           matchingMapLocations : matchingMapLocations
         }),
         mapView= new MapView({
+          mapLocations : mapLocations,
           matchingMapLocations : matchingMapLocations
         });
     //matchingMapLocations.on('reset', function () {console.log("\n\nSUCKERS!\n")});

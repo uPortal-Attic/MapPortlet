@@ -24,12 +24,14 @@ MapSearchContainerView= Backbone.View.extend({
   search : function (query) {
     console.log('2. search() query:', query);
     if( query ) {
+      this.matchingMapLocations.defaultLocation= this.mapLocations.defaultLocation;
       query= query.toLowerCase(query);
       matches= _.filter( this.mapLocations.models, function (location) {
         return location.get('searchText') && location.get('searchText').indexOf(query) > -1;
       });
       this.matchingMapLocations.reset(matches);
       console.log('3. matching locations:', this.matchingMapLocations.length);
+      console.log('matchingMapLocations:', this.matchingMapLocations);
       //fire
     }
   },

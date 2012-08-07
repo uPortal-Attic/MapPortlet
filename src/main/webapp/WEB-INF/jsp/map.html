@@ -22,6 +22,8 @@
   <!-- / FROM SKIN.XML -->
 
   <!-- APP -->
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  
   <script type="text/javascript" src="../../js/map-location.js"></script>
   <script type="text/javascript" src="../../js/map-locations.js"></script>
   <script type="text/javascript" src="../../js/matching-map-locations.js"></script>
@@ -49,15 +51,13 @@
 
 
 
-
-                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+                <!--script src="http://maps.google.com/maps/api/js?sensor=true"></script-->
                 <script type="text/javascript">
                   var N_ = N_ || {};
                   //N_.jQuery = jQuery.noConflict(true);
                   N_.fluid = fluid;
                   fluid = null;
                   fluid_1_4 = null;
-
 /*
                   console.log(map)
                   if (!map.initialized) map.init(N_.jQuery, N_.fluid, google);
@@ -107,7 +107,9 @@
                   <div id="map-container"></div>
                 </script>
                 <script type="template" id="N_map-view-template">
-                  <ul><li>:)</li></ul>
+                  <div class="portlet-content" data-role="content">
+                    <div class="map-display" style="width: 100%; height: 500px;"></div>
+                  </div>
                 </script>
                 <!-- / TEMPLATES -->
                 
