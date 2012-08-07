@@ -22,8 +22,6 @@ var map = map || {};
 if (!map.init) {
     map.init = function ($, fluid, google) {
       
-      console.log(google);
-        
         fluid.defaults("map.CampusMap", {
             gradeNames: ["fluid.viewComponent", "autoInit"],
             defaultCoordinates: {
@@ -244,7 +242,7 @@ console.log('2. search() query:', query);
                         }
                         
                     }
-console.log("3. matching locations:", that.model.matchingLocations);
+console.log("3. matching locations");
                     that.events.onUpdateSearchResults.fire();
                      
                 };
@@ -471,9 +469,6 @@ console.log('4. onShowResults()')
                 that.refreshView = function() {
 console.log('5. refreshView()');
                     // clear out any markers currently on the map
-                  console.log('THAT', that);
-                  console.log('THAT MAP', that.map);
-                  console.log('THAT MAP CLEAR', that.map.clear);
                     that.map.clear('markers');
                     var bounds= new google.maps.LatLngBounds();
                   
@@ -496,6 +491,7 @@ console.log('5. refreshView()');
                       point= new google.maps.LatLng(location.latitude, location.longitude);
                       marker = that.map.addMarker({ 'position': point });
                       marker.click(function() {
+console.log('6. click marker')
                         var link = $(document.createElement("a")).attr("target", "javascript:;")
                           .text(location.name + " (" + location.abbreviation + ")")
                           .click(function () { that.model.location = location; that.events.onLocationSelect.fire(location); });
@@ -513,11 +509,9 @@ console.log('5. refreshView()');
     
     
                 };
-console.log('MAPOPTIONS CALLBACK', that.options.mapOptions);
               // "callback" is part of the jQuery.ui.map API
                 // initialize map and set to default location
                 that.options.mapOptions.callback = function () {
-//return;
                     that.map = this;
                     that.currentLocation = new google.maps.LatLng(that.options.defaultCoordinates.latitude, that.options.defaultCoordinates.longitude);
                     that.map.option('center', that.currentLocation);
@@ -555,8 +549,8 @@ console.log('MAPOPTIONS CALLBACK', that.options.mapOptions);
             },
             listeners: {
                 onShowLocation: function(that) {
-                    console.log(that.model.location);
-                    console.log($(that.options.selectors.locationDescription));
+                    console.log('7. show location');
+                    // calling fluid.refreshView(), not MapView.refreshView() 
                     that.refreshView();
                     that.container.show();
                 }

@@ -15,13 +15,14 @@ MatchingMapLocations= Backbone.Collection.extend({
   },
   
   calculateDistances : function () {
-    var collection= this, coords, dist;
+    var coords, dist, collection= this;
     this.models.forEach( function (model) {
       coords= model.getCoords();
       dist= coords ? collection.calculateDistance( collection.defaultLocation, model.getCoords() ) : -1;
       model.set('distance', dist );
-      console.log('... calc dist', model.get('distance') );
     });
+    // Resort now that location is defined. This MUST be silent, or you will cause an infinite loop.
+    this.sort({silent:true});
   },
   
   calculateDistance : function (coord1, coord2) {

@@ -45,35 +45,32 @@ MapView= Backbone.View.extend({
   },
 
   drawMap : function () {
+    var self= this;
     console.log('5. refreshView()');
     console.log('MapView.drawMap()');
     this.createMap();
     //this.$map.gmap('clear','markers');
     this.map.clear('markers');
     var bounds= new window.google.maps.LatLngBounds();
-    /*
     _.each( this.matchingMapLocations.models, function (loc) {
-      //console.log(':)');
+      var point, marker;
+      console.log( 'MARKER', loc.get('distance') );
+      if( loc.get('distance') > -1 ) {
+        point= new window.google.maps.LatLng( loc.get('latitude'), loc.get('longitude') );
+        marker= self.map.addMarker({ position : point });
+        marker.click( function () {
+          var $link= $('<a/>')
+            .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
+            .bind( 'click', function (e) {
+              // TODO: RENDER LOCATION DETAIL VIEW
+            });
+          self.map.openInfoWindow({ content : $link.get(0) }, this);
+        });
+        self.map.addBounds(point);
+      }
+      
     });
-    */
-    /*
-     TODO: initialize map
-     map.clear('markers');
-     bounds= new window.google.maps.LatLngBounds();
-     _.each( this.matchingMapLocations.models, function (loc) {
-     // this goes in the model
-     loc.distance = getDistance(
-     {
-     latitude : map.option('center').lat(),
-     longitude : that.map.option('center').lng()
-     }, 
-     { 
-     latitude: location.latitude,
-     longitude: location.longitude 
-     },
-     );
-
-     */
+    
   },
   
   render: function (manage) {
