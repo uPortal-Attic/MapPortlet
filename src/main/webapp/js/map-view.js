@@ -23,7 +23,7 @@ MapView= Backbone.View.extend({
       this.$map = this.$el.find('.map-display').gmap({
         center:latLng,
 
-        zoom: 18,//${ zoom },
+        zoom: 12,//${ zoom },
         mapTypeControl: true,//${ mapTypeControl },
         mapTypeControlOptions: {
           style: window.google.maps.MapTypeControlStyle.DEFAULT
@@ -50,12 +50,12 @@ MapView= Backbone.View.extend({
     console.log('5. refreshView()');
     console.log('MapView.drawMap()');
     this.createMap();
-    //this.$map.gmap('clear','markers');
     this.map.clear('markers');
-    var bounds= new window.google.maps.LatLngBounds();
+    var bounds= new window.google.maps.LatLngBounds(),
+        point,
+        pointCount= 0;
     _.each( this.matchingMapLocations.models, function (loc) {
-      var point, marker;
-      console.log( 'MARKER', loc.get('distance') );
+      var marker;
       if( loc.get('distance') > -1 ) {
         point= new window.google.maps.LatLng( loc.get('latitude'), loc.get('longitude') );
         marker= self.map.addMarker({ position : point });
@@ -65,11 +65,16 @@ MapView= Backbone.View.extend({
             .bind( 'click', function (e) { console.log(loc.toJSON());self.clickLocation(loc); });
           self.map.openInfoWindow({ content : $link.get(0) }, this);
         });
+        console.log('+drawMap() addBounds point:', point);
         self.map.addBounds(point);
+        pointCount += 1;
       }
-      
     });
-    
+    if( pointCount == 1 ) {
+      self.map.option('center', point);
+      self.map.option('zoom', 17);
+    }
+      
   },
 
   clickLocation : function (location) {

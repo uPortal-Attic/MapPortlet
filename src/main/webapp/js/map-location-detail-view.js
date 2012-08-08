@@ -9,7 +9,7 @@ MapLocationDetailView= Backbone.View.extend({
   },
   
   initialize : function (options) {
-    console.log('+MapLocationDetailView.initialize()');
+    console.log('MapLocationDetailView.initialize()');
     this.matchingMapLocations= options.matchingMapLocations;
     this.model.on('change', this.render, this);
   },
@@ -24,7 +24,7 @@ MapLocationDetailView= Backbone.View.extend({
   },
   
   showLocationMap : function () {
-    console.log('+MapLocationDetailView.showLocationMap() model:', this.model);
+    console.log('MapLocationDetailView.showLocationMap() model:', this.model);
     this.matchingMapLocations.reset(this.model);
     this.matchingMapLocations.trigger('one');
   },

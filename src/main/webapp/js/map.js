@@ -40,19 +40,21 @@ MapPortletRouter= Backbone.Router.extend({
         });
     
     /* LISTENERS */
-    matchingMapLocations.on('select', function (location) {
-      console.log('matchingMapLocations.on() select');
-      mapLocationDetailView.model.set(location.toJSON());
-      mapLocationDetailView.$el.show();
-      mapSearchContainerView.$el.hide();
-      mapView.$el.hide();
-      console.log(layout);
-    }).on('one', function () {
-      console.log('matchingMapLocations.on() one');
+    matchingMapLocations
+      .on('select', function (location) {
+        console.log('matchingMapLocations.on() select');
+        mapLocationDetailView.model.set(location.toJSON());
+        mapLocationDetailView.$el.show();
+        mapSearchContainerView.$el.hide();
+        mapView.$el.hide();
+        console.log(layout);
+      })
+      .on('one', function () {
+        console.log('matchingMapLocations.on() one');
         mapLocationDetailView.$el.hide();
         mapSearchContainerView.$el.show();
         mapView.$el.show();
-    });
+      });
     
     mapLocationDetailView.on('returnToSearchResults', function () {
       mapLocationDetailView.$el.hide();

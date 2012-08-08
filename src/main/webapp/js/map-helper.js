@@ -234,8 +234,6 @@ console.log('2. search() query:', query);
                         query = query.toLowerCase();
                         if (query) {
                             $(that.model.locations).each(function (idx, location) {
-//console.log( "finalInitFunction() location:", location );
-                              //if( ! location.searchText ) return;
                                 if (location.searchText.indexOf(query) >= 0) {
                                     that.model.matchingLocations.push(location);
                                 }
@@ -250,7 +248,6 @@ console.log("3. matching locations");
 
                 $(that.options.selectors.mapSearchForm).live('submit', function () {
                   console.log('1. form submit');
-                  console.log('search() is', that.search)
                     that.search($(that.locate("mapSearchInput")).val()); 
                     return false; 
                 });
@@ -526,6 +523,7 @@ console.log('6. click marker')
 //                        }
 //                    });   
                 };
+                console.log('DO GMAP');
                 that.locate("mapDisplay").gmap(that.options.mapOptions);
             }
         });
