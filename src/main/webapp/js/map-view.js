@@ -8,6 +8,7 @@ MapView= Backbone.View.extend({
     this.mapLocations.on('reset', this.createMap, this);
     this.matchingMapLocations= options.matchingMapLocations;
     this.matchingMapLocations.on('reset', this.drawMap, this);
+    this.router= options.router;
   },
   
   createMap : function () {
@@ -61,9 +62,7 @@ MapView= Backbone.View.extend({
         marker.click( function () {
           var $link= $('<a/>')
             .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
-            .bind( 'click', function (e) {
-              // TODO: RENDER LOCATION DETAIL VIEW
-            });
+            .bind( 'click', function (e) { self.clickLocation(loc); });
           self.map.openInfoWindow({ content : $link.get(0) }, this);
         });
         self.map.addBounds(point);
@@ -71,6 +70,12 @@ MapView= Backbone.View.extend({
       
     });
     
+  },
+
+  clickLocation : function (location) {
+    console.log('MapView.clickLocation() this:', this);
+    this.router.navigate('location/' + location.get('id') );
+    this.matchingMapLocations.trigger('select', location);
   },
   
   render: function (manage) {
