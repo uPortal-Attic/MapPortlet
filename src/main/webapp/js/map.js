@@ -16,11 +16,14 @@ MapPortletRouter= Backbone.Router.extend({
     '': 'home',
     //'map.html': 'home',
     //'home': 'home',
-    'location/:id' : 'locationDetail'
+    //'location/:id' : 'locationDetail'
+    'location/:id' : 'home' // temporary,
+    // location/:id/map : 'locationMap'
   },
   
   home : function () {
     console.log("ROUTE: home");
+    console.log(layout);
     var mapLocations= new MapLocations(),
         matchingMapLocations= new MatchingMapLocations(),
         mapSearchContainerView= new MapSearchContainerView({
@@ -32,19 +35,38 @@ MapPortletRouter= Backbone.Router.extend({
           matchingMapLocations : matchingMapLocations,
           router : this
         }),
-        mapLocationDetailView= new MapLocationDetailView();
-    //matchingMapLocations.on('reset', function () {console.log("\n\nSUCKERS!\n")});
+        mapLocationDetailView= new MapLocationDetailView({
+          matchingMapLocations : matchingMapLocations
+        });
     
+    /* LISTENERS */
     matchingMapLocations.on('select', function (location) {
-      console.log('matchingMapLocations.on() args:', arguments);
-      mapLocationDetailView.model= location;
-      mapLocationDetailView.render();
+      console.log('matchingMapLocations.on() select');
+      mapLocationDetailView.model.set(location.toJSON());
+      mapLocationDetailView.$el.show();
+      mapSearchContainerView.$el.hide();
+      mapView.$el.hide();
+      console.log(layout);
+    }).on('one', function () {
+      console.log('matchingMapLocations.on() one');
+        mapLocationDetailView.$el.hide();
+        mapSearchContainerView.$el.show();
+        mapView.$el.show();
     });
     
-    layout.setView( '#map-search-container', mapSearchContainerView );
-    layout.setView( '#map-container', mapView );
-    layout.setView( '#map-location-detail', mapLocationDetailView );
+    mapLocationDetailView.on('returnToSearchResults', function () {
+      mapLocationDetailView.$el.hide();
+      mapSearchContainerView.$el.show();
+      mapView.$el.show();
+    });
+    
+    layout.setViews( {
+      '#map-search-container' : mapSearchContainerView,
+      '#map-container' : mapView
+    });
     layout.render();
+    // DON'T RENDER YET
+    layout.setViews({ '#map-location-detail' : mapLocationDetailView });
   },
   
   locationDetail : function (id) {

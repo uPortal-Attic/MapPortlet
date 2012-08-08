@@ -62,7 +62,7 @@ MapView= Backbone.View.extend({
         marker.click( function () {
           var $link= $('<a/>')
             .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
-            .bind( 'click', function (e) { self.clickLocation(loc); });
+            .bind( 'click', function (e) { console.log(loc.toJSON());self.clickLocation(loc); });
           self.map.openInfoWindow({ content : $link.get(0) }, this);
         });
         self.map.addBounds(point);
@@ -78,12 +78,13 @@ MapView= Backbone.View.extend({
     this.matchingMapLocations.trigger('select', location);
   },
   
+  hide : function () {
+    this.$el.hide();
+  },
+  
   render: function (manage) {
     console.log('MapView.render()');
-    r= manage(this).render();
-    
-    
-    return r;
+    return manage(this).render();
   }
   
 });

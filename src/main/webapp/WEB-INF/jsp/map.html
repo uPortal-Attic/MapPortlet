@@ -177,24 +177,47 @@
                     </div>
                   </div>
 
-                  <div class="map-location-detail portlet" style="display:none">
 
+
+
+<!--
+"latitude":41.3117073
+"longitude":-72.9255341
+"name":"Commons"
+"abbreviation":"UC"
+"address":"168 Grove Street New Haven
+ CT 06511"
+"description":null
+"img":"http://business.yale.edu/map/thumbnail/UC.jpg"
+"searchText":"commons~uc~"
+"searchKeys":[]
+"categories":["bookstore"
+"dorm"]
+"campuses":["Main"]}
+-->
+
+                  <!--div class="map-location-detail portlet" style="display:none"-->
+                  <script type="template" id="map-location-detail-template">
                     <div data-role="header" class="titlebar portlet-titlebar search-back-div">
                       <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
-                      <h2 class="map-location-name">Location</h2>
+                      <h2 class="map-location-name"><%= location.name %></h2>
                     </div>
 
                     <div class="portlet">
                       <div class="portlet-content" data-role="content">
-                        <h3 class="map-location-name"></h3>
-                        <p class="map-location-description"></p>
-                        <p class="map-location-address"></p>
-                        <p><a class="map-location-directions-link" href="javascript:;">Get Directions</a>
+                        <h3 class="map-location-name"><%= location.name %></h3>
+                        <p class="map-location-description"><%= location.description != null ? location.description : '' %></p>
+                        <p class="map-location-address"><%= location.address %></p>
+                        <p>
+                          <a href="http://maps.google.com?q=<%=encodeURI( location.address ? location.address : location.latitude + ',' + location.longitude )%>" class="map-location-directions-link" target="javascript:;">Directions</a>
                         <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
-                        <p><img class="map-location-image"/></p>
+                        <% if( location.img ) { %>
+                          <p><img class="map-location-image" src="<%= location.img %>"/></p>
+                        <% } %>
                       </div>
                     </div>
-                  </div>
+                  </script>
+                  <!--/div-->
 
                   <div class="map-container">
                     <div class="portlet-content" data-role="content">

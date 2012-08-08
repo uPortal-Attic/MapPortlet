@@ -93,6 +93,7 @@ if (!map.init) {
                     that.locate("categoryDetailContainer").hide();
                 },
                 showBrowse: function(that) {
+                  // go from location detail to search results
                     that.model.lastView = 'browse';
                     that.locate("searchContainer").hide();
                     that.locate("searchResultsContainer").hide();
@@ -456,6 +457,7 @@ console.log('4. onShowResults()')
                     that.refreshView();
                 },
                 onShowLocation: function(that) {
+console.log('9. onShowLocation. set matchingLocations to equal one location')
                     that.model.matchingLocations = [ that.model.location ];
                     that.refreshView();
                 }
@@ -574,7 +576,8 @@ console.log('6. click marker')
                     }
                 });
                 that.locate("mapLink").live("click", function () {
-                    that.container.hide();
+                  console.log('8. click map link');
+                    //that.container.hide();
                     that.events.onLocationMapView.fire();
                 });
 
