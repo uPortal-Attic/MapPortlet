@@ -3,18 +3,22 @@ MapSearchContainerView= Backbone.View.extend({
   className: 'map-search-container',
   
   events : {
-    'click input[type=submit]' : 'onSubmitSearch'
+    'click a.map-browse-link' : 'clickBrowse',
+    'click input[type=submit]' : 'submitSearch'
   },
   
   initialize : function (options) {
     this.mapLocations= options.mapLocations;
     this.mapLocations.fetch();
     this.matchingMapLocations= options.matchingMapLocations;
-    
-    //this.matchingMapLocations.on('reset', function () {console.log("\n\nSUCKERS!\n")});
   },
   
-  onSubmitSearch : function (e){
+  clickBrowse : function (e) {
+    console.log('MapSearchContainerView.clickBrowse()');
+    this.trigger('clickBrowse');
+  },
+  
+  submitSearch : function (e){
     // do search
     var ff= $(e.target).closest('form').get(0).search;
     console.log('1. form submit.');
@@ -31,17 +35,7 @@ MapSearchContainerView= Backbone.View.extend({
       });
       this.matchingMapLocations.reset(matches);
       console.log('3. matching locations:', this.matchingMapLocations.length);
-      console.log('matchingMapLocations:', this.matchingMapLocations);
-      //fire
     }
-  },
-
-  render : function (manage) {
-    console.log('MapSearchContainerView.render()');
-    //console.log( $('#map-container', this.$el) );
-    //console.log(this.mapLocations);
-    //this.setView( '#map-container', new MapView({collection:this.matchingMapLocations}));
-    r=manage(this).render();
-    return r;
   }
+  
 });

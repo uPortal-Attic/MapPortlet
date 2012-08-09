@@ -17,13 +17,13 @@ MapPortletRouter= Backbone.Router.extend({
     //'map.html': 'home',
     //'home': 'home',
     //'location/:id' : 'locationDetail'
-    'location/:id' : 'home' // temporary,
+    'location/:id' : 'home', // temporary,
     // location/:id/map : 'locationMap'
+    'browse' : 'browse'
   },
   
   home : function () {
     console.log("ROUTE: home");
-    console.log(layout);
     var mapLocations= new MapLocations(),
         matchingMapLocations= new MatchingMapLocations(),
         mapSearchContainerView= new MapSearchContainerView({
@@ -62,6 +62,12 @@ MapPortletRouter= Backbone.Router.extend({
       mapView.$el.show();
     });
     
+    mapSearchContainerView.on('clickBrowse', function () {
+      console.log('+SHOW BROWSE');
+      this.navigate('browse');
+      this.browse();
+    }, this);
+    
     layout.setViews( {
       '#map-search-container' : mapSearchContainerView,
       '#map-container' : mapView
@@ -69,10 +75,22 @@ MapPortletRouter= Backbone.Router.extend({
     layout.render();
     // DON'T RENDER YET
     layout.setViews({ '#map-location-detail' : mapLocationDetailView });
+    mapLocationDetailView.$el.hide();
   },
   
   locationDetail : function (id) {
     console.log('\n***\nTODO: Load from url. How is this different than home()?\n***\n\n\n');
+  },
+  
+  browse : function () {
+    console.log('+ROUTE: browse');
+    console.log('layout.getViews()', layout.getViews());
+    var mapLocations= new MapLocations();
+        mapCategoriesView= new MapCategoriesView({
+          mapLocations : mapLocations
+        });
+    layout.setView( '#map-categories', mapCategoriesView );
+    layout.render();
   }
   
 });

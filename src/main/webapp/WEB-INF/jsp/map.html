@@ -31,6 +31,7 @@
   <script type="text/javascript" src="../../js/map-view.js"></script>
   <script type="text/javascript" src="../../js/map-search-container-view.js"></script>
   <script type="text/javascript" src="../../js/map-location-detail-view.js"></script>
+  <script type="text/javascript" src="../../js/map-categories-view.js"></script>
   <script type="text/javascript" src="../../js/map.js"></script>
   
   <link rel="stylesheet" href="../../css/uPortal.css"/>
@@ -144,20 +145,23 @@
                     </div>
                   </script>
 
-                  <div class="map-categories" style="display:none">
+                  <!--div class="map-categories" style="display:none"-->
+                  <script type="template" id="map-categories-template">
                     <div data-role="header" class="titlebar portlet-titlebar">
                       <h2>Browse</h2>
                       <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search">Search</a>
                     </div>
-
                     <div class="portlet-content" data-role="content">
                       <ul data-role="listview">
-                        <li class="map-category">
-                          <a href="javascript:;" class="map-category-link">Category Name</a>
-                        </li>
+                        <% _.each(categories, function (i, cat) { %>
+                          <li class="map-category">
+                            <a href="javascript:;" class="map-category-link"><%= cat %></a>
+                          </li>
+                        <% }); %>
                       </ul>
                     </div>
-                  </div>
+                  </script>
+                  <!--/div-->
 
                   <div class="map-category-detail" style="display:none">
 
