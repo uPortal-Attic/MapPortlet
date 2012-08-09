@@ -27,6 +27,7 @@ MapSearchContainerView= Backbone.View.extend({
   
   search : function (query) {
     console.log('2. search() query:', query);
+    var matches;
     if( query ) {
       this.matchingMapLocations.defaultLocation= this.mapLocations.defaultLocation;
       query= query.toLowerCase(query);
@@ -35,6 +36,18 @@ MapSearchContainerView= Backbone.View.extend({
       });
       this.matchingMapLocations.reset(matches);
       console.log('3. matching locations:', this.matchingMapLocations.length);
+    }
+  },
+  
+  filterByCategory : function (category) {
+    console.log('MapSearchContainerView.filterByCategory() cat:', category);
+    var matches;
+    if( category ) {
+      matches= _.filter( this.mapLocations.models, function (location) {
+        return location.get('categories') && _.indexOf( location.get('categories'), category ) > -1;
+      });
+      this.matchingMapLocations.reset(matches);
+      console.log('reset with '+matches.length+' locations.');
     }
   }
   

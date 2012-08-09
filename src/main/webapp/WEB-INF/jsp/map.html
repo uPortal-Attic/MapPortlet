@@ -155,7 +155,7 @@
                       <ul data-role="listview">
                         <% _.each(categories, function (i, cat) { %>
                           <li class="map-category">
-                            <a href="javascript:;" class="map-category-link"><%= cat %></a>
+                            <a href="javascript:;" class="map-category-link" data-category='<%=cat%>'><%= cat %></a>
                           </li>
                         <% }); %>
                       </ul>

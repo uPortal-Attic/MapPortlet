@@ -3,10 +3,14 @@ MapCategoriesView= Backbone.View.extend({
   className : 'map-categories',
   categories : {},
   
+  events : {
+    'click a.map-category-link' : 'clickCategory'
+  },
+  
   initialize : function (options) {
+    var self= this;
     this.mapLocations= options.mapLocations;
     this.mapLocations.on( 'reset', this.updateMapLocationCatgories, this );
-    var self= this;
     this.mapLocations.fetch().then( function (xhr) { self.updateMapLocationCategories() } );
   },
   
@@ -23,6 +27,11 @@ MapCategoriesView= Backbone.View.extend({
       }
     });
     this.render();
+  },
+  
+  clickCategory : function (e) {
+    console.log('MapCategoriesView.clickCategory()', $(e.target).data('category'));
+    this.trigger('clickCategory', $(e.target).data('category') );
   },
   
   serialize : function () {
