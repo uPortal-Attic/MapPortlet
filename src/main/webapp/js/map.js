@@ -21,13 +21,37 @@ MapPortletRouter= Backbone.Router.extend({
     'browse/:category' : 'category'
   },
   
+  /* showOnly()
+   * Hide all views except for the ones passed as a parameter.
+   * @param views array - array of view objects that are to be shown
+   * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
+   */
+  showOnly : function (views) {
+    var allViews= [mapSearchContainerView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
+    if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
+    _.each( allViews, function (v) {
+      v.$el[ _.indexOf(views, v) == -1 ? 'hide' : 'show' ]();
+    });
+    mapView.$el.fadeTo(0, _.indexOf(views, mapView) == -1 ? 0 : 1 );
+  },
+  
   home : function () {
     if(_.flatten(layout.views).length == 0 ) this.doViews();
     console.log('+ (home) mapSearchContainerView', mapSearchContainerView);
-    mapCategoriesView.$el.hide();
-    mapLocationDetailView.$el.hide();
-    mapSearchContainerView.$el.show();
-    mapView.$el.fadeTo(0,1);
+    this.showOnly([mapSearchContainerView,mapView]);
+  },
+  
+  searchResults : function (q) {
+    console.log('ROUTE: search', q);
+    reloadSearchResults= function () { this.searchResults(q); };
+    if(_.flatten(layout.views).length == 0 ) {
+      this.doViews();
+      mapLocations.on('reset', reloadSearchResults, this);
+      return;
+    }
+    mapLocations.off('reset', reloadSearchResults);
+    this.showOnly([mapSearchContainerView,mapView]);
+    mapSearchContainerView.search(q);
   },
 
   locationDetail : function (id) {
@@ -47,12 +71,9 @@ MapPortletRouter= Backbone.Router.extend({
       mapLocations.on('reset', this.browse, this)
       return;
     }
+    this.showOnly([mapCategoriesView]);
     mapLocations.off('reset', this.browse);
     
-    mapLocationDetailView.$el.hide();
-    mapSearchContainerView.$el.hide();
-    mapView.$el.fadeTo(0,0);
-    mapCategoriesView.$el.show();
   },
 
   category : function (category) {
@@ -61,17 +82,11 @@ MapPortletRouter= Backbone.Router.extend({
     if(_.flatten(layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', reloadCategory, this);
-      mapLocations.on('reset', function () {console.log('TEST RESET');}, this);
       return;
     }
     mapLocations.off('reset', reloadCategory);
+    this.showOnly([mapView,mapCategoryDetailView]);
     mapSearchContainerView.filterByCategory(category);
-    
-    mapSearchContainerView.$el.hide();
-    mapView.$el.fadeTo(0,1);
-    mapLocationDetailView.$el.hide();
-    mapCategoriesView.$el.hide();
-    mapCategoryDetailView.$el.show();
   },
   
   
@@ -106,6 +121,8 @@ MapPortletRouter= Backbone.Router.extend({
       '#map-categories' : mapCategoriesView,
       '#map-category-detail' : mapCategoryDetailView
     });
+    // Hide all views
+    this.showOnly([]);
     layout.render();
     
     /* LISTENERS */
@@ -113,56 +130,34 @@ MapPortletRouter= Backbone.Router.extend({
       .on('select', function (location) {
         console.log('listener select');
         mapLocationDetailView.model.set(location.toJSON());
-        mapLocationDetailView.$el.show();
-        mapSearchContainerView.$el.hide();
-        mapView.$el.fadeTo(0,1);
-        mapCategoriesView.$el.hide();
-        mapCategoryDetailView.$el.hide();
-      })
+        this.showOnly([mapLocationDetailView]);
+      }, this)
       .on('one', function () {
         console.log('listener one');
         this.navigate('');
-        // TODO: DUPLICATED CODE
-        mapLocationDetailView.$el.hide();
-        mapSearchContainerView.$el.show();
-        mapView.$el.fadeTo(0,1);
-        mapCategoriesView.$el.hide();
-        mapCategoryDetailView.$el.hide();
-      })
+        this.showOnly([mapSearchContainerView,mapView]);
+      }, this)
       .on('reset', function () {
         console.log('+listener reset');
         //mapLocationDetailView.trigger('returnToSearchResults');
       }, this);
-    ;
     
     mapLocationDetailView
       .on('returnToSearchResults', function () {
         console.log('listener mapLocationDetailView() returnToSearchResults');
-        // TODO: DUPLICATED CODE
         this.navigate('');
-        mapLocationDetailView.$el.hide();
-        mapSearchContainerView.$el.show();
-        mapView.$el.fadeTo(0,1);
-        mapCategoriesView.$el.hide();
-        mapCategoryDetailView.$el.hide();
+        this.home();
       }, this);
     
     mapSearchContainerView
       .on('clickBrowse', function () {
         console.log('listener clickBrowse');
         this.navigate('browse');
-        //this.browse();
-        mapLocationDetailView.$el.hide();
-        mapSearchContainerView.$el.hide();
-        mapView.$el.fadeTo(0,0);
-        mapCategoriesView.$el.show();
-        mapCategoryDetailView.$el.hide();
+        this.browse();
       }, this)
       .on('submitSearch', function (query) { 
         this.navigate('search/' + encodeURI(query));
-      }, this)
-      .on('filterByCategory', function () {
-        console.log('DEPRECATED... now to filter by category :)');
+        this.searchResults(query);
       }, this);
     
     mapCategoriesView
@@ -175,12 +170,13 @@ MapPortletRouter= Backbone.Router.extend({
         console.log('+listener mapCategoriesView returnToSearchResults');
         this.navigate('');
         this.home();
-        /*
-        mapLocationDetailView.$el.hide();
-        mapSearchContainerView.$el.show();
-        mapView.$el.fadeTo(0,1);
-        mapCategoriesView.$el.hide();
-        */
+      }, this);
+    
+    mapCategoryDetailView
+      .on('clickBack', function () {
+        console.log('listener mapCategoryDetailView() clickBack');
+        this.navigate('browse');
+        this.browse();
       }, this);
     /* / LISTENERS */
     

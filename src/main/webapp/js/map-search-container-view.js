@@ -23,7 +23,7 @@ MapSearchContainerView= Backbone.View.extend({
     var ff= $(e.target).closest('form').get(0).search;
     console.log('1. form submit.');
     this.trigger('submitSearch', ff.value);
-    this.search(ff.value);
+    //this.search(ff.value);
   },
   
   search : function (query) {
@@ -50,7 +50,6 @@ MapSearchContainerView= Backbone.View.extend({
       });
       this.matchingMapLocations.reset(matches);
       console.log('reset with '+matches.length+' locations.');
-      this.trigger('filterByCategory', category);
     }
   }
   

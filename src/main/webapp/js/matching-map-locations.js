@@ -6,10 +6,9 @@ MatchingMapLocations= Backbone.Collection.extend({
     this.on('reset', this.calculateDistances, this);
   },
   
-  /* 
-    comparator()
-    Always sort by distance. 
-  */
+  /* comparator()
+   * Always sort by distance. 
+   */
   comparator : function (model) {
     return model.get('distance');
   },
