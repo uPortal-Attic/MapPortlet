@@ -22,6 +22,7 @@ MapSearchContainerView= Backbone.View.extend({
     // do search
     var ff= $(e.target).closest('form').get(0).search;
     console.log('1. form submit.');
+    this.trigger('submitSearch', ff.value);
     this.search(ff.value);
   },
   
@@ -41,6 +42,7 @@ MapSearchContainerView= Backbone.View.extend({
   
   filterByCategory : function (category) {
     console.log('MapSearchContainerView.filterByCategory() cat:', category);
+    console.log('+MapSearchContainerView.filterByCategory() mapLocations:', this.mapLocations.length);
     var matches;
     if( category ) {
       matches= _.filter( this.mapLocations.models, function (location) {
@@ -48,6 +50,7 @@ MapSearchContainerView= Backbone.View.extend({
       });
       this.matchingMapLocations.reset(matches);
       console.log('reset with '+matches.length+' locations.');
+      this.trigger('filterByCategory', category);
     }
   }
   

@@ -3,7 +3,7 @@ if( ! window.google ) {
 }
 
 window.mapPortlet= {
-  mapLocations : new MapLocations()
+  //mapLocations : new MapLocations()
 };
 
 layout= new Backbone.LayoutManager({
@@ -14,50 +14,99 @@ layout= new Backbone.LayoutManager({
 MapPortletRouter= Backbone.Router.extend({
   routes: {
     '': 'home',
-    //'map.html': 'home',
-    //'home': 'home',
-    //'location/:id' : 'locationDetail'
-    'location/:id' : 'home', // temporary,
-    // location/:id/map : 'locationMap'
-    'browse' : 'browse'
+    'search/:query' : 'searchResults',
+    'location/:id' : 'locationDetail',
+    'location/:id/map' : 'locationMap',
+    'browse' : 'browse',
+    'browse/:category' : 'category'
   },
   
   home : function () {
-    this.doViews();
+    if(_.flatten(layout.views).length == 0 ) this.doViews();
     console.log('+ (home) mapSearchContainerView', mapSearchContainerView);
     mapCategoriesView.$el.hide();
     mapLocationDetailView.$el.hide();
     mapSearchContainerView.$el.show();
-    mapView.$el.show();
+    mapView.$el.fadeTo(0,1);
   },
+
+  locationDetail : function (id) {
+    console.log('ROUTE: locationDetail');
+    if(_.flatten(layout.views).length == 0 ) this.doViews();
+  },
+
+  locationMap : function (id) {
+    console.log('ROUTE: locationMap');
+    if(_.flatten(layout.views).length == 0 ) this.doViews();
+  },
+  
+  browse : function () {
+    console.log('ROUTE: browse');
+    if(_.flatten(layout.views).length == 0 ) {
+      this.doViews();
+      mapLocations.on('reset', this.browse, this)
+      return;
+    }
+    mapLocations.off('reset', this.browse);
+    
+    mapLocationDetailView.$el.hide();
+    mapSearchContainerView.$el.hide();
+    mapView.$el.fadeTo(0,0);
+    mapCategoriesView.$el.show();
+  },
+
+  category : function (category) {
+    console.log('ROUTE: category:', category);
+    reloadCategory= function () { this.category(category); };
+    if(_.flatten(layout.views).length == 0 ) {
+      this.doViews();
+      mapLocations.on('reset', reloadCategory, this);
+      mapLocations.on('reset', function () {console.log('TEST RESET');}, this);
+      return;
+    }
+    mapLocations.off('reset', reloadCategory);
+    mapSearchContainerView.filterByCategory(category);
+    
+    mapSearchContainerView.$el.hide();
+    mapView.$el.fadeTo(0,1);
+    mapLocationDetailView.$el.hide();
+    mapCategoriesView.$el.hide();
+    mapCategoryDetailView.$el.show();
+  },
+  
+  
+  
   doViews : function () {
-    console.log("ROUTE: home");
+    console.log("doViews()");
+    // collections
     mapLocations= new MapLocations();
-        matchingMapLocations= new MatchingMapLocations();
-        mapSearchContainerView= new MapSearchContainerView({
-          mapLocations : mapLocations,
-          matchingMapLocations : matchingMapLocations
-        });
-        mapView= new MapView({
-          mapLocations : mapLocations,
-          matchingMapLocations : matchingMapLocations,
-          router : this
-        });
-        mapLocationDetailView= new MapLocationDetailView({
-          matchingMapLocations : matchingMapLocations
-        });
-        mapCategoriesView= new MapCategoriesView({
-          mapLocations : mapLocations
-        });
+    matchingMapLocations= new MatchingMapLocations();
+    // views
+    mapSearchContainerView= new MapSearchContainerView({
+      mapLocations : mapLocations,
+      matchingMapLocations : matchingMapLocations
+    });
+    mapView= new MapView({
+      mapLocations : mapLocations,
+      matchingMapLocations : matchingMapLocations,
+      router : this
+    });
+    mapLocationDetailView= new MapLocationDetailView({
+      matchingMapLocations : matchingMapLocations
+    });
+    mapCategoriesView= new MapCategoriesView({
+      mapLocations : mapLocations
+    });
+    mapCategoryDetailView= new MapCategoryDetailView();
 
     layout.setViews( {
       '#map-search-container' : mapSearchContainerView,
       '#map-container' : mapView,
       '#map-location-detail' : mapLocationDetailView,
-      '#map-categories' : mapCategoriesView
+      '#map-categories' : mapCategoriesView,
+      '#map-category-detail' : mapCategoryDetailView
     });
     layout.render();
-    //mapLocationDetailView.$el.hide();
     
     /* LISTENERS */
     matchingMapLocations
@@ -66,60 +115,75 @@ MapPortletRouter= Backbone.Router.extend({
         mapLocationDetailView.model.set(location.toJSON());
         mapLocationDetailView.$el.show();
         mapSearchContainerView.$el.hide();
-        mapView.$el.hide();
+        mapView.$el.fadeTo(0,1);
         mapCategoriesView.$el.hide();
-        console.log(layout);
+        mapCategoryDetailView.$el.hide();
       })
       .on('one', function () {
         console.log('listener one');
+        this.navigate('');
+        // TODO: DUPLICATED CODE
         mapLocationDetailView.$el.hide();
         mapSearchContainerView.$el.show();
-        mapView.$el.show();
+        mapView.$el.fadeTo(0,1);
         mapCategoriesView.$el.hide();
+        mapCategoryDetailView.$el.hide();
       })
       .on('reset', function () {
-        console.log('listener reset');
-        mapLocationDetailView.trigger('returnToSearchResults');
+        console.log('+listener reset');
+        //mapLocationDetailView.trigger('returnToSearchResults');
       }, this);
     ;
     
-    mapLocationDetailView.on('returnToSearchResults', function () {
-      console.log('listener returnToSearchResults');
-      mapLocationDetailView.$el.hide();
-      mapSearchContainerView.$el.show();
-      mapView.$el.show();
-      mapCategoriesView.$el.hide();
-    });
+    mapLocationDetailView
+      .on('returnToSearchResults', function () {
+        console.log('listener mapLocationDetailView() returnToSearchResults');
+        // TODO: DUPLICATED CODE
+        this.navigate('');
+        mapLocationDetailView.$el.hide();
+        mapSearchContainerView.$el.show();
+        mapView.$el.fadeTo(0,1);
+        mapCategoriesView.$el.hide();
+        mapCategoryDetailView.$el.hide();
+      }, this);
     
-    mapSearchContainerView.on('clickBrowse', function () {
-      console.log('listener clickBrowse');
-      this.navigate('browse');
-      //this.browse();
-      mapLocationDetailView.$el.hide();
-      mapSearchContainerView.$el.hide();
-      mapView.$el.hide();
-      mapCategoriesView.$el.show();
-    }, this);
+    mapSearchContainerView
+      .on('clickBrowse', function () {
+        console.log('listener clickBrowse');
+        this.navigate('browse');
+        //this.browse();
+        mapLocationDetailView.$el.hide();
+        mapSearchContainerView.$el.hide();
+        mapView.$el.fadeTo(0,0);
+        mapCategoriesView.$el.show();
+        mapCategoryDetailView.$el.hide();
+      }, this)
+      .on('submitSearch', function (query) { 
+        this.navigate('search/' + encodeURI(query));
+      }, this)
+      .on('filterByCategory', function () {
+        console.log('DEPRECATED... now to filter by category :)');
+      }, this);
     
-    mapCategoriesView.on('clickCategory', function (category) {
-      console.log('+listener clickCategory');
-      mapSearchContainerView.filterByCategory(category);
-    }, this);
+    mapCategoriesView
+      .on('clickCategory', function (category) {
+        console.log('+listener clickCategory');
+        this.navigate('browse/' + encodeURI(category))
+        this.category(category);
+      }, this)
+      .on('returnToHome', function () {
+        console.log('+listener mapCategoriesView returnToSearchResults');
+        this.navigate('');
+        this.home();
+        /*
+        mapLocationDetailView.$el.hide();
+        mapSearchContainerView.$el.show();
+        mapView.$el.fadeTo(0,1);
+        mapCategoriesView.$el.hide();
+        */
+      }, this);
     /* / LISTENERS */
     
-  },
-  
-  locationDetail : function (id) {
-    console.log('\n***\nTODO: Load from url. How is this different than home()?\n***\n\n\n');
-  },
-  
-  browse : function () {
-    console.log('ROUTE: browse');
-    this.doViews();
-    mapLocationDetailView.$el.hide();
-    mapSearchContainerView.$el.hide();
-    mapView.$el.hide();
-    mapCategoriesView.$el.show();
   }
   
 });

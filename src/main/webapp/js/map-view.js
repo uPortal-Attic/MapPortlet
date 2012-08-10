@@ -65,7 +65,7 @@ MapView= Backbone.View.extend({
             .bind( 'click', function (e) { console.log(loc.toJSON());self.clickLocation(loc); });
           self.map.openInfoWindow({ content : $link.get(0) }, this);
         });
-        console.log('+drawMap() addBounds point:', point);
+        //console.log('drawMap() addBounds point:', point);
         self.map.addBounds(point);
         pointCount += 1;
       }
@@ -79,6 +79,7 @@ MapView= Backbone.View.extend({
 
   clickLocation : function (location) {
     console.log('MapView.clickLocation() this:', this);
+    // TODO: SHOULD NAVIGATE GO INTO MAP.JS? :
     this.router.navigate('location/' + location.get('id') );
     this.matchingMapLocations.trigger('select', location);
   },

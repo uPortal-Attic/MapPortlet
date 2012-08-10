@@ -32,6 +32,7 @@
   <script type="text/javascript" src="../../js/map-search-container-view.js"></script>
   <script type="text/javascript" src="../../js/map-location-detail-view.js"></script>
   <script type="text/javascript" src="../../js/map-categories-view.js"></script>
+  <script type="text/javascript" src="../../js/map-category-detail-view.js"></script>
   <script type="text/javascript" src="../../js/map.js"></script>
   
   <link rel="stylesheet" href="../../css/uPortal.css"/>
@@ -110,7 +111,7 @@
                 </script>
                 <script type="template" id="N_map-view-template">
                   <div class="portlet-content" data-role="content">
-                    <div class="map-display" style="width: 100%; height: 500px;"></div>
+                    <div class="map-display" style="width:500px/*100%*/; height: 500px;"></div>
                   </div>
                 </script>
                 <!-- / TEMPLATES -->
@@ -163,8 +164,9 @@
                   </script>
                   <!--/div-->
 
-                  <div class="map-category-detail" style="display:none">
-
+                  <!--div class="map-category-detail" style="display:none"-->
+                  <script type="template" id="map-category-detail-template">
+                    
                     <div data-role="header" class="titlebar portlet-titlebar search-back-div">
                       <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
                       <h2 class="map-category-name">Browse</h2>
@@ -179,7 +181,8 @@
                         </ul>
                       </div>
                     </div>
-                  </div>
+                  </script>
+                  <!--/div-->
 
 
 
