@@ -2,6 +2,10 @@ MapView= Backbone.View.extend({
   template: '#N_map-view-template',
   className: 'portlet',
 
+  events : {
+    'click .map-link' : 'clickLocation'
+  },
+  
   initialize: function (options) {
     console.log('MapView.initilize()');
     this.mapLocations= options.mapLocations.on('reset', this.createMap, this);
@@ -60,9 +64,9 @@ MapView= Backbone.View.extend({
         point= new window.google.maps.LatLng( loc.get('latitude'), loc.get('longitude') );
         marker= self.map.addMarker({ position : point });
         marker.click( function () {
-          var $link= $('<a/>')
+          var $link= $('<a class="map-link"/>')
             .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
-            .bind( 'click', function (e) { console.log(loc.toJSON());self.clickLocation(loc); });
+            .data('locationId', loc.get('id'));
           self.map.openInfoWindow({ content : $link.get(0) }, this);
         });
         //console.log('drawMap() addBounds point:', point);
@@ -77,11 +81,9 @@ MapView= Backbone.View.extend({
       
   },
 
-  clickLocation : function (location) {
-    console.log('MapView.clickLocation() this:', this);
-    // TODO: SHOULD NAVIGATE GO INTO MAP.JS? :
-    this.router.navigate('location/' + location.get('id') );
-    this.matchingMapLocations.trigger('select', location);
+  clickLocation : function (e) {
+    e.preventDefault();
+    this.trigger('clickLocation', $(e.target).data('locationId') );
   },
   
   hide : function () {

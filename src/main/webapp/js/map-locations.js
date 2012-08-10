@@ -27,6 +27,13 @@ MapLocations= Backbone.Collection.extend({
     this.categories= categories;
     console.log('++ categories', categories);
     return response.mapData.locations;
+  },
+  
+  findById : function (id) {
+    var id= parseInt(id, 10);
+    return this.find( function (model) {
+      return model.get('id') === id;
+    });
   }
   
 });

@@ -55,8 +55,17 @@ MapPortletRouter= Backbone.Router.extend({
   },
 
   locationDetail : function (id) {
+    var location, reloadLocationDetail= function () { this.locationDetail(id); };
     console.log('ROUTE: locationDetail');
-    if(_.flatten(layout.views).length == 0 ) this.doViews();
+    if(_.flatten(layout.views).length == 0 ) {
+      this.doViews();
+      mapLocations.on('reset', reloadLocationDetail, this);
+      return;
+    }
+    mapLocations.off('reset', reloadLocationDetail);
+    location= mapLocations.findById(id);
+    mapLocationDetailView.model.set(location.toJSON());
+    this.showOnly([mapLocationDetailView]);
   },
 
   locationMap : function (id) {
@@ -71,9 +80,8 @@ MapPortletRouter= Backbone.Router.extend({
       mapLocations.on('reset', this.browse, this)
       return;
     }
-    this.showOnly([mapCategoriesView]);
     mapLocations.off('reset', this.browse);
-    
+    this.showOnly([mapCategoriesView]);
   },
 
   category : function (category) {
@@ -126,12 +134,12 @@ MapPortletRouter= Backbone.Router.extend({
     layout.render();
     
     /* LISTENERS */
+    mapView
+      .on('clickLocation', function (id) {
+        this.navigate('location/'+id)
+        this.locationDetail( id );
+      }, this);
     matchingMapLocations
-      .on('select', function (location) {
-        console.log('listener select');
-        mapLocationDetailView.model.set(location.toJSON());
-        this.showOnly([mapLocationDetailView]);
-      }, this)
       .on('one', function () {
         console.log('listener one');
         this.navigate('');
@@ -163,7 +171,7 @@ MapPortletRouter= Backbone.Router.extend({
     mapCategoriesView
       .on('clickCategory', function (category) {
         console.log('+listener clickCategory');
-        this.navigate('browse/' + encodeURI(category))
+        this.navigate('browse/' + encodeURI(category));
         this.category(category);
       }, this)
       .on('returnToHome', function () {
