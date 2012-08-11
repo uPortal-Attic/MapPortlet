@@ -166,7 +166,6 @@
 
                   <!--div class="map-category-detail" style="display:none"-->
                   <script type="template" id="map-category-detail-template">
-                    
                     <div data-role="header" class="titlebar portlet-titlebar search-back-div">
                       <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
                       <h2 class="map-category-name">Browse</h2>
@@ -175,9 +174,11 @@
                     <div class="portlet">
                       <div class="portlet-content" data-role="content">
                         <ul data-role="listview">
-                          <li class="map-location">
-                            <a href="javascript:;" class="map-location-link">Location Name</a>
-                          </li>
+                          <% locations.each( function (location) { %>
+                            <li class="map-location">
+                              <a href="javascript:;" class="map-location-link" data-locationid="<%= location.get('id') %>"><%= location.get('name') %></a>
+                            </li>
+                          <% }); %>
                         </ul>
                       </div>
                     </div>

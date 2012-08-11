@@ -95,6 +95,8 @@ MapPortletRouter= Backbone.Router.extend({
     mapLocations.off('reset', reloadCategory);
     this.showOnly([mapView,mapCategoryDetailView]);
     mapSearchContainerView.filterByCategory(category);
+    mapCategoryDetailView.render();
+    
   },
   
   
@@ -120,7 +122,9 @@ MapPortletRouter= Backbone.Router.extend({
     mapCategoriesView= new MapCategoriesView({
       mapLocations : mapLocations
     });
-    mapCategoryDetailView= new MapCategoryDetailView();
+    mapCategoryDetailView= new MapCategoryDetailView({
+      matchingMapLocations : matchingMapLocations
+    });
 
     layout.setViews( {
       '#map-search-container' : mapSearchContainerView,
@@ -146,7 +150,7 @@ MapPortletRouter= Backbone.Router.extend({
         this.showOnly([mapSearchContainerView,mapView]);
       }, this)
       .on('reset', function () {
-        console.log('+listener reset');
+        console.log('DEPRECATED? listener reset');
         //mapLocationDetailView.trigger('returnToSearchResults');
       }, this);
     
@@ -170,12 +174,12 @@ MapPortletRouter= Backbone.Router.extend({
     
     mapCategoriesView
       .on('clickCategory', function (category) {
-        console.log('+listener clickCategory');
+        console.log('listener clickCategory');
         this.navigate('browse/' + encodeURI(category));
         this.category(category);
       }, this)
       .on('returnToHome', function () {
-        console.log('+listener mapCategoriesView returnToSearchResults');
+        console.log('listener mapCategoriesView returnToSearchResults');
         this.navigate('');
         this.home();
       }, this);
@@ -185,6 +189,11 @@ MapPortletRouter= Backbone.Router.extend({
         console.log('listener mapCategoryDetailView() clickBack');
         this.navigate('browse');
         this.browse();
+      }, this)
+      .on('clickLocation', function (id) {
+        console.log('+ mapCategoryDetailView clickLocation listener', id);
+        this.navigate('location/'+id);
+        this.locationDetail( id );
       }, this);
     /* / LISTENERS */
     

@@ -7,7 +7,6 @@ MapView= Backbone.View.extend({
   },
   
   initialize: function (options) {
-    console.log('MapView.initilize()');
     this.mapLocations= options.mapLocations.on('reset', this.createMap, this);
     this.mapLocations.on('reset', this.createMap, this);
     this.matchingMapLocations= options.matchingMapLocations;
@@ -51,8 +50,6 @@ MapView= Backbone.View.extend({
 
   drawMap : function () {
     var self= this;
-    console.log('5. refreshView()');
-    console.log('MapView.drawMap()');
     this.createMap();
     this.map.clear('markers');
     var bounds= new window.google.maps.LatLngBounds(),
@@ -69,7 +66,6 @@ MapView= Backbone.View.extend({
             .data('locationId', loc.get('id'));
           self.map.openInfoWindow({ content : $link.get(0) }, this);
         });
-        //console.log('drawMap() addBounds point:', point);
         self.map.addBounds(point);
         pointCount += 1;
       }
@@ -88,11 +84,6 @@ MapView= Backbone.View.extend({
   
   hide : function () {
     this.$el.hide();
-  },
-  
-  render: function (manage) {
-    console.log('MapView.render()');
-    return manage(this).render();
   }
   
 });

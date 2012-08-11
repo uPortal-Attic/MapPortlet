@@ -24,7 +24,6 @@ MapCategoriesView= Backbone.View.extend({
   },
   
   serialize : function () {
-    console.log('++ mapCategoriesView.serialize()');
     return { categories : this.mapLocations.categories || {} };
   }
   

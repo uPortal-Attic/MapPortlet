@@ -5,13 +5,10 @@ MapLocations= Backbone.Collection.extend({
   model : MapLocation,
   defaultLocation : {},
   
-  initialize : function () { console.log('+ mapLocations INIT'); },
-  
   parse : function (response) {
     console.log('MapLocations.parse()');
     var index= 0, categories= {};
     this.defaultLocation= response.mapData.defaultLocation;
-    //this.addIds( response.mapData.locations );
     _.each(response.mapData.locations, function (location) {
       // add id
       location.id= index;
@@ -25,7 +22,6 @@ MapLocations= Backbone.Collection.extend({
       }
     });
     this.categories= categories;
-    console.log('++ categories', categories);
     return response.mapData.locations;
   },
   
