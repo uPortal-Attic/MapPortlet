@@ -32,7 +32,8 @@ MapPortletRouter= Backbone.Router.extend({
     _.each( allViews, function (v) {
       v.$el[ _.indexOf(views, v) == -1 ? 'hide' : 'show' ]();
     });
-    mapView.$el.fadeTo(0, _.indexOf(views, mapView) == -1 ? 0 : 1 );
+    //mapView.$el.fadeTo(0, _.indexOf(views, mapView) == -1 ? 0 : 1 );
+    mapView[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
   },
   
   home : function () {
@@ -64,13 +65,23 @@ MapPortletRouter= Backbone.Router.extend({
     }
     mapLocations.off('reset', reloadLocationDetail);
     location= mapLocations.findById(id);
-    mapLocationDetailView.model.set(location.toJSON());
+    mapLocationDetailView.model.set( location.toJSON() );
     this.showOnly([mapLocationDetailView]);
   },
 
   locationMap : function (id) {
+    var location, reloadLocationMap= function () { this.locationMap(id); };
     console.log('ROUTE: locationMap');
-    if(_.flatten(layout.views).length == 0 ) this.doViews();
+    if(_.flatten(layout.views).length == 0 ) {
+      this.doViews();
+      mapLocations.on('reset', reloadLocationMap, this);
+      return;
+    }
+    mapLocations.off('reset', reloadLocationMap);
+    location= mapLocations.findById(id);
+    mapLocationDetailView.model.set( location.toJSON() );
+    this.showOnly([mapLocationDetailView,mapView]);
+    matchingMapLocations.reset([location]);
   },
   
   browse : function () {
@@ -144,11 +155,6 @@ MapPortletRouter= Backbone.Router.extend({
         this.locationDetail( id );
       }, this);
     matchingMapLocations
-      .on('one', function () {
-        console.log('listener one');
-        this.navigate('');
-        this.showOnly([mapSearchContainerView,mapView]);
-      }, this)
       .on('reset', function () {
         console.log('DEPRECATED? listener reset');
         //mapLocationDetailView.trigger('returnToSearchResults');
@@ -159,6 +165,11 @@ MapPortletRouter= Backbone.Router.extend({
         console.log('listener mapLocationDetailView() returnToSearchResults');
         this.navigate('');
         this.home();
+      }, this)
+      .on('clickLocation', function (id) {
+        console.log('listener mapLocationDetailView() clickLocation');
+        this.navigate('location/'+id+'/map');
+        this.locationMap(id);
       }, this);
     
     mapSearchContainerView

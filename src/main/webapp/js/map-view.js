@@ -12,12 +12,18 @@ MapView= Backbone.View.extend({
     this.matchingMapLocations= options.matchingMapLocations;
     this.matchingMapLocations.on('reset', this.drawMap, this);
     this.router= options.router;
+    this.isVisible= true;
   },
   
   createMap : function () {
-    var coords, self;
+    var coords, self= this;
     if( ! this.map ) {
-      self= this;
+      if( ! this.isVisible ) { console.log("drawMap() NOT VISIBLE.");return false; }
+      /*if( ! this.isVisible ) {
+        console.log('+ mapView.createMap() show ===');
+        this.$el.fadeTo(0,0);
+        this.$el.show();
+      }*/
       coords= this.mapLocations.defaultLocation;
       latLng= new window.google.maps.LatLng(coords.latitude, coords.longitude);
       /*
@@ -44,12 +50,25 @@ MapView= Backbone.View.extend({
         
         callback: function () { self.map= this; }
       });
+      /*
+      this.mapmap= this.$map.gmap('get', 'map');
+      
+      if( ! this.isVisible ) {
+        google.maps.event.addListenerOnce(this.mapmap, 'idle', function () {
+          console.log('+ mapView.createMap() hide ===');
+          self.$el.hide();
+          self.$el.fadeTo(0,1);
+        });
+      }
+      */
+      
     }
     return this.map;
   },
 
   drawMap : function () {
     var self= this;
+    if( ! this.isVisible ) { console.log("drawMap() NOT VISIBLE.");return false; }
     this.createMap();
     this.map.clear('markers');
     var bounds= new window.google.maps.LatLngBounds(),
@@ -82,8 +101,17 @@ MapView= Backbone.View.extend({
     this.trigger('clickLocation', $(e.target).data('locationId') );
   },
   
+  show : function () {
+    //this.$el.fadeTo(0,1);
+    this.$el.show();
+    this.isVisible= true;
+    console.log('+ mapView.show() ---');
+  },
+  
   hide : function () {
+    console.log('+ mapView.hide() ---');
     this.$el.hide();
+    this.isVisible= false;
   }
   
 });

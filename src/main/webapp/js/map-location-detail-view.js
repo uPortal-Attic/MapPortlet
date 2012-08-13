@@ -5,7 +5,7 @@ MapLocationDetailView= Backbone.View.extend({
   
   events : {
     'click .map-location-back-link' : 'returnToSearchResults',
-    'click .map-location-map-link' : 'showLocationMap'
+    'click .map-location-map-link' : 'clickLocation'
   },
   
   initialize : function (options) {
@@ -20,10 +20,10 @@ MapLocationDetailView= Backbone.View.extend({
   returnToSearchResults : function () {
     this.trigger('returnToSearchResults');
   },
-  
-  showLocationMap : function () {
+
+  clickLocation : function () {
     this.matchingMapLocations.reset(this.model);
-    this.matchingMapLocations.trigger('one');
+    this.trigger('clickLocation', this.model.get('id'));
   }
 
 });

@@ -213,12 +213,14 @@
 
                     <div class="portlet">
                       <div class="portlet-content" data-role="content">
-                        <h3 class="map-location-name"><%= location.name %></h3>
+                        <h3 class="map-location-name"><%= location.name %> [<%=location.latitude%>]</h3>
                         <p class="map-location-description"><%= location.description != null ? location.description : '' %></p>
                         <p class="map-location-address"><%= location.address %></p>
                         <p>
                           <a href="http://maps.google.com?q=<%=encodeURI( location.address ? location.address : location.latitude + ',' + location.longitude )%>" class="map-location-directions-link" target="javascript:;">Directions</a>
-                        <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
+                        <% if( location.latitude != null && location.longitude != null ) { %>
+                          <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
+                        <% } %>
                         <% if( location.img ) { %>
                           <p><img class="map-location-image" src="<%= location.img %>"/></p>
                         <% } %>
