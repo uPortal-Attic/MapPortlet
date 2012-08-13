@@ -11,9 +11,6 @@
   <script type="text/javascript" src="../../js/uPortal-served/fluid-all-1.4.0.js"></script>
   <!-- / JAVACRIPT FROM UPORTAL -->
   <!-- FROM SKIN.XML -->
-  <script type="text/javascript" src="../../js/jquery.ui.map.js"></script>
-  <script type="text/javascript" src="../../js/jquery.ui.map.extensions.js"></script>
-  <script type="text/javascript" src="../../js/jquery.ui.map.overlays.js"></script>
   <script type="text/javascript" src="../../js/underscore.js"></script>
   <!--script type="text/javascript" src="../../js/underscore-min.js"></script-->
   <script type="text/javascript" src="../../js/backbone-min.js"></script>
@@ -34,7 +31,7 @@
   <script type="text/javascript" src="../../js/map-categories-view.js"></script>
   <script type="text/javascript" src="../../js/map-category-detail-view.js"></script>
   <script type="text/javascript" src="../../js/map.js"></script>
-  
+    
   <link rel="stylesheet" href="../../css/uPortal.css"/>
 
 </head>
@@ -213,11 +210,12 @@
 
                     <div class="portlet">
                       <div class="portlet-content" data-role="content">
-                        <h3 class="map-location-name"><%= location.name %> [<%=location.latitude%>]</h3>
+                        <h3 class="map-location-name"><%= location.name %></h3>
                         <p class="map-location-description"><%= location.description != null ? location.description : '' %></p>
                         <p class="map-location-address"><%= location.address %></p>
                         <p>
                           <a href="http://maps.google.com?q=<%=encodeURI( location.address ? location.address : location.latitude + ',' + location.longitude )%>" class="map-location-directions-link" target="javascript:;">Directions</a>
+                        </p>
                         <% if( location.latitude != null && location.longitude != null ) { %>
                           <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
                         <% } %>

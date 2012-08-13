@@ -2,9 +2,7 @@ if( ! window.google ) {
   throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
 }
 
-window.mapPortlet= {
-  //mapLocations : new MapLocations()
-};
+window.mapPortlet= {};
 
 layout= new Backbone.LayoutManager({
   template: '#N_map-template'
@@ -38,12 +36,10 @@ MapPortletRouter= Backbone.Router.extend({
   
   home : function () {
     if(_.flatten(layout.views).length == 0 ) this.doViews();
-    console.log('+ (home) mapSearchContainerView', mapSearchContainerView);
     this.showOnly([mapSearchContainerView,mapView]);
   },
   
   searchResults : function (q) {
-    console.log('ROUTE: search', q);
     reloadSearchResults= function () { this.searchResults(q); };
     if(_.flatten(layout.views).length == 0 ) {
       this.doViews();
@@ -57,7 +53,6 @@ MapPortletRouter= Backbone.Router.extend({
 
   locationDetail : function (id) {
     var location, reloadLocationDetail= function () { this.locationDetail(id); };
-    console.log('ROUTE: locationDetail');
     if(_.flatten(layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', reloadLocationDetail, this);
@@ -71,7 +66,6 @@ MapPortletRouter= Backbone.Router.extend({
 
   locationMap : function (id) {
     var location, reloadLocationMap= function () { this.locationMap(id); };
-    console.log('ROUTE: locationMap');
     if(_.flatten(layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', reloadLocationMap, this);
@@ -85,7 +79,6 @@ MapPortletRouter= Backbone.Router.extend({
   },
   
   browse : function () {
-    console.log('ROUTE: browse');
     if(_.flatten(layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', this.browse, this)
@@ -96,7 +89,6 @@ MapPortletRouter= Backbone.Router.extend({
   },
 
   category : function (category) {
-    console.log('ROUTE: category:', category);
     reloadCategory= function () { this.category(category); };
     if(_.flatten(layout.views).length == 0 ) {
       this.doViews();
@@ -113,7 +105,6 @@ MapPortletRouter= Backbone.Router.extend({
   
   
   doViews : function () {
-    console.log("doViews()");
     // collections
     mapLocations= new MapLocations();
     matchingMapLocations= new MatchingMapLocations();
@@ -154,27 +145,19 @@ MapPortletRouter= Backbone.Router.extend({
         this.navigate('location/'+id)
         this.locationDetail( id );
       }, this);
-    matchingMapLocations
-      .on('reset', function () {
-        console.log('DEPRECATED? listener reset');
-        //mapLocationDetailView.trigger('returnToSearchResults');
-      }, this);
     
     mapLocationDetailView
       .on('returnToSearchResults', function () {
-        console.log('listener mapLocationDetailView() returnToSearchResults');
         this.navigate('');
         this.home();
       }, this)
       .on('clickLocation', function (id) {
-        console.log('listener mapLocationDetailView() clickLocation');
         this.navigate('location/'+id+'/map');
         this.locationMap(id);
       }, this);
     
     mapSearchContainerView
       .on('clickBrowse', function () {
-        console.log('listener clickBrowse');
         this.navigate('browse');
         this.browse();
       }, this)
@@ -185,24 +168,20 @@ MapPortletRouter= Backbone.Router.extend({
     
     mapCategoriesView
       .on('clickCategory', function (category) {
-        console.log('listener clickCategory');
         this.navigate('browse/' + encodeURI(category));
         this.category(category);
       }, this)
       .on('returnToHome', function () {
-        console.log('listener mapCategoriesView returnToSearchResults');
         this.navigate('');
         this.home();
       }, this);
     
     mapCategoryDetailView
       .on('clickBack', function () {
-        console.log('listener mapCategoryDetailView() clickBack');
         this.navigate('browse');
         this.browse();
       }, this)
       .on('clickLocation', function (id) {
-        console.log('+ mapCategoryDetailView clickLocation listener', id);
         this.navigate('location/'+id);
         this.locationDetail( id );
       }, this);
@@ -213,36 +192,21 @@ MapPortletRouter= Backbone.Router.extend({
 });
 
 window.mapPortlet.router= new MapPortletRouter();
-
+/*
 mapPortlet.router.on('route', function (e) {
-  console.log('mapPortlet.router on[ROUTE]');
+  console.log('++ HUH');
   layout.removeViews();
   if( mapPortlet.router.currentView )
     mapPortlet.router.currentView.removeView();
 });
-
+*/
 
 /* Get URL Path */
 ROOT= 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html';
-console.log(ROOT);
-/*
-urlParts= window.location.toString().split(ROOT);
-urlRoute= urlParts.length > 1 ? urlParts[1].split('/')[0] : undefined;
-console.log( ">> routing:", ROOT, urlParts, urlRoute );
-*/
 
 $(document).ready(function () {
   // Set Top Level Layout. Attach to DOM
   $('#N_map').html(layout.el);
-  layout.render();
   // Handle History, Routing
   Backbone.history.start({root:ROOT});
-  /*
-  if( urlRoute ) {
-    console.log('Starting route at:', urlRoute);
-  } else {
-    console.log('Navigating route to home.');
-    //mapPortlet.router.navigate('home', {trigger:true});
-  }
-*/
 });
