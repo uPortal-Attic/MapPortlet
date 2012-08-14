@@ -15,38 +15,37 @@ MapView= Backbone.View.extend({
     this.mapOptions= options.mapOptions;
   },
   
+  gmaps : {
+    newMap : function (div, options) {
+      return new window.google.maps.Map( div, options );
+    },
+    latLng : function (latitude, longitude) {
+      return new window.google.maps.LatLng(latitude, longitude);
+    },
+    infoWindow : function () {
+      return new window.google.maps.InfoWindow();
+    },
+    LatLngBounds : function () {
+      return new window.google.maps.LatLngBounds();
+    },
+    marker : function (options) {
+      return new window.google.maps.Marker(options);
+    },
+    addListener : function (target, event, callback) {
+      window.google.maps.event.addListener(target, event, callback);
+    }
+  },
+  
   createMap : function () {
-    var coords, self= this;
+    var coords;
     if( ! this.map ) {
       if( ! this.isVisible ) return false;
       coords= this.mapLocations.defaultLocation;
-      latLng= new window.google.maps.LatLng(coords.latitude, coords.longitude);
-      /*
-      TODO: how to make this dynamic
-       *
-      var mapOptions = {
-        center:latLng,
-
-        zoom: 12,//${ zoom },
-        mapTypeControl: true,//${ mapTypeControl },
-        mapTypeControlOptions: {
-          style: window.google.maps.MapTypeControlStyle.DEFAULT
-        },
-        panControl: false,//${ panControl },
-        zoomControl: true,//${ zoomControl },
-        zoomControlOptions: {
-          style: window.google.maps.ZoomControlStyle.SMALL
-        },
-        scaleControl: true,//${ scaleControl },
-        streetViewControl: true,//${ streetView },
-        rotateControl: false,//${ rotateControl },
-        overviewMapControl: false,//${ overviewControl },
-        mapTypeId: window.google.maps.MapTypeId.ROADMAP,
-        
-      };*/
+      latLng= this.gmaps.latLng(coords.latitude, coords.longitude);
       this.mapOptions.center= latLng;
-      this.map= new google.maps.Map( $('.map-display', this.$el).get(0), this.mapOptions );
-      this.infoWindow= new google.maps.InfoWindow();
+      // TODO: DON'T HARD CODE SELECTORS!
+      this.map= this.gmaps.newMap( $('.map-display', this.$el).get(0), this.mapOptions );
+      this.infoWindow= this.gmaps.infoWindow();
     }
     return this.map;
   },
@@ -65,16 +64,16 @@ MapView= Backbone.View.extend({
     map= this.createMap();
     infoWindow= this.infoWindow;
     this.clearMarkers();
-    bounds= new window.google.maps.LatLngBounds();
+    bounds= this.gmaps.LatLngBounds();
     _.each( this.matchingMapLocations.models, function (loc) {
       var marker;
       if( loc.get('distance') > -1 ) {
-        point= new window.google.maps.LatLng( loc.get('latitude'), loc.get('longitude') );
-        marker= new google.maps.Marker({
+        point= this.gmaps.latLng( loc.get('latitude'), loc.get('longitude') );
+        marker= this.gmaps.marker({
           position:point,
           map:map
         });
-        google.maps.event.addListener(marker, 'click', function () {
+        this.gmaps.addListener(marker, 'click', function () {
           var $link= $('<a class="map-link"/>')
             .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
             .data('locationId', loc.get('id'));
@@ -84,7 +83,7 @@ MapView= Backbone.View.extend({
         bounds.extend(point);
         markers.push(marker);
       }
-    });
+    }, this);
     if( markers.length == 1 ) {
       map.setCenter(point);
       map.setZoom(17);

@@ -196,7 +196,7 @@ if (!map.init) {
                                 that.model.categories[category].locations.push(location);
                             });
                         });
-                        console.log("EVENTS",that.events);
+                        
                         that.events.onReady.fire();
                     }, 
                     "json"
@@ -225,7 +225,7 @@ if (!map.init) {
             finalInitFunction: function (that) {
 
                 that.search = function(query) {
-console.log('2. search() query:', query);
+
                     that.model.matchingLocations = []; 
 
                     if (query) {
@@ -241,13 +241,11 @@ console.log('2. search() query:', query);
                         }
                         
                     }
-console.log("3. matching locations");
                     that.events.onUpdateSearchResults.fire();
                      
                 };
 
                 $(that.options.selectors.mapSearchForm).live('submit', function () {
-                  console.log('1. form submit');
                     that.search($(that.locate("mapSearchInput")).val()); 
                     return false; 
                 });
@@ -292,7 +290,6 @@ console.log("3. matching locations");
             },
             listeners: {
                 refreshResults: function(that) {
-console.log('?. refreshResults()');
                     if (that.model.matchingLocations) {
                         that.refreshView();
                         that.container.show();
@@ -450,23 +447,17 @@ console.log('?. refreshResults()');
                     that.refreshView();
                 },
                 onShowResults: function(that) {
-console.log('4. onShowResults()')
                     that.refreshView();
                 },
                 onShowLocation: function(that) {
-console.log('9. onShowLocation. set matchingLocations to equal one location')
                     that.model.matchingLocations = [ that.model.location ];
                     that.refreshView();
                 }
             },
             finalInitFunction: function(that) {
     
-              
-              /* refreshView()
-               * Draws points on the map.
-               */
                 that.refreshView = function() {
-console.log('5. refreshView()');
+              
                     // clear out any markers currently on the map
                     that.map.clear('markers');
                     var bounds= new google.maps.LatLngBounds();
@@ -479,9 +470,7 @@ console.log('5. refreshView()');
                             { latitude: location.latitude, longitude: location.longitude }
                         );
                     });
-                    that.model.matchingLocations.sort( function (l1, l2) {
-                      return (l1.distance - l2.distance);
-                    });
+                    that.model.matchingLocations.sort(sortByDistance);
 
                     // add a marker for each matching location
                     $(that.model.matchingLocations).each(function (idx, location) {
@@ -490,7 +479,6 @@ console.log('5. refreshView()');
                       point= new google.maps.LatLng(location.latitude, location.longitude);
                       marker = that.map.addMarker({ 'position': point });
                       marker.click(function() {
-console.log('6. click marker')
                         var link = $(document.createElement("a")).attr("target", "javascript:;")
                           .text(location.name + " (" + location.abbreviation + ")")
                           .click(function () { that.model.location = location; that.events.onLocationSelect.fire(location); });
@@ -523,7 +511,6 @@ console.log('6. click marker')
 //                        }
 //                    });   
                 };
-                console.log('DO GMAP');
                 that.locate("mapDisplay").gmap(that.options.mapOptions);
             }
         });
@@ -549,8 +536,8 @@ console.log('6. click marker')
             },
             listeners: {
                 onShowLocation: function(that) {
-                    console.log('7. show location');
-                    // calling fluid.refreshView(), not MapView.refreshView() 
+                    console.log(that.model.location);
+                    console.log($(that.options.selectors.locationDescription));
                     that.refreshView();
                     that.container.show();
                 }
@@ -574,8 +561,7 @@ console.log('6. click marker')
                     }
                 });
                 that.locate("mapLink").live("click", function () {
-                  console.log('8. click map link');
-                    //that.container.hide();
+                    that.container.hide();
                     that.events.onLocationMapView.fire();
                 });
 
@@ -598,6 +584,13 @@ console.log('6. click marker')
                     that.locations = data.mapData.locations;
                 }
             });
+        };
+    
+        /**
+         * Sort function capable of sorting two locations by distance.
+         */
+        var sortByDistance = function (l1, l2) {
+            return (l1.distance - l2.distance);
         };
     
         /**

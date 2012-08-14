@@ -20,7 +20,7 @@
 
   <!-- APP -->
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-  <!--
+  
   <script type="text/javascript" src="../../js/map-location.js"></script>
   <script type="text/javascript" src="../../js/map-locations.js"></script>
   <script type="text/javascript" src="../../js/matching-map-locations.js"></script>
@@ -31,14 +31,16 @@
   <script type="text/javascript" src="../../js/map-categories-view.js"></script>
   <script type="text/javascript" src="../../js/map-category-detail-view.js"></script>
   <script type="text/javascript" src="../../js/map.js"></script>
-  -->
+  <!--
   <script type="text/javascript" src="../../js/map-portlet.js"></script>
+  -->
   <script type="text/javascript">
 
     window.mapPortlet= new MapPortlet({
       target : '#N_map',
       template : '#N_map-template',
       root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
+      data : '../../data/map-new.json',
 
       mapOptions : {
 
@@ -88,7 +90,6 @@
                   fluid = null;
                   fluid_1_4 = null;
 /*
-                  console.log(map)
                   if (!map.initialized) map.init(N_.jQuery, N_.fluid, google);
                   N_.map = map;
 
@@ -156,7 +157,7 @@
                     <div class="portlet-content" data-role="content">
                       <form class="map-search-form" onsubmit="return false;">
                         <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
-                        <input data-role="button" data-inline="true" type="submit" value="Go" onclick="console.log('click submit')"/>
+                        <input data-role="button" data-inline="true" type="submit" value="Go"/>
                       </form>
                     </div>
                   </script>

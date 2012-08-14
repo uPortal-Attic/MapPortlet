@@ -2,13 +2,6 @@ if( ! window.google ) {
   throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
 }
 
-/*
-window.mapPortlet= {};
-layout= new Backbone.LayoutManager({
-  template: '#N_map-template'
-});
-*/
-
 MapPortletRouter= Backbone.Router.extend({
   routes: {
     '': 'home',
@@ -25,7 +18,6 @@ MapPortletRouter= Backbone.Router.extend({
    * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
    */
   showOnly : function (views) {
-    console.log(this, this.layout);
     var allViews= [mapSearchContainerView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
     if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
     _.each( allViews, function (v) {
@@ -107,7 +99,7 @@ MapPortletRouter= Backbone.Router.extend({
   
   doViews : function () {
     // collections
-    mapLocations= new MapLocations();
+    mapLocations= new MapLocations({url:this.options.data});
     matchingMapLocations= new MatchingMapLocations();
     // views
     mapSearchContainerView= new MapSearchContainerView({

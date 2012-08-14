@@ -14,12 +14,10 @@ MapCategoriesView= Backbone.View.extend({
   },
 
   returnToHome : function () {
-    console.log('MapCategoriesView.returnToHome()');
     this.trigger('returnToHome');
   },
   
   clickCategory : function (e) {
-    console.log('MapCategoriesView.clickCategory()', $(e.target).data('category'));
     this.trigger('clickCategory', $(e.target).data('category') );
   },
   

@@ -20,15 +20,16 @@ MapLocation= Backbone.Model.extend({
 /* MAP LOCATIONS ********************************
  * 
  */
-// http://stackoverflow.com/questions/9781102/backbone-multiple-collections-fetch-from-a-single-big-json-file
 MapLocations= Backbone.Collection.extend({
   model : MapLocation,
-  url : '../../data/map-new.json',
-  model : MapLocation,
+
   defaultLocation : {},
 
+  initialize : function (options) {
+    this.url= options.url;
+  },
+
   parse : function (response) {
-    console.log('MapLocations.parse()');
     var index= 0, categories= {};
     this.defaultLocation= response.mapData.defaultLocation;
     _.each(response.mapData.locations, function (location) {
@@ -55,7 +56,6 @@ MapLocations= Backbone.Collection.extend({
   }
 
 });
-
 
 
 
@@ -136,38 +136,37 @@ MapView= Backbone.View.extend({
     this.mapOptions= options.mapOptions;
   },
 
+  gmaps : {
+    newMap : function (div, options) {
+      return new window.google.maps.Map( div, options );
+    },
+    latLng : function (latitude, longitude) {
+      return new window.google.maps.LatLng(latitude, longitude);
+    },
+    infoWindow : function () {
+      return new window.google.maps.InfoWindow();
+    },
+    LatLngBounds : function () {
+      return new window.google.maps.LatLngBounds();
+    },
+    marker : function (options) {
+      return new window.google.maps.Marker(options);
+    },
+    addListener : function (target, event, callback) {
+      window.google.maps.event.addListener(target, event, callback);
+    }
+  },
+
   createMap : function () {
-    var coords, self= this;
+    var coords;
     if( ! this.map ) {
       if( ! this.isVisible ) return false;
       coords= this.mapLocations.defaultLocation;
-      latLng= new window.google.maps.LatLng(coords.latitude, coords.longitude);
-      /*
-       TODO: how to make this dynamic
-       *
-       var mapOptions = {
-       center:latLng,
-
-       zoom: 12,//${ zoom },
-       mapTypeControl: true,//${ mapTypeControl },
-       mapTypeControlOptions: {
-       style: window.google.maps.MapTypeControlStyle.DEFAULT
-       },
-       panControl: false,//${ panControl },
-       zoomControl: true,//${ zoomControl },
-       zoomControlOptions: {
-       style: window.google.maps.ZoomControlStyle.SMALL
-       },
-       scaleControl: true,//${ scaleControl },
-       streetViewControl: true,//${ streetView },
-       rotateControl: false,//${ rotateControl },
-       overviewMapControl: false,//${ overviewControl },
-       mapTypeId: window.google.maps.MapTypeId.ROADMAP,
-
-       };*/
+      latLng= this.gmaps.latLng(coords.latitude, coords.longitude);
       this.mapOptions.center= latLng;
-      this.map= new google.maps.Map( $('.map-display', this.$el).get(0), this.mapOptions );
-      this.infoWindow= new google.maps.InfoWindow();
+      // TODO: DON'T HARD CODE SELECTORS!
+      this.map= this.gmaps.newMap( $('.map-display', this.$el).get(0), this.mapOptions );
+      this.infoWindow= this.gmaps.infoWindow();
     }
     return this.map;
   },
@@ -186,16 +185,16 @@ MapView= Backbone.View.extend({
     map= this.createMap();
     infoWindow= this.infoWindow;
     this.clearMarkers();
-    bounds= new window.google.maps.LatLngBounds();
+    bounds= this.gmaps.LatLngBounds();
     _.each( this.matchingMapLocations.models, function (loc) {
       var marker;
       if( loc.get('distance') > -1 ) {
-        point= new window.google.maps.LatLng( loc.get('latitude'), loc.get('longitude') );
-        marker= new google.maps.Marker({
+        point= this.gmaps.latLng( loc.get('latitude'), loc.get('longitude') );
+        marker= this.gmaps.marker({
           position:point,
           map:map
         });
-        google.maps.event.addListener(marker, 'click', function () {
+        this.gmaps.addListener(marker, 'click', function () {
           var $link= $('<a class="map-link"/>')
             .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
             .data('locationId', loc.get('id'));
@@ -205,7 +204,7 @@ MapView= Backbone.View.extend({
         bounds.extend(point);
         markers.push(marker);
       }
-    });
+    }, this);
     if( markers.length == 1 ) {
       map.setCenter(point);
       map.setZoom(17);
@@ -337,12 +336,10 @@ MapCategoriesView= Backbone.View.extend({
   },
 
   returnToHome : function () {
-    console.log('MapCategoriesView.returnToHome()');
     this.trigger('returnToHome');
   },
 
   clickCategory : function (e) {
-    console.log('MapCategoriesView.clickCategory()', $(e.target).data('category'));
     this.trigger('clickCategory', $(e.target).data('category') );
   },
 
@@ -372,18 +369,13 @@ MapCategoryDetailView = Backbone.View.extend({
 
   clickLocation : function (e) {
     var id= $(e.target).data('locationid');
-    console.log( $(e.target).eq(0), id);
     this.trigger('clickLocation', id);
   },
 
   serialize : function () {
     return { locations : this.matchingMapLocations };
-  },
-
-  render : function (manage) {
-    console.log('+MapCatagoryDetailView render()');
-    return manage(this).render();
   }
+
 });
 
 
@@ -394,13 +386,6 @@ MapCategoryDetailView = Backbone.View.extend({
 if( ! window.google ) {
   throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
 }
-
-/*
- window.mapPortlet= {};
- layout= new Backbone.LayoutManager({
- template: '#N_map-template'
- });
- */
 
 MapPortletRouter= Backbone.Router.extend({
   routes: {
@@ -418,7 +403,6 @@ MapPortletRouter= Backbone.Router.extend({
    * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
    */
   showOnly : function (views) {
-    console.log(this, this.layout);
     var allViews= [mapSearchContainerView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
     if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
     _.each( allViews, function (v) {
@@ -500,7 +484,7 @@ MapPortletRouter= Backbone.Router.extend({
 
   doViews : function () {
     // collections
-    mapLocations= new MapLocations();
+    mapLocations= new MapLocations({url:this.options.data});
     matchingMapLocations= new MatchingMapLocations();
     // views
     mapSearchContainerView= new MapSearchContainerView({

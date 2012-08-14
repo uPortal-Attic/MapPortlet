@@ -32,6 +32,43 @@
 <c:set var="usePortalJsLibs" value="${ false }"/>
 <rs:aggregatedResources path="${ usePortalJsLibs ? '/skin-shared.xml' : '/skin.xml' }"/>
 
+
+<c:choose>
+    <c:when test="false">
+        
+<script type="text/javascript">
+
+    window.mapPortlet= new MapPortlet({
+        target : '#N_map',
+        template : '#N_map-template',
+        root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
+        data : '<portlet:resourceURL/>',
+
+        mapOptions : {
+
+            zoom: 12,//${ zoom },
+            mapTypeControl: true,//${ mapTypeControl },
+            mapTypeControlOptions: {
+                style: window.google.maps.MapTypeControlStyle.DEFAULT
+            },
+            panControl: false,//${ panControl },
+            zoomControl: true,//${ zoomControl },
+            zoomControlOptions: {
+                style: window.google.maps.ZoomControlStyle.SMALL
+            },
+            scaleControl: true,//${ scaleControl },
+            streetViewControl: true,//${ streetView },
+            rotateControl: false,//${ rotateControl },
+            overviewMapControl: false,//${ overviewControl },
+            mapTypeId: window.google.maps.MapTypeId.ROADMAP
+        }
+    });
+</script>
+
+    </c:when>
+
+
+<c:otherwise>
 <script type="text/javascript"><rs:compressJs>
     var ${n} = ${n} || {};
     <c:choose>
@@ -81,6 +118,8 @@
     });
 
 </rs:compressJs></script>
+</c:otherwise>
+</c:choose>
 
 <div id="${n}map" class="portlet"> 
 

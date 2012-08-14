@@ -15,16 +15,11 @@ MapCategoryDetailView = Backbone.View.extend({
   
   clickLocation : function (e) {
     var id= $(e.target).data('locationid');
-    console.log( $(e.target).eq(0), id);
     this.trigger('clickLocation', id);
   },
   
   serialize : function () {
     return { locations : this.matchingMapLocations };
-  },
-  
-  render : function (manage) {
-    console.log('+MapCatagoryDetailView render()');
-    return manage(this).render();
   }
+
 });

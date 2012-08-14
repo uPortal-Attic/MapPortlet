@@ -35,5 +35,11 @@
     <js>js/jquery.ui.map.extensions.js</js>
     <js>js/jquery.ui.map.overlays.js</js>
     <js>js/map-helper.js</js>
+    
+    <!--js included="plain">js/underscore.js</js>
+    <js included="aggregated">js/underscore-min.js</js>
+    <js>js/backbone-min.js</js>
+    <js>js/backbone.layoutmanager.js</js>
+    <js>js/map-portlet.js</js-->
 
 </resources>
