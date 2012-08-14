@@ -20,7 +20,7 @@
 
   <!-- APP -->
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-  
+  <!--
   <script type="text/javascript" src="../../js/map-location.js"></script>
   <script type="text/javascript" src="../../js/map-locations.js"></script>
   <script type="text/javascript" src="../../js/matching-map-locations.js"></script>
@@ -31,7 +31,36 @@
   <script type="text/javascript" src="../../js/map-categories-view.js"></script>
   <script type="text/javascript" src="../../js/map-category-detail-view.js"></script>
   <script type="text/javascript" src="../../js/map.js"></script>
-    
+  -->
+  <script type="text/javascript" src="../../js/map-portlet.js"></script>
+  <script type="text/javascript">
+
+    window.mapPortlet= new MapPortlet({
+      target : '#N_map',
+      template : '#N_map-template',
+      root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
+
+      mapOptions : {
+
+        zoom: 12,//${ zoom },
+        mapTypeControl: true,//${ mapTypeControl },
+        mapTypeControlOptions: {
+          style: window.google.maps.MapTypeControlStyle.DEFAULT
+        },
+        panControl: false,//${ panControl },
+        zoomControl: true,//${ zoomControl },
+        zoomControlOptions: {
+          style: window.google.maps.ZoomControlStyle.SMALL
+        },
+        scaleControl: true,//${ scaleControl },
+        streetViewControl: true,//${ streetView },
+        rotateControl: false,//${ rotateControl },
+        overviewMapControl: false,//${ overviewControl },
+        mapTypeId: window.google.maps.MapTypeId.ROADMAP
+      }
+    });
+  </script>
+  
   <link rel="stylesheet" href="../../css/uPortal.css"/>
 
 </head>

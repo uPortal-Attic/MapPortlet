@@ -2,12 +2,12 @@ if( ! window.google ) {
   throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
 }
 
+/*
 window.mapPortlet= {};
-
 layout= new Backbone.LayoutManager({
   template: '#N_map-template'
 });
-
+*/
 
 MapPortletRouter= Backbone.Router.extend({
   routes: {
@@ -25,6 +25,7 @@ MapPortletRouter= Backbone.Router.extend({
    * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
    */
   showOnly : function (views) {
+    console.log(this, this.layout);
     var allViews= [mapSearchContainerView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
     if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
     _.each( allViews, function (v) {
@@ -35,13 +36,13 @@ MapPortletRouter= Backbone.Router.extend({
   },
   
   home : function () {
-    if(_.flatten(layout.views).length == 0 ) this.doViews();
+    if(_.flatten(this.layout.views).length == 0 ) this.doViews();
     this.showOnly([mapSearchContainerView,mapView]);
   },
   
   searchResults : function (q) {
     reloadSearchResults= function () { this.searchResults(q); };
-    if(_.flatten(layout.views).length == 0 ) {
+    if(_.flatten(this.layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', reloadSearchResults, this);
       return;
@@ -53,7 +54,7 @@ MapPortletRouter= Backbone.Router.extend({
 
   locationDetail : function (id) {
     var location, reloadLocationDetail= function () { this.locationDetail(id); };
-    if(_.flatten(layout.views).length == 0 ) {
+    if(_.flatten(this.layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', reloadLocationDetail, this);
       return;
@@ -66,7 +67,7 @@ MapPortletRouter= Backbone.Router.extend({
 
   locationMap : function (id) {
     var location, reloadLocationMap= function () { this.locationMap(id); };
-    if(_.flatten(layout.views).length == 0 ) {
+    if(_.flatten(this.layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', reloadLocationMap, this);
       return;
@@ -79,7 +80,7 @@ MapPortletRouter= Backbone.Router.extend({
   },
   
   browse : function () {
-    if(_.flatten(layout.views).length == 0 ) {
+    if(_.flatten(this.layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', this.browse, this)
       return;
@@ -90,7 +91,7 @@ MapPortletRouter= Backbone.Router.extend({
 
   category : function (category) {
     reloadCategory= function () { this.category(category); };
-    if(_.flatten(layout.views).length == 0 ) {
+    if(_.flatten(this.layout.views).length == 0 ) {
       this.doViews();
       mapLocations.on('reset', reloadCategory, this);
       return;
@@ -116,7 +117,7 @@ MapPortletRouter= Backbone.Router.extend({
     mapView= new MapView({
       mapLocations : mapLocations,
       matchingMapLocations : matchingMapLocations,
-      router : this
+      mapOptions : this.options.mapOptions
     });
     mapLocationDetailView= new MapLocationDetailView({
       matchingMapLocations : matchingMapLocations
@@ -128,7 +129,7 @@ MapPortletRouter= Backbone.Router.extend({
       matchingMapLocations : matchingMapLocations
     });
 
-    layout.setViews( {
+    this.layout.setViews( {
       '#map-search-container' : mapSearchContainerView,
       '#map-container' : mapView,
       '#map-location-detail' : mapLocationDetailView,
@@ -137,7 +138,7 @@ MapPortletRouter= Backbone.Router.extend({
     });
     // Hide all views
     this.showOnly([]);
-    layout.render();
+    this.layout.render();
     
     /* LISTENERS */
     mapView
@@ -191,22 +192,17 @@ MapPortletRouter= Backbone.Router.extend({
   
 });
 
-window.mapPortlet.router= new MapPortletRouter();
-/*
-mapPortlet.router.on('route', function (e) {
-  console.log('++ HUH');
-  layout.removeViews();
-  if( mapPortlet.router.currentView )
-    mapPortlet.router.currentView.removeView();
-});
-*/
 
-/* Get URL Path */
-ROOT= 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html';
+function MapPortlet( options ) {
+  var router = new MapPortletRouter();
+  router.layout=  new Backbone.LayoutManager({ template: options.template });
+  router.options= options;
+  $(document).ready(function () {
+    $(options.target).html(router.layout.el);
+    Backbone.history.start({root:options.root});
+  });
+  return {
+    router : router
+  };
+}
 
-$(document).ready(function () {
-  // Set Top Level Layout. Attach to DOM
-  $('#N_map').html(layout.el);
-  // Handle History, Routing
-  Backbone.history.start({root:ROOT});
-});

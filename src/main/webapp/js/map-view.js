@@ -12,6 +12,7 @@ MapView= Backbone.View.extend({
     this.matchingMapLocations= options.matchingMapLocations;
     this.matchingMapLocations.on('reset', this.drawMap, this);
     this.isVisible= true;
+    this.mapOptions= options.mapOptions;
   },
   
   createMap : function () {
@@ -22,7 +23,7 @@ MapView= Backbone.View.extend({
       latLng= new window.google.maps.LatLng(coords.latitude, coords.longitude);
       /*
       TODO: how to make this dynamic
-       */
+       *
       var mapOptions = {
         center:latLng,
 
@@ -42,8 +43,9 @@ MapView= Backbone.View.extend({
         overviewMapControl: false,//${ overviewControl },
         mapTypeId: window.google.maps.MapTypeId.ROADMAP,
         
-      };
-      this.map= new google.maps.Map( $('.map-display', this.$el).get(0), mapOptions );
+      };*/
+      this.mapOptions.center= latLng;
+      this.map= new google.maps.Map( $('.map-display', this.$el).get(0), this.mapOptions );
       this.infoWindow= new google.maps.InfoWindow();
     }
     return this.map;
