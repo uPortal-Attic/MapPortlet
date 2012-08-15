@@ -141,133 +141,104 @@
                     <div class="map-display" style="width:500px/*100%*/; height: 500px;"></div>
                   </div>
                 </script>
-                <!-- / TEMPLATES -->
                 
-                <div id="N_map"></div>
-                
-                
-                <div id="N_mapX" class="portlet">
 
-                  <!--div class="map-search-container"-->
-                  <script type="template" id="map-search-container-template">
-                    <div data-role="header" class="titlebar portlet-titlebar">
-                      <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
-                      <h2>Search</h2>
-                    </div>
-                    <div class="portlet-content" data-role="content">
-                      <form class="map-search-form" onsubmit="return false;">
-                        <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
-                        <input data-role="button" data-inline="true" type="submit" value="Go"/>
-                      </form>
-                    </div>
-                  </script>
-                  <!--/div-->
+                <!--div class="map-search-container"-->
+                <script type="template" id="map-search-container-template">
+                  <div data-role="header" class="titlebar portlet-titlebar">
+                    <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
+                    <h2>Search</h2>
+                  </div>
+                  <div class="portlet-content" data-role="content">
+                    <form class="map-search-form" onsubmit="return false;">
+                      <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
+                      <input data-role="button" data-inline="true" type="submit" value="Go"/>
+                    </form>
+                  </div>
+                </script>
+                <!--/div-->
 
-                  <script type="template" id="map-search-results-template">
-                    <div class="portlet-content" data-role="content">
-                      <ul data-role="listview">
-                        <li class="map-search-result">
-                          <a href="javascript:;" class="map-search-result-link"></a>
+                <script type="template" id="map-search-results-template">
+                  <div class="portlet-content" data-role="content">
+                    <ul data-role="listview">
+                      <li class="map-search-result">
+                        <a href="javascript:;" class="map-search-result-link"></a>
+                      </li>
+                    </ul>
+                  </div>
+                </script>
+
+                <!--div class="map-categories" style="display:none"-->
+                <script type="template" id="map-categories-template">
+                  <div data-role="header" class="titlebar portlet-titlebar">
+                    <h2>Browse</h2>
+                    <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search">Search</a>
+                  </div>
+                  <div class="portlet-content" data-role="content">
+                    <ul data-role="listview">
+                      <% _.each(categories, function (i, cat) { %>
+                        <li class="map-category">
+                          <a href="javascript:;" class="map-category-link" data-category='<%=cat%>'><%= cat %></a>
                         </li>
-                      </ul>
-                    </div>
-                  </script>
+                      <% }); %>
+                    </ul>
+                  </div>
+                </script>
+                <!--/div-->
 
-                  <!--div class="map-categories" style="display:none"-->
-                  <script type="template" id="map-categories-template">
-                    <div data-role="header" class="titlebar portlet-titlebar">
-                      <h2>Browse</h2>
-                      <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search">Search</a>
-                    </div>
+                <!--div class="map-category-detail" style="display:none"-->
+                <script type="template" id="map-category-detail-template">
+                  <div data-role="header" class="titlebar portlet-titlebar search-back-div">
+                    <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
+                    <h2 class="map-category-name">Browse</h2>
+                  </div>
+
+                  <div class="portlet">
                     <div class="portlet-content" data-role="content">
                       <ul data-role="listview">
-                        <% _.each(categories, function (i, cat) { %>
-                          <li class="map-category">
-                            <a href="javascript:;" class="map-category-link" data-category='<%=cat%>'><%= cat %></a>
+                        <% locations.each( function (location) { %>
+                          <li class="map-location">
+                            <a href="javascript:;" class="map-location-link" data-locationid="<%= location.get('id') %>"><%= location.get('name') %></a>
                           </li>
                         <% }); %>
                       </ul>
                     </div>
-                  </script>
-                  <!--/div-->
+                  </div>
+                </script>
+                <!--/div-->
 
-                  <!--div class="map-category-detail" style="display:none"-->
-                  <script type="template" id="map-category-detail-template">
-                    <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-                      <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
-                      <h2 class="map-category-name">Browse</h2>
-                    </div>
-
-                    <div class="portlet">
-                      <div class="portlet-content" data-role="content">
-                        <ul data-role="listview">
-                          <% locations.each( function (location) { %>
-                            <li class="map-location">
-                              <a href="javascript:;" class="map-location-link" data-locationid="<%= location.get('id') %>"><%= location.get('name') %></a>
-                            </li>
-                          <% }); %>
-                        </ul>
-                      </div>
-                    </div>
-                  </script>
-                  <!--/div-->
-
-
-
-
-<!--
-"latitude":41.3117073
-"longitude":-72.9255341
-"name":"Commons"
-"abbreviation":"UC"
-"address":"168 Grove Street New Haven
- CT 06511"
-"description":null
-"img":"http://business.yale.edu/map/thumbnail/UC.jpg"
-"searchText":"commons~uc~"
-"searchKeys":[]
-"categories":["bookstore"
-"dorm"]
-"campuses":["Main"]}
--->
-
-                  <!--div class="map-location-detail portlet" style="display:none"-->
-                  <script type="template" id="map-location-detail-template">
-                    <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-                      <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
-                      <h2 class="map-location-name"><%= location.name %></h2>
-                    </div>
-
-                    <div class="portlet">
-                      <div class="portlet-content" data-role="content">
-                        <h3 class="map-location-name"><%= location.name %></h3>
-                        <p class="map-location-description"><%= location.description != null ? location.description : '' %></p>
-                        <p class="map-location-address"><%= location.address %></p>
-                        <p>
-                          <a href="http://maps.google.com?q=<%=encodeURI( location.address ? location.address : location.latitude + ',' + location.longitude )%>" class="map-location-directions-link" target="javascript:;">Directions</a>
-                        </p>
-                        <% if( location.latitude != null && location.longitude != null ) { %>
-                          <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
-                        <% } %>
-                        <% if( location.img ) { %>
-                          <p><img class="map-location-image" src="<%= location.img %>"/></p>
-                        <% } %>
-                      </div>
-                    </div>
-                  </script>
-                  <!--/div-->
-
-                  <div class="map-container">
-                    <div class="portlet-content" data-role="content">
-                      <div class="map-display" style="width: 100%; height: 500px;"></div>
-                    </div>
+                <!--div class="map-location-detail portlet" style="display:none"-->
+                <script type="template" id="map-location-detail-template">
+                  <div data-role="header" class="titlebar portlet-titlebar search-back-div">
+                    <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
+                    <h2 class="map-location-name"><%= location.name %></h2>
                   </div>
 
+                  <div class="portlet">
+                    <div class="portlet-content" data-role="content">
+                      <h3 class="map-location-name"><%= location.name %></h3>
+                      <p class="map-location-description"><%= location.description != null ? location.description : '' %></p>
+                      <p class="map-location-address"><%= location.address %></p>
+                      <p>
+                        <a href="http://maps.google.com?q=<%=encodeURI( location.address ? location.address : location.latitude + ',' + location.longitude )%>" class="map-location-directions-link" target="javascript:;">Directions</a>
+                      </p>
+                      <% if( location.latitude != null && location.longitude != null ) { %>
+                        <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
+                      <% } %>
+                      <% if( location.img ) { %>
+                        <p><img class="map-location-image" src="<%= location.img %>"/></p>
+                      <% } %>
+                    </div>
+                  </div>
+                </script>
+                <!--/div-->
 
 
+                <!-- / TEMPLATES -->
+
+                <div id="N_map"></div>
 
 
-                </div>
               </div>
             </div>
           </div>

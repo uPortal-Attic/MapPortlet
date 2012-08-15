@@ -569,6 +569,10 @@ MapPortletRouter= Backbone.Router.extend({
 
 });
 
+_.templateSettings = {
+  interpolate : /\{\{(.+?)\}\}/g,
+  evaluate : /\{!(.+?)!\}/g
+};
 
 function MapPortlet( options ) {
   var router = new MapPortletRouter();
