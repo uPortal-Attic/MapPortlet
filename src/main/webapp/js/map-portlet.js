@@ -1,3 +1,4 @@
+MapPortlet= {};
 /* ********************************************** 
  * *** MODELS
  * **********************************************
@@ -6,7 +7,7 @@
 /* MAP LOCATION *********************************
  * 
  */
-MapLocation= Backbone.Model.extend({
+MapPortlet.MapLocation= Backbone.Model.extend({
 
   getCoords : function () {
     var lat= this.get('latitude'),
@@ -20,8 +21,8 @@ MapLocation= Backbone.Model.extend({
 /* MAP LOCATIONS ********************************
  * 
  */
-MapLocations= Backbone.Collection.extend({
-  model : MapLocation,
+MapPortlet.MapLocations= Backbone.Collection.extend({
+  model : MapPortlet.MapLocation,
 
   defaultLocation : {},
 
@@ -62,8 +63,8 @@ MapLocations= Backbone.Collection.extend({
 /* MATCHING MAP LOCATIONS ***********************
  * 
  */
-MatchingMapLocations= Backbone.Collection.extend({
-  model: MapLocation,
+MapPortlet.MatchingMapLocations= Backbone.Collection.extend({
+  model: MapPortlet.MapLocation,
   defaultLocation : { latitude:1, longitude:2 },
 
   initialize : function () {
@@ -119,7 +120,7 @@ MatchingMapLocations= Backbone.Collection.extend({
 /* MAP VIEW *************************************
  * 
  */
-MapView= Backbone.View.extend({
+MapPortlet.MapView= Backbone.View.extend({
   template: '#N_map-view-template',
   className: 'portlet',
 
@@ -234,7 +235,7 @@ MapView= Backbone.View.extend({
 /* MAP SEARCH VIEW ******************************
  * 
  */
-MapSearchContainerView= Backbone.View.extend({
+MapPortlet.MapSearchContainerView= Backbone.View.extend({
   template: '#map-search-container-template',
   className: 'map-search-container',
 
@@ -245,7 +246,9 @@ MapSearchContainerView= Backbone.View.extend({
 
   initialize : function (options) {
     this.mapLocations= options.mapLocations;
-    this.mapLocations.fetch();
+    this.mapLocations.fetch().error( function (e) {
+      console.log('ERROR WITH LOADING DATA:', e.statusText);
+    });
     this.matchingMapLocations= options.matchingMapLocations;
   },
 
@@ -287,10 +290,10 @@ MapSearchContainerView= Backbone.View.extend({
 /* MAP LOCATION DETAIL VIEW *********************
  * 
  */
-MapLocationDetailView= Backbone.View.extend({
+MapPortlet.MapLocationDetailView= Backbone.View.extend({
   template : '#map-location-detail-template',
   className : 'map-location-detail portlet',
-  model : new MapLocation(),
+  model : new MapPortlet.MapLocation(),
 
   events : {
     'click .map-location-back-link' : 'returnToSearchResults',
@@ -320,7 +323,7 @@ MapLocationDetailView= Backbone.View.extend({
 /* MAP CATEGORIES VIEW **************************
  * 
  */
-MapCategoriesView= Backbone.View.extend({
+MapPortlet.MapCategoriesView= Backbone.View.extend({
   template : '#map-categories-template',
   className : 'map-categories',
   categories : {},
@@ -352,7 +355,7 @@ MapCategoriesView= Backbone.View.extend({
 /* MAP CATEGORY DETAIL VIEW *********************
  * 
  */
-MapCategoryDetailView = Backbone.View.extend({
+MapPortlet.MapCategoryDetailView = Backbone.View.extend({
   template : '#map-category-detail-template',
   events : {
     'click a.map-category-back-link' : 'clickBack',
@@ -387,7 +390,7 @@ if( ! window.google ) {
   throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
 }
 
-MapPortletRouter= Backbone.Router.extend({
+MapPortlet.MapPortletRouter= Backbone.Router.extend({
   routes: {
     '': 'home',
     'search/:query' : 'searchResults',
@@ -459,7 +462,7 @@ MapPortletRouter= Backbone.Router.extend({
   browse : function () {
     if(_.flatten(this.layout.views).length == 0 ) {
       this.doViews();
-      mapLocations.on('reset', this.browse, this)
+      mapLocations.on('reset', this.browse, this);
       return;
     }
     mapLocations.off('reset', this.browse);
@@ -484,25 +487,25 @@ MapPortletRouter= Backbone.Router.extend({
 
   doViews : function () {
     // collections
-    mapLocations= new MapLocations({url:this.options.data});
-    matchingMapLocations= new MatchingMapLocations();
+    mapLocations= new MapPortlet.MapLocations({url:this.options.data});
+    matchingMapLocations= new MapPortlet.MatchingMapLocations();
     // views
-    mapSearchContainerView= new MapSearchContainerView({
+    mapSearchContainerView= new MapPortlet.MapSearchContainerView({
       mapLocations : mapLocations,
       matchingMapLocations : matchingMapLocations
     });
-    mapView= new MapView({
+    mapView= new MapPortlet.MapView({
       mapLocations : mapLocations,
       matchingMapLocations : matchingMapLocations,
       mapOptions : this.options.mapOptions
     });
-    mapLocationDetailView= new MapLocationDetailView({
+    mapLocationDetailView= new MapPortlet.MapLocationDetailView({
       matchingMapLocations : matchingMapLocations
     });
-    mapCategoriesView= new MapCategoriesView({
+    mapCategoriesView= new MapPortlet.MapCategoriesView({
       mapLocations : mapLocations
     });
-    mapCategoryDetailView= new MapCategoryDetailView({
+    mapCategoryDetailView= new MapPortlet.MapCategoryDetailView({
       matchingMapLocations : matchingMapLocations
     });
 
@@ -574,8 +577,8 @@ _.templateSettings = {
   evaluate : /\{!(.+?)!\}/g
 };
 
-function MapPortlet( options ) {
-  var router = new MapPortletRouter();
+MapPortlet.init= function ( options ) {
+  var router = new MapPortlet.MapPortletRouter();
   router.layout=  new Backbone.LayoutManager({ template: options.template });
   router.options= options;
   $(document).ready(function () {

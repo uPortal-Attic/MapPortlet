@@ -1,4 +1,5 @@
-  {
+{ "mapData" : 
+{
     "defaultLocation":{"latitude":41.3137919,"longitude":-72.9234645},
     "locations":[
       {"latitude":41.3068877,"longitude":-72.9424517,"name":"Air Rights Garage","abbreviation":"ARG","address":"North Frontage Road New Haven, CT 06511 New Haven, CT 06511","description":null,"img":"http://business.yale.edu/map/thumbnail/ARG.jpg","searchText":"air rights garage~arg~","searchKeys":[],"categories":["parking"],"campuses":["Main"]},
@@ -343,4 +344,5 @@
       {"latitude":31.0768084,"longitude":-97.4169846,"name":"West-D37","abbreviation":"W-D37","address":"West Campus, 137 Frontage Road Orange, CT 06477","description":null,"img":"http://business.yale.edu/map/thumbnail/W-D37.jpg","searchText":"west-d37~w-d37~","searchKeys":[],"categories":[],"campuses":["West"]},
       {"latitude":41.2518649,"longitude":-72.9965746,"name":"West-E29","abbreviation":"W-E29","address":"West Campus, 117 Frontage Rd, Orange, CT 06477","description":null,"img":"http://business.yale.edu/map/thumbnail/W-E29.jpg","searchText":"west-e29~w-e29~","searchKeys":[],"categories":[],"campuses":["West"]},
       {"latitude":31.0768084,"longitude":-97.4169846,"name":"West-E35","abbreviation":"W-E35","address":"West Campus, 137 Frontage Road Orange, CT 06477","description":null,"img":"http://business.yale.edu/map/thumbnail/W-E35.jpg","searchText":"west-e35~w-e35~","searchKeys":[],"categories":[],"campuses":["West"]}]
+  }
   }
