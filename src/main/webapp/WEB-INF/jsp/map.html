@@ -36,32 +36,38 @@
   <script type="text/javascript" src="../../js/map-portlet.js"></script>
   <script type="text/javascript">
 
-    
-    window.mapPortlet= new MapPortlet.init({
-      target : '#N_map',
-      template : '#N_map-template',
-      root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
-      data : '../../data/map-new.json',
-
-      mapOptions : {
-
-        zoom: 12,//${ zoom },
-        mapTypeControl: true,//${ mapTypeControl },
-        mapTypeControlOptions: {
-          style: window.google.maps.MapTypeControlStyle.DEFAULT
-        },
-        panControl: false,//${ panControl },
-        zoomControl: true,//${ zoomControl },
-        zoomControlOptions: {
-          style: window.google.maps.ZoomControlStyle.SMALL
-        },
-        scaleControl: true,//${ scaleControl },
-        streetViewControl: true,//${ streetView },
-        rotateControl: false,//${ rotateControl },
-        overviewMapControl: false,//${ overviewControl },
-        mapTypeId: window.google.maps.MapTypeId.ROADMAP
+    window.mapPortlet= new MapPortlet(
+      jQuery.noConflict(true), 
+      _.noConflict(),
+      Backbone.noConflict(),
+      window.google,
+      {
+        target : '#N_map',
+        template : '#N_map-template',
+        root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
+        data : '../../data/map-new.json',
+  
+        mapOptions : {
+  
+          zoom: 12,//${ zoom },
+          mapTypeControl: true,//${ mapTypeControl },
+          mapTypeControlOptions: {
+            style: window.google.maps.MapTypeControlStyle.DEFAULT
+          },
+          panControl: false,//${ panControl },
+          zoomControl: true,//${ zoomControl },
+          zoomControlOptions: {
+            style: window.google.maps.ZoomControlStyle.SMALL
+          },
+          scaleControl: true,//${ scaleControl },
+          streetViewControl: true,//${ streetView },
+          rotateControl: false,//${ rotateControl },
+          overviewMapControl: false,//${ overviewControl },
+          mapTypeId: window.google.maps.MapTypeId.ROADMAP
+        }
       }
-    });
+    );
+    
   </script>
   
   <link rel="stylesheet" href="../../css/uPortal.css"/>

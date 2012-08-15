@@ -36,30 +36,35 @@
 
 <script type="text/javascript">
 if( typeof ${n} == 'undefined' ) ${n} = {};
-${n}.mapPortlet= new MapPortlet({
-    target : '#${n}map',
-    template : '#N_map-template',
-    root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
-    data : '<portlet:resourceURL/>',
-    
-    mapOptions : {
-        zoom: ${ zoom },
-        mapTypeControl: ${ mapTypeControl },
-        mapTypeControlOptions: {
-            style: window.google.maps.MapTypeControlStyle.DEFAULT
-        },
-        panControl: ${ panControl },
-        zoomControl: ${ zoomControl },
-        zoomControlOptions: {
-            style: window.google.maps.ZoomControlStyle.SMALL
-        },
-        scaleControl: ${ scaleControl },
-        streetViewControl: ${ streetView },
-        rotateControl: ${ rotateControl },
-        overviewMapControl: ${ overviewControl },
-        mapTypeId: window.google.maps.MapTypeId.ROADMAP
+${n}.mapPortlet= new MapPortlet(
+    jQuery.noConflict(true),
+    _.noConflict(),
+    Backbone.noConflict(),
+    window.google,
+    {
+        target : '#${n}map',
+        template : '#N_map-template',
+        root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
+        data : '<portlet:resourceURL/>',
+        mapOptions : {
+            zoom: ${ zoom },
+            mapTypeControl: ${ mapTypeControl },
+            mapTypeControlOptions: {
+                style: window.google.maps.MapTypeControlStyle.DEFAULT
+            },
+            panControl: ${ panControl },
+            zoomControl: ${ zoomControl },
+            zoomControlOptions: {
+                style: window.google.maps.ZoomControlStyle.SMALL
+            },
+            scaleControl: ${ scaleControl },
+            streetViewControl: ${ streetView },
+            rotateControl: ${ rotateControl },
+            overviewMapControl: ${ overviewControl },
+            mapTypeId: window.google.maps.MapTypeId.ROADMAP
+        }
     }
-});
+);
 </script>
 
 
