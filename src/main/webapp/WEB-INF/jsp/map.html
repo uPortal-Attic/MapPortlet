@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:dlm="http://www.uportal.org/layout/dlm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" lang="en" class="ui-mobile portrait min-width-320px min-width-480px max-width-480px max-width-768px max-width-1024px">
 <head>
   <title>MapPortlet</title>
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="../../css/uPortalServed/jqm.theme.css"/>
+  <link rel="stylesheet" href="../../css/uPortalServed/uPortal.css"/>
+  <link rel="stylesheet" href="../../css/uPortalServed/portal.css"/>
+
   <!-- JAVACRIPT FROM UPORTAL -->
   <script type="text/javascript" src="../../js/uPortal-served/jquery-1.6.1.js"></script>
   <script type="text/javascript" src="../../js/uPortal-served/jquery-ui-1.8.13.js"></script>
-  <script type="text/javascript" src="../../js/uPortal-served/fluid-all-1.4.0.js"></script>
+  <!--script type="text/javascript" src="../../js/uPortal-served/fluid-all-1.4.0.js"></script-->
+  
+  <script type="text/javascript" src="../../js/uPortal-served/up-mobile-config.js"></script>
+  <script type="text/javascript" src="../../js/uPortal-served/jquery.mobile-1.0b1.js"></script>
+  <script type="text/javascript" src="../../js/uPortal-served/jquerymobile.accordion.listview.js"></script>
+  
   <!-- / JAVACRIPT FROM UPORTAL -->
   <!-- FROM SKIN.XML -->
   <script type="text/javascript" src="../../js/underscore.js"></script>
@@ -37,7 +48,7 @@
   <script type="text/javascript">
 
     window.mapPortlet= new MapPortlet(
-      jQuery.noConflict(true), 
+      jQuery,//.noConflict(true), 
       _.noConflict(),
       Backbone.noConflict(),
       window.google,
@@ -70,9 +81,13 @@
     
   </script>
   
-  <link rel="stylesheet" href="../../css/uPortal.css"/>
-
+<style type="text/css">
+.up .ui-btn {
+  text-shadow: none;
+}
+</style>
 </head>
+<!--
 <body id="portal" class="up fl-theme-mist">
 <div id="portalPage">
   <div id="portalPageInner">
@@ -84,6 +99,9 @@
           <div id="portalPageBodyColumns" class="columns-1">
             <div class="portal-page-column fl-container-flex75">
               <div class="portal-page-column-inner">
+-->
+<body class="up fl-theme-iphone dashboard-grid ui-mobile-viewport">
+<div class="portal focused courses ui-page ui-body-c ui-page-active" data-role="page" id="page" data-url="page" style="min-height: 803px;">
 
 
 
@@ -97,6 +115,7 @@
                   <div id="map-category-detail"></div>
                   <div id="map-location-detail"></div>
                   <div id="map-container"></div>
+                  <div id="map-footer"></div>
                 </script>
                 <!-- / MAIN LAYOUT -->
 
@@ -110,15 +129,10 @@
 
                 <!-- MAP SEARCH FORM -->
                 <script type="template" id="map-search-container-template">
-                  <div data-role="header" class="titlebar portlet-titlebar">
-                    <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
-                    <h2>Search</h2>
-                  </div>
-                  <div class="portlet-content" data-role="content">
-                    <form class="map-search-form" onsubmit="return false;">
-                      <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
-                      <input data-role="button" data-inline="true" type="submit" value="Go"/>
-                    </form>
+                  <div data-role="header" class="ui-bar ui-bar-b">
+                      <form class="map-search-form" onsubmit="return false;">
+                        <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search"/>
+                      </form>
                   </div>
                 </script>
                 <!-- / MAP SEARCH FORM -->
@@ -200,11 +214,26 @@
                 </script>
                 <!-- / MAP LOCATION -->
 
+                <!-- MAP FOOTER -->
+                <script type="template" id="map-footer-template">
+                  <div data-role="footer" data-position="fixed">
+                    <div data-role="navbar">
+                      <ul>
+                        <li><a class="map-footer-search-link" href="javascript://" class="ui-btn-active">Search</a></li>
+                        <li><a class="map-footer-browse-link" href="javascript://">Browse</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </script>
+                <!-- / MAP FOOTER -->
+
                 <!-- / TEMPLATES -->
 
                 <div id="N_map"></div>
 
 
+</div>
+<!--
               </div>
             </div>
           </div>
@@ -213,5 +242,6 @@
     </div>
   </div>
 </div>
+-->
 </body>
 </html>

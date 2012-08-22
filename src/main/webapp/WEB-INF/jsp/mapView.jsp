@@ -92,14 +92,13 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP SEARCH FORM -->
     <script type="template" id="map-search-container-template">
-        <div data-role="header" class="titlebar portlet-titlebar">
+        <div data-role="header" class="ui-bar ui-bar-b<%-- titlebar portlet-titlebar--%>">
             <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
             <h2>Search</h2>
         </div>
         <div class="portlet-content" data-role="content">
             <form class="map-search-form" onsubmit="return false;">
-                <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
-                <input data-role="button" data-inline="true" type="submit" value="Go"/>
+                <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search"/>
             </form>
         </div>
     </script>
@@ -184,7 +183,7 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP FOOTER -->
     <script type="template" id="map-footer-template">
-        <div data-role="footer">
+        <div data-role="footer" data-position="fixed">
             <div data-role="navbar">
                 <ul>
                     <li><a class="map-footer-search-link" href="javascript://" class="ui-btn-active">Search</a></li>

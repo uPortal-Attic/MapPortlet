@@ -242,8 +242,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     className: 'map-search-container',
   
     events : {
-      'click a.map-browse-link' : 'clickBrowse',
-      'click input[type=submit]' : 'submitSearch'
+      'keypress input[type=text]' : 'submitSearchByEnter'
     },
   
     initialize : function (options) {
@@ -254,17 +253,18 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.matchingMapLocations= options.matchingMapLocations;
     },
   
-    clickBrowse : function (e) {
-      this.trigger('clickBrowse');
-    },
-  
     submitSearch : function (e){
       // do search
       var ff= $(e.target).closest('form').get(0).search;
       this.trigger('submitSearch', ff.value);
       //this.search(ff.value);
     },
-  
+
+    submitSearchByEnter : function (e) {
+      if( e.keyCode != 13 ) return;
+      this.submitSearch(e);
+    },
+
     search : function (query) {
       var matches;
       if( query ) {
@@ -390,12 +390,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
    */
   var MapFooterView = Backbone.View.extend({
     template : '#map-footer-template',
-    className : 'barfingOutLoud',
     events : {
       'click a.map-footer-search-link' : 'clickSearch',
       'click a.map-footer-browse-link' : 'clickBrowse'
     },
-
+    
     clickSearch : function (e) {
       console.log('clickSearch');
       this.trigger('clickSearch');
@@ -406,6 +405,21 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.trigger('clickBrowse');
     },
 
+    getSearchTab : function () {
+      return this.$searchTab || ( this.$searchTab = $('a.map-footer-search-link') );
+    },
+
+    getBrowseTab : function () {
+      return this.$browseTab || ( this.$browseTab = $('a.map-footer-browse-link') );
+    },
+
+    setNav : function (pageName) {
+      var $searchTab= this.getSearchTab(),
+          $browseTab= this.getBrowseTab();
+      $searchTab[ pageName == 'search' ? 'addClass' : 'removeClass']('ui-btn-active');
+      $browseTab[ pageName == 'browse' ? 'addClass' : 'removeClass']('ui-btn-active');
+    },
+    
     render : function (manage) {
       this.trigger('render');
       r= manage(this).render();
@@ -423,22 +437,28 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
   }
   
-  var MapPortletRouter= Backbone.Router.extend({
-    routes: {
+  //var MapPortletRouter= Backbone.Router.extend({
+  var MapPortletRouter= function () {
+    /*
+    //routes: {
+    this.routes= {
       '': 'home',
       'search/:query' : 'searchResults',
       'location/:id' : 'locationDetail',
       'location/:id/map' : 'locationMap',
       'browse' : 'browse',
       'browse/:category' : 'category'
-    },
+    //},
+    };
+    */
   
     /* showOnly()
      * Hide all views except for the ones passed as a parameter.
      * @param views array - array of view objects that are to be shown
      * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
      */
-    showOnly : function (views) {
+    //showOnly : function (views) {
+    this.showOnly = function (views) {
       var allViews= [mapSearchContainerView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
       if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
       _.each( allViews, function (v) {
@@ -447,14 +467,19 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       //mapView.$el.fadeTo(0, _.indexOf(views, mapView) == -1 ? 0 : 1 );
       mapView[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
       mapFooterView.$el.show();
-    },
+//    },
+    };
+    
   
-    home : function () {
+//    home : function () {
+    this.home = function () {
       if(_.flatten(this.layout.views).length == 0 ) this.doViews();
       this.showOnly([mapSearchContainerView,mapView]);
-    },
+      mapFooterView.setNav('search');
+//    },
+    };
   
-    searchResults : function (q) {
+    this.searchResults = function (q) {
       reloadSearchResults= function () { this.searchResults(q); };
       if(_.flatten(this.layout.views).length == 0 ) {
         this.doViews();
@@ -463,10 +488,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadSearchResults);
       this.showOnly([mapSearchContainerView,mapView]);
+      mapFooterView.setNav('search');
       mapSearchContainerView.search(q);
-    },
-  
-    locationDetail : function (id) {
+    };
+
+    this.locationDetail = function (id) {
       var location, reloadLocationDetail= function () { this.locationDetail(id); };
       if(_.flatten(this.layout.views).length == 0 ) {
         this.doViews();
@@ -477,9 +503,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
       this.showOnly([mapLocationDetailView]);
-    },
-  
-    locationMap : function (id) {
+    };
+
+    this.locationMap = function (id) {
       var location, reloadLocationMap= function () { this.locationMap(id); };
       if(_.flatten(this.layout.views).length == 0 ) {
         this.doViews();
@@ -491,9 +517,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapLocationDetailView.model.set( location.toJSON() );
       this.showOnly([mapLocationDetailView,mapView]);
       matchingMapLocations.reset([location]);
-    },
-  
-    browse : function () {
+    };
+
+    this.browse = function () {
       if(_.flatten(this.layout.views).length == 0 ) {
         this.doViews();
         mapLocations.on('reset', this.browse, this);
@@ -501,9 +527,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', this.browse);
       this.showOnly([mapCategoriesView]);
-    },
-  
-    category : function (category) {
+      mapFooterView.setNav('browse');
+    };
+
+    this.category = function (category) {
       reloadCategory= function () { this.category(category); };
       if(_.flatten(this.layout.views).length == 0 ) {
         this.doViews();
@@ -512,14 +539,15 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadCategory);
       this.showOnly([mapView,mapCategoryDetailView]);
+      mapFooterView.setNav('browse');
       mapSearchContainerView.filterByCategory(category);
       mapCategoryDetailView.render();
   
-    },
+    };
   
   
-  
-    doViews : function () {
+//    doViews : function () {
+    this.doViews = function () {
       // collections
       mapLocations= new MapLocations({url:this.options.data});
       matchingMapLocations= new MatchingMapLocations();
@@ -617,9 +645,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         }, this);
       /* / LISTENERS */
   
-    }
+//    }
+    };
   
-  });
+   };
+  //};
   
   _.templateSettings = {
     interpolate : /\{\{(.+?)\}\}/g,
