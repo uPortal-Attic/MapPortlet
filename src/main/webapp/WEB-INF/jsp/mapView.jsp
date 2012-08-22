@@ -78,6 +78,7 @@ ${n}.mapPortlet= new MapPortlet(
         <div id="map-category-detail"></div>
         <div id="map-location-detail"></div>
         <div id="map-container"></div>
+        <div id="map-footer"></div>
     </script>
     <!-- / MAIN LAYOUT -->
     
@@ -180,6 +181,19 @@ ${n}.mapPortlet= new MapPortlet(
         </div>
     </script>
     <!-- / MAP LOCATION -->
+
+    <!-- MAP FOOTER -->
+    <script type="template" id="map-footer-template">
+        <div data-role="footer">
+            <div data-role="navbar">
+                <ul>
+                    <li><a class="map-footer-search-link" href="javascript://" class="ui-btn-active">Search</a></li>
+                    <li><a class="map-footer-browse-link" href="javascript://">Browse</a></li>
+                </ul>
+            </div>
+        </div>
+    </script>
+    <!-- / MAP FOOTER -->
 
 <!-- / TEMPLATES -->
 

@@ -382,6 +382,37 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     }
   
   });
+
+
+
+  /* MAP FOOTER VIEW *********************
+   * 
+   */
+  var MapFooterView = Backbone.View.extend({
+    template : '#map-footer-template',
+    className : 'barfingOutLoud',
+    events : {
+      'click a.map-footer-search-link' : 'clickSearch',
+      'click a.map-footer-browse-link' : 'clickBrowse'
+    },
+
+    clickSearch : function (e) {
+      console.log('clickSearch');
+      this.trigger('clickSearch');
+    },
+
+    clickBrowse : function (e) {
+      console.log('clickBrowse');
+      this.trigger('clickBrowse');
+    },
+
+    render : function (manage) {
+      this.trigger('render');
+      r= manage(this).render();
+      this.$el.parent().trigger('create');
+      return r;
+    }
+  });
   
   
   /* ********************************************** 
@@ -415,6 +446,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       });
       //mapView.$el.fadeTo(0, _.indexOf(views, mapView) == -1 ? 0 : 1 );
       mapView[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
+      mapFooterView.$el.show();
     },
   
     home : function () {
@@ -510,13 +542,15 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapCategoryDetailView= new MapCategoryDetailView({
         matchingMapLocations : matchingMapLocations
       });
+      mapFooterView= new MapFooterView();
   
       this.layout.setViews( {
         '#map-search-container' : mapSearchContainerView,
         '#map-container' : mapView,
         '#map-location-detail' : mapLocationDetailView,
         '#map-categories' : mapCategoriesView,
-        '#map-category-detail' : mapCategoryDetailView
+        '#map-category-detail' : mapCategoryDetailView,
+        '#map-footer' : mapFooterView
       });
       // Hide all views
       this.showOnly([]);
@@ -525,48 +559,61 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       /* LISTENERS */
       mapView
         .on('clickLocation', function (id) {
-          this.navigate('location/'+id)
+          // this.navigate('location/'+id)
           this.locationDetail( id );
         }, this);
   
       mapLocationDetailView
         .on('returnToSearchResults', function () {
-          this.navigate('');
+          // this.navigate('');
           this.home();
         }, this)
         .on('clickLocation', function (id) {
-          this.navigate('location/'+id+'/map');
+          // this.navigate('location/'+id+'/map');
           this.locationMap(id);
         }, this);
   
       mapSearchContainerView
         .on('clickBrowse', function () {
-          this.navigate('browse');
+          // this.navigate('browse');
           this.browse();
         }, this)
         .on('submitSearch', function (query) {
-          this.navigate('search/' + encodeURI(query));
+          // this.navigate('search/' + encodeURI(query));
           this.searchResults(query);
         }, this);
   
       mapCategoriesView
         .on('clickCategory', function (category) {
-          this.navigate('browse/' + encodeURI(category));
+          // this.navigate('browse/' + encodeURI(category));
           this.category(category);
         }, this)
         .on('returnToHome', function () {
-          this.navigate('');
+          // this.navigate('');
           this.home();
         }, this);
   
       mapCategoryDetailView
         .on('clickBack', function () {
-          this.navigate('browse');
+          // this.navigate('browse');
           this.browse();
         }, this)
         .on('clickLocation', function (id) {
-          this.navigate('location/'+id);
+          // this.navigate('location/'+id);
           this.locationDetail( id );
+        }, this);
+
+      mapFooterView
+        .on('clickBrowse', function () {
+          this.browse();
+        }, this)
+        .on('clickSearch', function () {
+          this.home();
+        }, this)
+        .on('render', function () {
+          console.log('R', arguments, this, $(this), this.layout.$el.get(0) );
+          //this.mapFooterView.$el.trigger('create');
+          this.layout.$el.trigger('create');
         }, this);
       /* / LISTENERS */
   
@@ -584,7 +631,8 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   router.options= options;
   $(document).ready(function () {
     $(options.target).html(router.layout.el);
-    Backbone.history.start({root:options.root});
+    //Backbone.history.start({root:options.root});
+    router.home();
   });
   return {
     router : router
