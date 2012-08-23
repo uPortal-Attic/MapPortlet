@@ -29,7 +29,7 @@
     <c:set var="apiUrl">${ apiUrl }&amp;key=${ apiKey }</c:set>
 </c:if>
 <script src="${apiUrl}"></script>
-<c:set var="usePortalJsLibs" value="${ false }"/>
+<c:set var="usePortalJsLibs" value="${ true }"/>
 <rs:aggregatedResources path="${ usePortalJsLibs ? '/skin-shared.xml' : '/skin.xml' }"/>
 
 
@@ -37,9 +37,9 @@
 <script type="text/javascript">
 if( typeof ${n} == 'undefined' ) ${n} = {};
 ${n}.mapPortlet= new MapPortlet(
-    jQuery.noConflict(true),
-    _.noConflict(),
-    Backbone.noConflict(),
+    up.jQuery,
+    up._,
+    up.Backbone,
     window.google,
     {
         target : '#${n}map',

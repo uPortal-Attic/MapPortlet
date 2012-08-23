@@ -1,5 +1,8 @@
 MapPortlet= function ( $, _, Backbone, google, options ) {
   
+  Backbone.LayoutManager.configure({
+      manage: true
+  });
   
   /* ********************************************** 
    * *** MODELS
@@ -304,7 +307,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
     initialize : function (options) {
       this.matchingMapLocations= options.matchingMapLocations;
-      this.model.on('change', this.render, this);
+      this.model.on('change', function () { this.render(); this.$el.trigger("create"); }, this);
     },
   
     serialize : function () {
@@ -337,7 +340,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
     initialize : function (options) {
       this.mapLocations= options.mapLocations;
-      this.mapLocations.on('reset', this.render, this);
+      this.mapLocations.on('reset', function () { this.render(); this.$el.trigger("create"); }, this);
     },
   
     returnToHome : function () {
@@ -351,7 +354,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     serialize : function () {
       return { categories : this.mapLocations.categories || {} };
     }
-  
+
   });
   
   /* MAP CATEGORY DETAIL VIEW *********************
