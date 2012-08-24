@@ -92,10 +92,6 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP SEARCH FORM -->
     <script type="template" id="map-search-container-template">
-        <div data-role="header" class="ui-bar ui-bar-b<%-- titlebar portlet-titlebar--%>">
-            <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
-            <h2>Search</h2>
-        </div>
         <div class="portlet-content" data-role="content">
             <form class="map-search-form" onsubmit="return false;">
                 <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search"/>
@@ -118,10 +114,6 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP CATEGORIES -->
     <script type="template" id="map-categories-template">
-        <div data-role="header" class="titlebar portlet-titlebar">
-            <h2>Browse</h2>
-            <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search">Search</a>
-        </div>
         <div class="portlet-content" data-role="content">
             <ul data-role="listview">
                 {! _.each(categories, function (i, cat) { !}
@@ -137,8 +129,10 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- MAP CATEGORY -->
     <script type="template" id="map-category-detail-template">
         <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-            <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
-            <h2 class="map-category-name">Browse</h2>
+            <h2 class="map-category-name">
+                <a data-role="button" data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
+                {{ categoryName }}
+            </h2>
         </div>
 
         <div class="portlet">
@@ -158,8 +152,10 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- MAP LOCATION -->
     <script type="template" id="map-location-detail-template">
         <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-            <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
-            <h2 class="map-location-name">{{ location.name }}</h2>
+            <h2 class="map-location-name">
+                <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
+                {{ location.name }}
+            </h2>
         </div>
 
         <div class="portlet">

@@ -791,6 +791,5 @@ LayoutManager.prototype.options = {
 
 // Maintain a list of the keys at define time.
 keys = _.keys(LayoutManager.prototype.options);
-console.log(Backbone.View.prototype);
 
 })(up.jQuery, up._, up.Backbone);
