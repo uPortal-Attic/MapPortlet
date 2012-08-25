@@ -66,6 +66,28 @@ ${n}.mapPortlet= new MapPortlet(
     }
 );
 </script>
+<style type="text/css">
+    /* TODO: Move into stylesheet */
+    .map-portlet .ui-bar { text-align: center; }
+    .map-portlet .ui-bar a.ui-btn { float: left; }
+    .map-portlet .map-box { 
+        border: 1px solid gray;
+        padding: 2em;
+    }
+    .map-portlet .map-box h3 {
+        margin:0;
+    }
+    .map-portlet .map-box + .map-box {
+        margin-top:2em;
+    }
+    .map-location-image {
+        text-align:center;
+    }
+    .up .portlet-wrapper-titlebar a.ui-btn.BARF { 
+        background-color: #f00!important;
+        background-image: none;
+    }
+</style>
 
 
 <!-- TEMPLATES -->
@@ -114,6 +136,12 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP CATEGORIES -->
     <script type="template" id="map-categories-template">
+        <div data-role="header" class="portlet-titlebar ui-bar">
+            <%--a data-role="button" data-icon="back" data-inline="true" class="map-category-back-link ui-btn-right" href="javascript:;">Back</a--%>
+            <h2 class="map-category-name">
+                Categories
+            </h2>
+        </div>
         <div class="portlet-content" data-role="content">
             <ul data-role="listview">
                 {! _.each(categories, function (i, cat) { !}
@@ -128,9 +156,9 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP CATEGORY -->
     <script type="template" id="map-category-detail-template">
-        <div data-role="header" class="titlebar portlet-titlebar search-back-div">
+        <div data-role="header" class="portlet-titlebar ui-bar">
+            <%--a data-role="button" data-icon="back" data-inline="true" class="map-category-back-link ui-btn-right" href="javascript:;">Back</a--%>
             <h2 class="map-category-name">
-                <a data-role="button" data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
                 {{ categoryName }}
             </h2>
         </div>
@@ -151,15 +179,14 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP LOCATION -->
     <script type="template" id="map-location-detail-template">
-        <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-            <h2 class="map-location-name">
-                <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
+        <div data-role="header" class="portlet-titlebar ui-bar">
+            <h2 class="map-location-namemap-category-name">
                 {{ location.name }}
             </h2>
         </div>
 
-        <div class="portlet">
-            <div class="portlet-content" data-role="content">
+        <div class="portlet ui-content">
+            <div class="portlet-content map-box ui-corner-all ui-shadow" data-role="content">
                 <h3 class="map-location-name">{{ location.name }}</h3>
                 <p class="map-location-description">{{ location.description != null ? location.description : '' }}</p>
                 <p class="map-location-address">{{ location.address }}</p>
@@ -169,21 +196,27 @@ ${n}.mapPortlet= new MapPortlet(
                 {! if( location.latitude != null && location.longitude != null ) { !}
                     <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
                 {! } !}
-                {! if( location.img ) { !}
-                    <p><img class="map-location-image" src="{{ location.img }}"/></p>
-                {! } !}
             </div>
+
+            {! if( location.img ) { !}
+                <div class="portlet-content map-box ui-corner-all ui-shadow">
+                    <div class="map-location-image"><img class="map-location-image" src="{{ location.img }}"/></div>
+                </div>
+            {! } !}
         </div>
     </script>
     <!-- / MAP LOCATION -->
 
     <!-- MAP FOOTER -->
     <script type="template" id="map-footer-template">
-        <div data-role="footer" data-position="fixed">
-            <div data-role="navbar">
+        <div data-role="footer" data-position="fixed" class="portlet-wrapper-titlebar">
+            <div data-role="navbar" data-iconpos="top">
                 <ul>
-                    <li><a class="map-footer-search-link" href="javascript://" class="ui-btn-active">Search</a></li>
-                    <li><a class="map-footer-browse-link" href="javascript://">Browse</a></li>
+                    <li>
+                        <a data-icon="search" class="map-footer-search-link" href="javascript://" class="ui-btn-active">Search</a></li>
+                    <li>
+                        <a data-icon="grid" class="map-footer-browse-link" href="javascript://">Browse</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -192,4 +225,4 @@ ${n}.mapPortlet= new MapPortlet(
 
 <!-- / TEMPLATES -->
 
-<div id="${n}map" class="portlet"></div>
+<div id="${n}map" class="portlet map-portlet"></div>

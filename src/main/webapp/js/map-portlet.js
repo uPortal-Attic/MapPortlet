@@ -191,20 +191,22 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       map= this.createMap();
       infoWindow= this.infoWindow;
       this.clearMarkers();
+      this.firstLocation= null;
       bounds= this.gmaps.LatLngBounds();
       _.each( this.matchingMapLocations.models, function (loc) {
-        var marker;
+        var marker, link;
         if( loc.get('distance') > -1 ) {
           point= this.gmaps.latLng( loc.get('latitude'), loc.get('longitude') );
           marker= this.gmaps.marker({
             position:point,
             map:map
           });
+          link= $('<a class="map-link"/>')
+            .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
+            .data('locationId', loc.get('id')).get(0);
+          if( ! this.firstLocation ) this.firstLocation= { link:link, marker:marker };
           this.gmaps.addListener(marker, 'click', function () {
-            var $link= $('<a class="map-link"/>')
-              .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
-              .data('locationId', loc.get('id'));
-            infoWindow.setOptions({ content : $link.get(0) });
+            infoWindow.setOptions({ content : link });
             infoWindow.open(map, marker);
           });
           bounds.extend(point);
@@ -213,9 +215,14 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }, this);
       if( markers.length == 1 ) {
         map.setCenter(point);
+        // TODO: is this a configuration value?
         map.setZoom(17);
       } else if( markers.length > 0 ) {
         this.map.fitBounds(bounds);
+      }
+      if( this.firstLocation ) {
+        infoWindow.setOptions({ content : this.firstLocation.link });
+        this.infoWindow.open( this.createMap(), this.firstLocation.marker );
       }
       this.markers= markers;
     },
@@ -223,6 +230,14 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     clickLocation : function (e) {
       e.preventDefault();
       this.trigger('clickLocation', $(e.target).data('locationId') );
+    },
+
+    openLocationPoint : function (loc) {
+      var $link= $('<a class="map-link"/>')
+        .text( loc.get('name') + ' ('+ loc.get('abbreviation') +')' )
+        .data('locationId', loc.get('id'));
+      this.infoWindow.setOptions({ content : $link.get(0) });
+      this.infoWindow.open( this.createMap(), this.markers[0] );
     },
 
     show : function () {
@@ -302,7 +317,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
     events : {
       'click .map-location-back-link' : 'clickBack',
-      'click .map-location-map-link' : 'clickLocation'
+      'click .map-location-map-link' : 'clickViewInMap'
     },
   
     initialize : function (options) {
@@ -317,10 +332,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     clickBack : function () {
       this.trigger('clickBack');
     },
-  
-    clickLocation : function () {
+
+    clickViewInMap : function () {
       this.matchingMapLocations.reset(this.model);
-      this.trigger('clickLocation', this.model.get('id'));
+      this.trigger('clickViewInMap', this.model.get('id'));
     }
   
   });
@@ -405,7 +420,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       'click a.map-footer-search-link' : 'clickSearch',
       'click a.map-footer-browse-link' : 'clickBrowse'
     },
-    
+
     clickSearch : function (e) {
       this.trigger('clickSearch');
     },
@@ -425,6 +440,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     setNav : function (pageName) {
       var $searchTab= this.getSearchTab(),
           $browseTab= this.getBrowseTab();
+      // TODO: WHY DOES ui-btn-active NOT WORK? OTHER CLASSNAMES DO.
       $searchTab[ pageName == 'search' ? 'addClass' : 'removeClass']('ui-btn-active');
       $browseTab[ pageName == 'browse' ? 'addClass' : 'removeClass']('ui-btn-active');
     }
@@ -536,7 +552,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.addHistory(this.locationMap, id);
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
-      this.showOnly([mapLocationDetailView,mapView]);
+      this.showOnly([mapView]);
       matchingMapLocations.reset([location]);
     };
 
@@ -620,7 +636,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
           // this.navigate('');
           this.goBack();
         }, this)
-        .on('clickLocation', function (id) {
+        .on('clickViewInMap', function (id) {
           // this.navigate('location/'+id+'/map');
           this.locationMap(id);
         }, this);
