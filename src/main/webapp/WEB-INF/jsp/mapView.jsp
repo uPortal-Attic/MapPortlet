@@ -179,6 +179,7 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP LOCATION -->
     <script type="template" id="map-location-detail-template">
+        <!-- TODO: ADD LINK TO PARENT CATEGORY -->
         <div data-role="header" class="portlet-titlebar ui-bar">
             <h2 class="map-location-namemap-category-name">
                 {{ location.name }}
@@ -213,9 +214,9 @@ ${n}.mapPortlet= new MapPortlet(
             <div data-role="navbar" data-iconpos="top">
                 <ul>
                     <li>
-                        <a data-icon="search" class="map-footer-search-link" href="javascript://" class="ui-btn-active">Search</a></li>
+                        <a data-icon="search" class="map-footer-search-link">Search</a></li>
                     <li>
-                        <a data-icon="grid" class="map-footer-browse-link" href="javascript://">Browse</a>
+                        <a data-icon="grid" class="map-footer-browse-link">Browse</a>
                     </li>
                 </ul>
             </div>
