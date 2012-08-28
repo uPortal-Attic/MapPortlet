@@ -87,6 +87,33 @@ ${n}.mapPortlet= new MapPortlet(
         background-color: #f00!important;
         background-image: none;
     }
+    .map-portlet .map-display {
+        width:100%;
+        height: 500px;
+    }
+    .map-portlet .map-centered-buttons {
+        text-align:center
+    }
+    .map-portlet .map-centered-buttons div {
+        width:100%
+    }
+    .map-portlet .ui-btn-up-c {
+
+        border-color: #08180f;
+        background: #21653f;
+        color: white;
+        background-image: -moz-linear-gradient(top, #21653f, #08180f);
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #21653f), color-stop(1, #08180f));
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#21653f', EndColorStr='#08180f')";
+    }
+    .map-portlet .ui-btn-hover-c {
+        border-color: #08180f;
+        background: #2e8b57;
+        color: white;
+        background-image: -moz-linear-gradient(top, #2e8b57, #143f27);
+        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2e8b57), color-stop(1, #143f27));
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2e8b57', EndColorStr='#143f27')";
+    }
 </style>
 
 
@@ -107,7 +134,7 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- MAP VIEW -->
     <script type="template" id="N_map-view-template">
         <div class="portlet-content" data-role="content">
-            <div class="map-display" style="width:100%; height: 500px;"></div>
+            <div class="map-display"></div>
         </div>
     </script>
     <!-- / MAP VIEW -->
@@ -127,7 +154,7 @@ ${n}.mapPortlet= new MapPortlet(
         <div class="portlet-content" data-role="content">
             <ul data-role="listview">
                 <li class="map-search-result">
-                    <a href="javascript:;" class="map-search-result-link"></a>
+                    <a class="map-search-result-link"></a>
                 </li>
             </ul>
         </div>
@@ -137,7 +164,6 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- MAP CATEGORIES -->
     <script type="template" id="map-categories-template">
         <div data-role="header" class="portlet-titlebar ui-bar">
-            <%--a data-role="button" data-icon="back" data-inline="true" class="map-category-back-link ui-btn-right" href="javascript:;">Back</a--%>
             <h2 class="map-category-name">
                 Categories
             </h2>
@@ -146,7 +172,7 @@ ${n}.mapPortlet= new MapPortlet(
             <ul data-role="listview">
                 {! _.each(categories, function (i, cat) { !}
                 <li class="map-category">
-                    <a href="javascript:;" class="map-category-link" data-category='{{ cat }}'>{{ cat }}</a>
+                    <a class="map-category-link" data-category='{{ cat }}'>{{ cat }}</a>
                 </li>
                 {! }); !}
             </ul>
@@ -157,7 +183,6 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- MAP CATEGORY -->
     <script type="template" id="map-category-detail-template">
         <div data-role="header" class="portlet-titlebar ui-bar">
-            <%--a data-role="button" data-icon="back" data-inline="true" class="map-category-back-link ui-btn-right" href="javascript:;">Back</a--%>
             <h2 class="map-category-name">
                 {{ categoryName }}
             </h2>
@@ -168,7 +193,7 @@ ${n}.mapPortlet= new MapPortlet(
                 <ul data-role="listview">
                     {! locations.each( function (location) { !}
                     <li class="map-location">
-                        <a href="javascript:;" class="map-location-link" data-locationid="{{ location.get('id') }}">{{ location.get('name') }}</a>
+                        <a class="map-location-link" data-locationid="{{ location.get('id') }}">{{ location.get('name') }}</a>
                     </li>
                     {! }); !}
                 </ul>
@@ -187,16 +212,20 @@ ${n}.mapPortlet= new MapPortlet(
         </div>
 
         <div class="portlet ui-content">
+            <p>
+                <a data-role="button" data-icon="back" data-inline="true" class="map-location-back-link">Back</a>
+            </p>
             <div class="portlet-content map-box ui-corner-all ui-shadow" data-role="content">
                 <h3 class="map-location-name">{{ location.name }}</h3>
                 <p class="map-location-description">{{ location.description != null ? location.description : '' }}</p>
                 <p class="map-location-address">{{ location.address }}</p>
-                <p>
-                    <a href="http://maps.google.com?q={{ encodeURI( location.address ? location.address : location.latitude + ',' + location.longitude ) }}" class="map-location-directions-link" target="javascript:;">Directions</a>
-                </p>
-                {! if( location.latitude != null && location.longitude != null ) { !}
-                    <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
-                {! } !}
+                <div data-role="controlgroup" data-type="horizontal" class="map-centered-buttons">
+                    {! if( location.latitude != null && location.longitude != null ) { !}
+                        <a class="map-location-map-link" data-role="button">Map</a>
+                    {! } !}
+                    <a href="http://maps.google.com?q={{ encodeURI( location.address ? location.address : location.latitude + ',' + location.longitude ) }}"
+                       class="map-location-directions-link" target="javascript:;" data-role="button">Directions</a>
+                </div>
             </div>
 
             {! if( location.img ) { !}
@@ -216,7 +245,7 @@ ${n}.mapPortlet= new MapPortlet(
                     <li>
                         <a data-icon="search" class="map-footer-search-link">Search</a></li>
                     <li>
-                        <a data-icon="grid" class="map-footer-browse-link">Browse</a>
+                        <a data-icon="grid" class="map-footer-browse-link">Categories</a>
                     </li>
                 </ul>
             </div>

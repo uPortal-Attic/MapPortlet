@@ -166,7 +166,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     createMap : function () {
       var coords;
       if( ! this.map ) {
-        if( ! this.isVisible ) return false;
         coords= this.mapLocations.defaultLocation;
         latLng= this.gmaps.latLng(coords.latitude, coords.longitude);
         this.mapOptions.center= latLng;
@@ -187,7 +186,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
 
     drawMap : function () {
       var map, infoWindow, point, bounds, markers=[];
-      if( ! this.isVisible ) return false;
+      if( ! this.isVisible ) this.$el.show();
       map= this.createMap();
       infoWindow= this.infoWindow;
       this.clearMarkers();
@@ -225,6 +224,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         this.infoWindow.open( this.createMap(), this.firstLocation.marker );
       }
       this.markers= markers;
+      if( ! this.isVisible ) this.$el.hide();
     },
 
     clickLocation : function (e) {
@@ -289,7 +289,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         this.matchingMapLocations.defaultLocation= this.mapLocations.defaultLocation;
         query= query.toLowerCase(query);
         matches= _.filter( this.mapLocations.models, function (location) {
-          return location.get('searchText') && location.get('searchText').indexOf(query) > -1;
+          return (
+              location.get('categories').toString().indexOf(query) > -1
+            ) || ( 
+              location.get('searchText') && location.get('searchText').indexOf(query) > -1
+            );
         });
         this.matchingMapLocations.reset(matches);
       }
@@ -378,7 +382,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   var MapCategoryDetailView = Backbone.View.extend({
     template : '#map-category-detail-template',
     events : {
-      'click a.map-category-back-link' : 'clickBack',
+      'click a.map-location-back-link' : 'clickBack',
       'click a.map-location-link' : 'clickLocation'
     },
   
