@@ -1,3 +1,11 @@
+/*  MAPS PORTLET
+ *  This is all the JavaScript that controls the Google Maps Portlet.
+ *  All Google methods are contained in MapPortlet.MapView.gmaps.
+ *  Backbone is used for models, and views. Neither the Backbone router or JQueryMobile router is used.
+ *  Underscore is a dependency of Backbone and also handles templating.
+ *  Backbone Layout Manager allows for multiple Backbone Views per screen.
+ */
+
 MapPortlet= function ( $, _, Backbone, google, options ) {
   
   Backbone.LayoutManager.configure({
@@ -108,7 +116,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       return R * c;
     },
   
-  
     convertDegToRad : function (number) {
       return number * Math.PI / 180;
     }
@@ -142,6 +149,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.mapOptions= options.mapOptions;
     },
 
+    /* GOOGLE MAPS API
+     * The gmaps object should contain all the gmaps-specific API methods for the entire application. 
+     */
     gmaps : {
       newMap : function (div, options) {
         return new window.google.maps.Map( div, options );
@@ -177,10 +187,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
 
     clearMarkers : function () {
-      if( ! this.markers ) this.markers=[];
-      for( m=0; m<this.markers.length; m+=1) {
-        this.markers[m].setMap(null);
-      };
+      if( this.markers ) {
+        _.each(this.markers, function (m) {
+          m.setMap(null);
+        });
+      }
       this.markers= [];
     },
 
@@ -255,9 +266,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   /* MAP SEARCH VIEW ******************************
    * 
    */
-  var MapSearchContainerView= Backbone.View.extend({
-    template: '#map-search-container-template',
-    className: 'map-search-container',
+  var MapSearchFormView= Backbone.View.extend({
+    template: '#map-search-form-template',
+    className: 'map-search-form',
   
     events : {
       'keypress input[type=text]' : 'submitSearchByEnter'
@@ -275,7 +286,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       // do search
       var ff= $(e.target).closest('form').get(0).search;
       this.trigger('submitSearch', ff.value);
-      //this.search(ff.value);
     },
 
     submitSearchByEnter : function (e) {
@@ -444,7 +454,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     setNav : function (pageName) {
       var $searchTab= this.getSearchTab(),
           $browseTab= this.getBrowseTab();
-      // TODO: WHY DOES ui-btn-active NOT WORK? OTHER CLASSNAMES DO.
       $searchTab[ pageName == 'search' ? 'addClass' : 'removeClass']('ui-btn-active');
       $browseTab[ pageName == 'browse' ? 'addClass' : 'removeClass']('ui-btn-active');
     }
@@ -460,77 +469,71 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     throw new Error( 'Could not connect to the Google Maps API. Please try again.' );
   }
   
-  //var MapPortletRouter= Backbone.Router.extend({
   var MapPortletRouter= function () {
-    /*
-    //routes: {
-    this.routes= {
-      '': 'home',
-      'search/:query' : 'searchResults',
-      'location/:id' : 'locationDetail',
-      'location/:id/map' : 'locationMap',
-      'browse' : 'browse',
-      'browse/:category' : 'category'
-    //},
-    };
-    */
+    var self= this;
   
     /* showOnly()
      * Hide all views except for the ones passed as a parameter.
      * @param views array - array of view objects that are to be shown
      * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
      */
-    //showOnly : function (views) {
-    this.showOnly = function (views) {
-      var allViews= [mapSearchContainerView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
+    var showOnly = function (views) {
+      var allViews= [mapSearchFormView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
       if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
       _.each( allViews, function (v) {
         v.$el[ _.indexOf(views, v) == -1 ? 'hide' : 'show' ]();
       });
-      //mapView.$el.fadeTo(0, _.indexOf(views, mapView) == -1 ? 0 : 1 );
       mapView[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
       mapFooterView.$el.show();
-      this.layout.$el.trigger('create');
-//    },
+      self.layout.$el.trigger('create');
     };
     
-    this.addHistory = function () {
+     var addHistory = function () {
       var args = Array.prototype.slice.call(arguments);
-      if( ! this.hasOwnProperty('_history') ) this._history=[];
-      this._history.unshift( args );
-      this._history= this._history.slice(0,3);
+      if( ! self.hasOwnProperty('_history') ) self._history=[];
+      self._history.unshift( args );
+      self._history= self._history.slice(0,3);
     };
     
-    this.goBack = function () {
+    var goBack = function () {
       var i= arguments.length > 0 ? arguments[0] : 1, 
-          f= this._history[i];
+          f= self._history[i];
       if( ! f ) return;
-      f[0].apply( this, f.slice(1) );
+      f[0].apply( self, f.slice(1) );
     };
     
-//    home : function () {
+    
+    /* VIEWS */
+    /* home()
+     * Check if doViews() has been run, add view to history, show mapSearch and mapView, set bottom nav to 'search'
+     */
     this.home = function () {
       if(_.flatten(this.layout.views).length == 0 ) this.doViews();
-      this.addHistory(this.home);
-      this.showOnly([mapSearchContainerView,mapView]);
+      addHistory(this.home);
+      showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('search');
-//    },
     };
-  
-    this.searchResults = function (q) {
-      reloadSearchResults= function () { this.searchResults(q); };
-      if(_.flatten(this.layout.views).length == 0 ) {
+    
+    /* searchResultsMap()
+     * 
+     */
+    this.searchResultsMap = function (q) {
+      reloadSearchResultsMap= function () { this.searchResultsMap(q); };
+      if( _.flatten(this.layout.views).length == 0 ) {
         this.doViews();
-        mapLocations.on('reset', reloadSearchResults, this);
+        mapLocations.on('reset', reloadSearchResultsMap, this);
         return;
       }
-      mapLocations.off('reset', reloadSearchResults);
-      this.addHistory(this.searchResults, q);
-      this.showOnly([mapSearchContainerView,mapView]);
+      mapLocations.off('reset', reloadSearchResultsMap);
+      addHistory(this.searchResultsMap, q);
+      showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('search');
-      mapSearchContainerView.search(q);
+      mapSearchFormView.search(q);
     };
 
+    /* locationDetail()
+     *
+     */
     this.locationDetail = function (id) {
       var location, reloadLocationDetail= function () { this.locationDetail(id); };
       if(_.flatten(this.layout.views).length == 0 ) {
@@ -539,12 +542,15 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         return;
       }
       mapLocations.off('reset', reloadLocationDetail);
-      this.addHistory(this.locationDetail, id);
+      addHistory(this.locationDetail, id);
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
-      this.showOnly([mapLocationDetailView]);
+      showOnly([mapLocationDetailView]);
     };
 
+    /* locationMap()
+     *
+     */
     this.locationMap = function (id) {
       var location, reloadLocationMap= function () { this.locationMap(id); };
       if(_.flatten(this.layout.views).length == 0 ) {
@@ -553,25 +559,31 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         return;
       }
       mapLocations.off('reset', reloadLocationMap);
-      this.addHistory(this.locationMap, id);
+      addHistory(this.locationMap, id);
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
-      this.showOnly([mapView]);
+      showOnly([mapView]);
       matchingMapLocations.reset([location]);
     };
 
-    this.browse = function () {
+    /* categories()
+     *
+     */
+    this.categories = function () {
       if(_.flatten(this.layout.views).length == 0 ) {
         this.doViews();
-        mapLocations.on('reset', this.browse, this);
+        mapLocations.on('reset', this.categories, this);
         return;
       }
-      mapLocations.off('reset', this.browse);
-      this.addHistory(this.browse);
-      this.showOnly([mapCategoriesView]);
+      mapLocations.off('reset', this.categories);
+      addHistory(this.categories);
+      showOnly([mapCategoriesView]);
       mapFooterView.setNav('browse');
     };
 
+    /* category()
+     *
+     */
     this.category = function (category) {
       reloadCategory= function () { this.category(category); };
       if(_.flatten(this.layout.views).length == 0 ) {
@@ -580,23 +592,25 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         return;
       }
       mapLocations.off('reset', reloadCategory);
-      this.addHistory(this.category, category);
+      addHistory(this.category, category);
       mapFooterView.setNav('browse');
-      mapSearchContainerView.filterByCategory(category);
+      mapSearchFormView.filterByCategory(category);
       mapCategoryDetailView.setCategoryName(category);
       mapCategoryDetailView.render();
   
-      this.showOnly([mapView,mapCategoryDetailView]);
+      showOnly([mapCategoryDetailView]);
     };
   
+    /* doViews()
+     * Defines views and listeners for portlet. Should only be run once.
+     */
   
-//    doViews : function () {
     this.doViews = function () {
       // collections
       mapLocations= new MapLocations({url:this.options.data});
       matchingMapLocations= new MatchingMapLocations();
       // views
-      mapSearchContainerView= new MapSearchContainerView({
+      mapSearchFormView= new MapSearchFormView({
         mapLocations : mapLocations,
         matchingMapLocations : matchingMapLocations
       });
@@ -617,7 +631,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapFooterView= new MapFooterView();
   
       this.layout.setViews( {
-        '#map-search-container' : mapSearchContainerView,
+        '#map-search-form' : mapSearchFormView,
         '#map-container' : mapView,
         '#map-location-detail' : mapLocationDetailView,
         '#map-categories' : mapCategoriesView,
@@ -625,86 +639,78 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         '#map-footer' : mapFooterView
       });
       // Hide all views
-      this.showOnly([]);
+      showOnly([]);
       this.layout.render();
   
       /* LISTENERS */
       mapView
         .on('clickLocation', function (id) {
-          // this.navigate('location/'+id)
           this.locationDetail( id );
         }, this);
   
       mapLocationDetailView
         .on('clickBack', function () {
-          // this.navigate('');
-          this.goBack();
+          goBack();
         }, this)
         .on('clickViewInMap', function (id) {
-          // this.navigate('location/'+id+'/map');
           this.locationMap(id);
         }, this);
   
-      mapSearchContainerView
+      mapSearchFormView
         .on('clickBrowse', function () {
-          // this.navigate('browse');
-          this.browse();
+          this.categories();
         }, this)
         .on('submitSearch', function (query) {
-          // this.navigate('search/' + encodeURI(query));
-          this.searchResults(query);
+          this.searchResultsMap(query);
         }, this);
   
       mapCategoriesView
         .on('clickCategory', function (category) {
-          // this.navigate('browse/' + encodeURI(category));
           this.category(category);
         }, this)
         .on('returnToHome', function () {
-          // this.navigate('');
           this.home();
         }, this);
   
       mapCategoryDetailView
         .on('clickBack', function () {
-          // this.navigate('browse');
-          this.goBack();
+          goBack();
         }, this)
         .on('clickLocation', function (id) {
-          // this.navigate('location/'+id);
           this.locationDetail( id );
         }, this);
 
       mapFooterView
         .on('clickBrowse', function () {
-          this.browse();
+          this.categories();
         }, this)
         .on('clickSearch', function () {
           this.home();
         }, this);
       /* / LISTENERS */
   
-//    }
     };
   
    };
-  //};
   
+  /* Change underscore template syntax to work well with JSP. Default is <% %>.
+   * The new syntax is "{!  !}" for scripts and "{{ }}" for expressions. So:
+   * {! var myVar=42; !}
+   * {{ myVar }}
+   */
   _.templateSettings = {
     interpolate : /\{\{(.+?)\}\}/g,
     evaluate : /\{!(.+?)!\}/g
   };
 
+  /* Create instance of router and start at home() */
   var router = new MapPortletRouter();
   router.layout=  new Backbone.LayoutManager({ template: options.template });
   router.options= options;
   $(document).ready(function () {
     $(options.target).html(router.layout.el);
-    //Backbone.history.start({root:options.root});
     router.home();
   });
-  return {
-    router : router
-  };
+  
 }
 

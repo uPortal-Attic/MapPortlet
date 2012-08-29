@@ -68,6 +68,16 @@ ${n}.mapPortlet= new MapPortlet(
 </script>
 <style type="text/css">
     /* TODO: Move into stylesheet */
+    <%--
+    .map-portlet {
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:2000;
+    }
+    --%>
     .map-portlet .ui-bar { text-align: center; }
     .map-portlet .ui-bar a.ui-btn { float: left; }
     .map-portlet .map-box { 
@@ -80,17 +90,36 @@ ${n}.mapPortlet= new MapPortlet(
     .map-portlet .map-box + .map-box {
         margin-top:2em;
     }
-    .map-location-image {
+    .map-portlet .map-location-image {
         text-align:center;
-    }
-    .up .portlet-wrapper-titlebar a.ui-btn.BARF { 
-        background-color: #f00!important;
-        background-image: none;
     }
     .map-portlet .map-display {
         width:100%;
         height: 500px;
     }
+    <%--
+    .map-portlet #map-search-form .map-search-form {
+        position:absolute;
+        top:0;
+        left:0%;
+        width:100%;
+        height:50px;
+        background-color:#fff;
+    }
+    .map-portlet #map-container .portlet-content {
+
+        position:absolute;
+        top:50px;
+        left:0;
+        right:0;
+        bottom:100px;
+        z-index: 2000;
+    }
+    .map-portlet .map-display {
+        width:100%;
+        height: 100%;
+    }
+    --%>
     .map-portlet .map-centered-buttons {
         text-align:center
     }
@@ -121,7 +150,7 @@ ${n}.mapPortlet= new MapPortlet(
         
     <!-- MAIN LAYOUT -->
     <script type="layout" id="N_map-template">
-        <div id="map-search-container"></div>
+        <div id="map-search-form"></div>
         <div id="map-search-results"></div>
         <div id="map-categories"></div>
         <div id="map-category-detail"></div>
@@ -140,7 +169,7 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- / MAP VIEW -->
 
     <!-- MAP SEARCH FORM -->
-    <script type="template" id="map-search-container-template">
+    <script type="template" id="map-search-form-template">
         <div class="portlet-content" data-role="content">
             <form class="map-search-form" onsubmit="return false;">
                 <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search"/>
