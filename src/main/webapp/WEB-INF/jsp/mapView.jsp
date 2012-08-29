@@ -68,16 +68,13 @@ ${n}.mapPortlet= new MapPortlet(
 </script>
 <style type="text/css">
     /* TODO: Move into stylesheet */
-    <%--
-    .map-portlet {
+    .map-portlet .map-fullscreen {
         position:absolute;
         top:0;
         left:0;
         right:0;
         bottom:0;
-        z-index:2000;
     }
-    --%>
     .map-portlet .ui-bar { text-align: center; }
     .map-portlet .ui-bar a.ui-btn { float: left; }
     .map-portlet .map-box { 
@@ -93,11 +90,6 @@ ${n}.mapPortlet= new MapPortlet(
     .map-portlet .map-location-image {
         text-align:center;
     }
-    .map-portlet .map-display {
-        width:100%;
-        height: 500px;
-    }
-    <%--
     .map-portlet #map-search-form .map-search-form {
         position:absolute;
         top:0;
@@ -107,19 +99,16 @@ ${n}.mapPortlet= new MapPortlet(
         background-color:#fff;
     }
     .map-portlet #map-container .portlet-content {
-
         position:absolute;
         top:50px;
         left:0;
         right:0;
-        bottom:100px;
-        z-index: 2000;
+        bottom:0;
     }
     .map-portlet .map-display {
         width:100%;
         height: 100%;
     }
-    --%>
     .map-portlet .map-centered-buttons {
         text-align:center
     }
@@ -127,7 +116,6 @@ ${n}.mapPortlet= new MapPortlet(
         width:100%
     }
     .map-portlet .ui-btn-up-c {
-
         border-color: #08180f;
         background: #21653f;
         color: white;
@@ -143,6 +131,9 @@ ${n}.mapPortlet= new MapPortlet(
         background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2e8b57), color-stop(1, #143f27));
         -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2e8b57', EndColorStr='#143f27')";
     }
+    .map-portlet #map-footer .map-footer {
+        
+    }
 </style>
 
 
@@ -150,12 +141,14 @@ ${n}.mapPortlet= new MapPortlet(
         
     <!-- MAIN LAYOUT -->
     <script type="layout" id="N_map-template">
-        <div id="map-search-form"></div>
         <div id="map-search-results"></div>
         <div id="map-categories"></div>
         <div id="map-category-detail"></div>
         <div id="map-location-detail"></div>
-        <div id="map-container"></div>
+        <div class="map-fullscreen">
+            <div id="map-search-form"></div>
+            <div id="map-container"></div>
+        </div>
         <div id="map-footer"></div>
     </script>
     <!-- / MAIN LAYOUT -->
@@ -268,7 +261,7 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP FOOTER -->
     <script type="template" id="map-footer-template">
-        <div data-role="footer" data-position="fixed" class="portlet-wrapper-titlebar">
+        <div data-role="footer" data-position="fixed" class="portlet-wrapper-titlebar map-footer">
             <div data-role="navbar" data-iconpos="top">
                 <ul>
                     <li>

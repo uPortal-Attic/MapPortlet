@@ -483,12 +483,23 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       _.each( allViews, function (v) {
         v.$el[ _.indexOf(views, v) == -1 ? 'hide' : 'show' ]();
       });
-      mapView[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
+      //mapView[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
+      self.layout.$el.find('.map-fullscreen')[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
+      
       mapFooterView.$el.show();
       self.layout.$el.trigger('create');
+
+      // fix resizing
+      if( parseInt( self.layout.$el.find('.map-fullscreen').css('bottom'), 10) == 0 ) {
+        self.layout.$el.find('.map-fullscreen').css({
+          'bottom' : self.layout.$el.find('.map-footer').outerHeight() + 'px'
+        });
+        $( window ).trigger( "throttledresize" );
+      }
+      
     };
     
-     var addHistory = function () {
+    var addHistory = function () {
       var args = Array.prototype.slice.call(arguments);
       if( ! self.hasOwnProperty('_history') ) self._history=[];
       self._history.unshift( args );
