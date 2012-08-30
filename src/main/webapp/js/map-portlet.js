@@ -150,7 +150,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.mapLocations= options.mapLocations.on('reset', this.createMap, this);
       this.mapLocations.on('reset', this.createMap, this);
       this.matchingMapLocations= options.matchingMapLocations;
-      this.matchingMapLocations.on('reset', this.drawMap, this);
       this.isVisible= true;
       this.mapOptions= options.mapOptions;
     },
@@ -544,6 +543,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('search');
       mapSearchFormView.search(q);
+      mapView.drawMap();
     };
 
     /* locationDetail()
@@ -579,6 +579,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapLocationDetailView.model.set( location.toJSON() );
       showOnly([mapView]);
       matchingMapLocations.reset([location]);
+      mapView.drawMap();
     };
 
     /* categories()
@@ -634,6 +635,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       matches= mapLocations.findByCategory(categoryName);
       matchingMapLocations.reset(matches);
       showOnly([mapView]);
+      mapView.drawMap();
     };
   
     /* doViews()
