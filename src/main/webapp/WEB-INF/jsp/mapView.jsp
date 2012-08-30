@@ -212,6 +212,9 @@ ${n}.mapPortlet= new MapPortlet(
 
         <div class="portlet">
             <div class="portlet-content" data-role="content">
+
+                <a data-role="button" data-icon="map" data-inline="true" class="map-category-map-link">Map</a>
+                
                 <ul data-role="listview">
                     {! locations.each( function (location) { !}
                     <li class="map-location">

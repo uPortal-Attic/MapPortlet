@@ -67,6 +67,12 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       return this.find( function (model) {
         return model.get('id') === id;
       });
+    },
+    
+    findByCategory : function (categoryName) {
+      return _.filter( this.models, function (model) {
+        return model.get('categories') && _.indexOf( model.get('categories'), categoryName ) > -1;
+      });
     }
   
   });
@@ -307,16 +313,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         });
         this.matchingMapLocations.reset(matches);
       }
-    },
-  
-    filterByCategory : function (category) {
-      var matches;
-      if( category ) {
-        matches= _.filter( this.mapLocations.models, function (location) {
-          return location.get('categories') && _.indexOf( location.get('categories'), category ) > -1;
-        });
-        this.matchingMapLocations.reset(matches);
-      }
     }
 
   });
@@ -392,23 +388,31 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   var MapCategoryDetailView = Backbone.View.extend({
     template : '#map-category-detail-template',
     events : {
+      'click a.map-category-map-link' : 'clickMap',
       'click a.map-location-back-link' : 'clickBack',
       'click a.map-location-link' : 'clickLocation'
     },
   
     initialize : function (options) {
+      this.mapLocations= options.mapLocations;
       this.matchingMapLocations= options.matchingMapLocations;
       this.categoryName= '';
     },
   
     setCategoryName : function (categoryName) {
+      var matches= this.mapLocations.findByCategory(categoryName);
+      this.matchingMapLocations.reset( matches );
       this.categoryName= categoryName.toString();
     },
-    
+
+    clickMap : function (e) {
+      this.trigger('clickMap', this.categoryName);
+    },
+
     clickBack : function (e) {
       this.trigger('clickBack');
     },
-  
+
     clickLocation : function (e) {
       var id= $(e.target).data('locationid');
       this.trigger('clickLocation', id);
@@ -605,11 +609,31 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapLocations.off('reset', reloadCategory);
       addHistory(this.category, category);
       mapFooterView.setNav('browse');
-      mapSearchFormView.filterByCategory(category);
       mapCategoryDetailView.setCategoryName(category);
       mapCategoryDetailView.render();
   
       showOnly([mapCategoryDetailView]);
+    };
+    
+    /* categoryMap()
+     * Display locations within a category on the map.
+     */
+    this.categoryMap = function (categoryName) {
+      var matches;
+      reloadCategoryMap= function () { this.category(category) };
+      if( _.flatten(this.layout.views).length == 0 ) {
+        this.doViews();
+        mapLocations.on('reset', reloadCategoryMap, this);
+        return;
+      }
+      mapLocations.off('reset', reloadCategoryMap);
+      addHistory(this.category, categoryName);
+      mapFooterView.setNav('browse');
+      
+      // Find all locations within a category
+      matches= mapLocations.findByCategory(categoryName);
+      matchingMapLocations.reset(matches);
+      showOnly([mapView]);
     };
   
     /* doViews()
@@ -637,6 +661,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         mapLocations : mapLocations
       });
       mapCategoryDetailView= new MapCategoryDetailView({
+        mapLocations : mapLocations,
         matchingMapLocations : matchingMapLocations
       });
       mapFooterView= new MapFooterView();
@@ -684,6 +709,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         }, this);
   
       mapCategoryDetailView
+        .on('clickMap', function (categoryName) {
+          this.categoryMap(categoryName);
+        }, this)
         .on('clickBack', function () {
           goBack();
         }, this)
