@@ -91,12 +91,22 @@ ${n}.mapPortlet= new MapPortlet(
         text-align:center;
     }
     .map-portlet #map-search-form .map-search-form {
+        /*
         position:absolute;
         top:0;
         left:0%;
         width:100%;
+        */
         height:50px;
         background-color:#fff;
+    }
+    .map-portlet #map-container .map-buttons {
+        display:none;
+        height:50px;
+        background-color:#fff;
+    }
+    .map-portlet #map-container .map-show-buttons .map-buttons {
+        display:block;
     }
     .map-portlet #map-container .portlet-content {
         position:absolute;
@@ -104,6 +114,9 @@ ${n}.mapPortlet= new MapPortlet(
         left:0;
         right:0;
         bottom:0;
+    }
+    .map-portlet #map-container .map-show-buttons .portlet-content {
+        top:100px;
     }
     .map-portlet .map-display {
         width:100%;
@@ -154,7 +167,11 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- / MAIN LAYOUT -->
     
     <!-- MAP VIEW -->
-    <script type="template" id="N_map-view-template">
+    <script type="template" id="map-view-template">
+        <div class="map-buttons">
+            <a data-role="button" data-icon="list" data-inline="true" class="map-list-link">list</a>
+        </div>
+
         <div class="portlet-content" data-role="content">
             <div class="map-display"></div>
         </div>
@@ -171,17 +188,22 @@ ${n}.mapPortlet= new MapPortlet(
     </script>
     <!-- / MAP SEARCH FORM -->
 
-    <!-- MAP SEARCH -->
-    <script type="template" id="map-search-results-template">
+    <!-- MAP SEARCH RESULTS -->
+    <script type="template" id="map-search-results-view-template">
         <div class="portlet-content" data-role="content">
+            
+            <a class="map-search-result-map-link" data-role="button" data-icon="map" data-inline="true">Map</a>
+            
             <ul data-role="listview">
+                {! _.each(results, function (result) { !}
                 <li class="map-search-result">
-                    <a class="map-search-result-link"></a>
+                    <a class="map-search-result-link" data-locationid='{{ result.id }}'>{{ result.name }}</a>
                 </li>
+                {! }); !}
             </ul>
         </div>
     </script>
-    <!-- / MAP SEARCH -->
+    <!-- / MAP SEARCH RESULTS -->
 
     <!-- MAP CATEGORIES -->
     <script type="template" id="map-categories-template">

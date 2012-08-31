@@ -135,14 +135,53 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
    * **********************************************
    */
 
+  /* SEARCH RESULTS VIEW **************************
+   *
+   */
+  var MapSearchResultsView= Backbone.View.extend({
+    template: '#map-search-results-view-template',
+    
+    events : {
+      'click .map-search-result-map-link' : 'clickMap',
+      'click .map-search-result-link' : 'clickResult'
+    },
+    
+    initialize : function (options) {
+      this.matchingMapLocations = options.matchingMapLocations;
+    },
+    
+    setSearchQuery : function (q) {
+      this.query= q;
+    },
+
+    clickMap : function (e) {
+      this.trigger('clickMap', this.query);
+    },
+    
+    clickResult : function (e) {
+      var id= $(e.target).data('locationid');
+      this.trigger('clickResult', id)
+    },
+
+    serialize : function () {
+      return { results : this.matchingMapLocations.toJSON() };
+    },
+    
+    afterRender : function () {
+      this.$el.trigger('create');
+    }
+  });
+  
+  
   /* MAP VIEW *************************************
    * 
    */
   var MapView= Backbone.View.extend({
-    template: '#N_map-view-template',
+    template: '#map-view-template',
     className: 'portlet',
 
     events : {
+      'click .map-list-link' : 'clickList',
       'click .map-link' : 'clickLocation'
     },
 
@@ -178,6 +217,19 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
     },
 
+    clickList : function (e) {
+      this.trigger('clickList', "categoryName");
+    },
+
+    hideListLink : function () {
+      this.$el.removeClass('map-show-buttons');
+    },
+
+    showListLink : function () {
+      this.$el.addClass('map-show-buttons');
+      //this.$el.find('.map-list-link').show();
+    },
+    
     createMap : function () {
       var coords;
       if( ! this.map ) {
@@ -364,6 +416,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
     initialize : function (options) {
       this.mapLocations= options.mapLocations;
+      // TODO: Should this run every time mapLocations is reset?
       this.mapLocations.on('reset', function () { this.render(); this.$el.trigger("create"); }, this);
     },
   
@@ -481,7 +534,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
      */
     var showOnly = function (views) {
-      var allViews= [mapSearchFormView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
+      var allViews= [mapSearchFormView, mapSearchResultsView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
       if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
       _.each( allViews, function (v) {
         v.$el[ _.indexOf(views, v) == -1 ? 'hide' : 'show' ]();
@@ -502,10 +555,20 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       
     };
     
+    /* addHistory()
+     * Adds a stop to the beginning of an array, truncates to 3 stops.
+     * The history is very simple. It is only to allow to go back once.
+     * There is no reason to create a full history function.
+     * Each stop added to the array is an array where the first item is a function and the other items are arguments.
+     * @param function - required
+     * @params arguments - optional
+     */
     var addHistory = function () {
       var args = Array.prototype.slice.call(arguments);
       if( ! self.hasOwnProperty('_history') ) self._history=[];
+      // Add new stop at beginning of array
       self._history.unshift( args );
+      // Truncate history to just 3 stops
       self._history= self._history.slice(0,3);
     };
     
@@ -513,19 +576,45 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       var i= arguments.length > 0 ? arguments[0] : 1, 
           f= self._history[i];
       if( ! f ) return;
+      // apply function (first item) with arguments (items after first)
       f[0].apply( self, f.slice(1) );
     };
     
+    var hasViews = function () {
+      return _.flatten(self.layout.views).length > 0;
+    }
     
     /* VIEWS */
     /* home()
      * Check if doViews() has been run, add view to history, show mapSearch and mapView, set bottom nav to 'search'
      */
     this.home = function () {
-      if(_.flatten(this.layout.views).length == 0 ) this.doViews();
+      if( ! hasViews() ) this.doViews();
       addHistory(this.home);
       showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('search');
+      mapView.hideListLink();
+    };
+    
+    /* searchResults()
+     * 
+     */
+    this.searchResults = function (q) {
+      reloadSearchResults = function () { this.searchResults(q); };
+      if( ! hasViews() ) {
+        this.doViews();
+        mapLocations.on('reset', reloadSearchResults, this);
+        return;
+      }
+      mapLocations.off('reset', reloadSearchResults);
+      addHistory(this.searchResults, q);
+      mapSearchResultsView
+        .setSearchQuery(q);
+      
+      showOnly([mapSearchFormView,mapSearchResultsView]);
+      mapFooterView.setNav('search');
+      mapSearchFormView.search(q);
+      mapSearchResultsView.render();
     };
     
     /* searchResultsMap()
@@ -533,7 +622,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      */
     this.searchResultsMap = function (q) {
       reloadSearchResultsMap= function () { this.searchResultsMap(q); };
-      if( _.flatten(this.layout.views).length == 0 ) {
+      if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', reloadSearchResultsMap, this);
         return;
@@ -544,6 +633,13 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapFooterView.setNav('search');
       mapSearchFormView.search(q);
       mapView.drawMap();
+
+      mapView
+        .off('clickList')
+        .on('clickList', function () {
+          this.searchResults(q);
+        }, this)
+        .showListLink();
     };
 
     /* locationDetail()
@@ -551,7 +647,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      */
     this.locationDetail = function (id) {
       var location, reloadLocationDetail= function () { this.locationDetail(id); };
-      if(_.flatten(this.layout.views).length == 0 ) {
+      if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', reloadLocationDetail, this);
         return;
@@ -568,7 +664,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      */
     this.locationMap = function (id) {
       var location, reloadLocationMap= function () { this.locationMap(id); };
-      if(_.flatten(this.layout.views).length == 0 ) {
+      if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', reloadLocationMap, this);
         return;
@@ -586,7 +682,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      *
      */
     this.categories = function () {
-      if(_.flatten(this.layout.views).length == 0 ) {
+      if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', this.categories, this);
         return;
@@ -602,7 +698,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      */
     this.category = function (category) {
       reloadCategory= function () { this.category(category); };
-      if(_.flatten(this.layout.views).length == 0 ) {
+      if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', reloadCategory, this);
         return;
@@ -622,13 +718,13 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     this.categoryMap = function (categoryName) {
       var matches;
       reloadCategoryMap= function () { this.category(category) };
-      if( _.flatten(this.layout.views).length == 0 ) {
+      if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', reloadCategoryMap, this);
         return;
       }
       mapLocations.off('reset', reloadCategoryMap);
-      addHistory(this.category, categoryName);
+      addHistory(this.categoryMap, categoryName);
       mapFooterView.setNav('browse');
       
       // Find all locations within a category
@@ -636,6 +732,13 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       matchingMapLocations.reset(matches);
       showOnly([mapView]);
       mapView.drawMap();
+      
+      mapView
+        .off('clickList')
+        .on('clickList', function () {
+          this.category(categoryName);
+        }, this)
+        .showListLink();
     };
   
     /* doViews()
@@ -649,6 +752,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       // views
       mapSearchFormView= new MapSearchFormView({
         mapLocations : mapLocations,
+        matchingMapLocations : matchingMapLocations
+      });
+      mapSearchResultsView= new MapSearchResultsView({
         matchingMapLocations : matchingMapLocations
       });
       mapView= new MapView({
@@ -670,6 +776,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
       this.layout.setViews( {
         '#map-search-form' : mapSearchFormView,
+        '#map-search-results' : mapSearchResultsView,
         '#map-container' : mapView,
         '#map-location-detail' : mapLocationDetailView,
         '#map-categories' : mapCategoriesView,
@@ -681,7 +788,17 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.layout.render();
   
       /* LISTENERS */
+      mapSearchResultsView
+        .on('clickMap', function (q) {
+          this.searchResultsMap(q);
+        }, this)
+        .on('clickResult', function (id) {
+          this.locationDetail(id);
+        }, this);
       mapView
+        .on('clickList', function (categoryName) {
+          this.category( categoryName );
+        }, this)
         .on('clickLocation', function (id) {
           this.locationDetail( id );
         }, this);
@@ -699,7 +816,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
           this.categories();
         }, this)
         .on('submitSearch', function (query) {
-          this.searchResultsMap(query);
+          this.searchResults(query);
         }, this);
   
       mapCategoriesView
