@@ -290,9 +290,16 @@ ${n}.mapPortlet= new MapPortlet(
             <div data-role="navbar" data-iconpos="top">
                 <ul>
                     <li>
-                        <a data-icon="search" class="map-footer-search-link">Search</a></li>
+                        <a data-icon="back" class="map-footer-back-link">Back</a>
+                    </li>
+                    <li>
+                        <a data-icon="search" class="map-footer-search-link">Search</a>
+                    </li>
                     <li>
                         <a data-icon="grid" class="map-footer-browse-link">Categories</a>
+                    </li>
+                    <li>
+                        <a data-icon="map" class="map-footer-map-link">Map</a>
                     </li>
                 </ul>
             </div>

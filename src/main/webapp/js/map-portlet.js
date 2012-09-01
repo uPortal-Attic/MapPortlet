@@ -487,33 +487,36 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   var MapFooterView = Backbone.View.extend({
     template : '#map-footer-template',
     events : {
+      'click a.map-footer-back-link' : 'clickBack',
       'click a.map-footer-search-link' : 'clickSearch',
-      'click a.map-footer-browse-link' : 'clickBrowse'
+      'click a.map-footer-browse-link' : 'clickBrowse',
+      'click a.map-footer-map-link' : 'clickMap'
     },
 
-    clickSearch : function (e) {
-      this.trigger('clickSearch');
-    },
+    tabs : ['back','search','browse','map'],
+    
+    clickBack : function (e) { this.trigger('click-back'); },
+    clickSearch : function (e) { this.trigger('click-search'); },
+    clickBrowse : function (e) { this.trigger('click-browse'); },
+    clickMap : function (e) { this.trigger('click-map'); },
 
-    clickBrowse : function (e) {
-      this.trigger('clickBrowse');
-    },
-
-    getSearchTab : function () {
-      return this.$searchTab || ( this.$searchTab = $('a.map-footer-search-link') );
-    },
-
-    getBrowseTab : function () {
-      return this.$browseTab || ( this.$browseTab = $('a.map-footer-browse-link') );
+    getTab : function (tabName) {
+      return $('a.map-footer-' + tabName + '-link');
     },
 
     setNav : function (pageName) {
-      var $searchTab= this.getSearchTab(),
-          $browseTab= this.getBrowseTab();
-      $searchTab[ pageName == 'search' ? 'addClass' : 'removeClass']('ui-btn-active');
-      $browseTab[ pageName == 'browse' ? 'addClass' : 'removeClass']('ui-btn-active');
+      _.each(this.tabs, function (tabName) {
+        this.getTab(tabName)[ tabName == pageName ? 'addClass' : 'removeClass']('ui-btn-active');
+      }, this);
+      return this;
+    },
+    
+    bindNavTo : function (tabName, method, context) {
+      this.off('click-'+tabName);
+      this.on('click-'+tabName, method, context);
+      return this;
     }
-
+    
   });
   
   
@@ -569,7 +572,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       // Add new stop at beginning of array
       self._history.unshift( args );
       // Truncate history to just 3 stops
-      self._history= self._history.slice(0,3);
+      //self._history= self._history.slice(0,3);
     };
     
     var goBack = function () {
@@ -577,6 +580,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
           f= self._history[i];
       if( ! f ) return;
       // apply function (first item) with arguments (items after first)
+      self._history= self._history.slice(2);
       f[0].apply( self, f.slice(1) );
     };
     
@@ -594,6 +598,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('search');
       mapView.hideListLink();
+      //mapFooterView.bindNavTo('map', this.home, this);
     };
     
     /* searchResults()
@@ -608,13 +613,13 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadSearchResults);
       addHistory(this.searchResults, q);
-      mapSearchResultsView
-        .setSearchQuery(q);
+      mapSearchResultsView.setSearchQuery(q);
       
       showOnly([mapSearchFormView,mapSearchResultsView]);
       mapFooterView.setNav('search');
       mapSearchFormView.search(q);
       mapSearchResultsView.render();
+      mapFooterView.bindNavTo('map', function () { this.searchResultsMap(q) }, this);
     };
     
     /* searchResultsMap()
@@ -630,7 +635,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapLocations.off('reset', reloadSearchResultsMap);
       addHistory(this.searchResultsMap, q);
       showOnly([mapSearchFormView,mapView]);
-      mapFooterView.setNav('search');
+      mapFooterView.setNav('map');
       mapSearchFormView.search(q);
       mapView.drawMap();
 
@@ -640,6 +645,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
           this.searchResults(q);
         }, this)
         .showListLink();
+      mapFooterView.bindNavTo('search', function () { this.searchResults(q) }, this);
     };
 
     /* locationDetail()
@@ -657,6 +663,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
       showOnly([mapLocationDetailView]);
+      mapFooterView.bindNavTo('map', function (id) { this.locationMap(id); }, this);
     };
 
     /* locationMap()
@@ -676,6 +683,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       showOnly([mapView]);
       matchingMapLocations.reset([location]);
       mapView.drawMap();
+      mapFooterView.setNav('map');
     };
 
     /* categories()
@@ -696,20 +704,21 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     /* category()
      *
      */
-    this.category = function (category) {
-      reloadCategory= function () { this.category(category); };
+    this.category = function (categoryName) {
+      reloadCategory= function () { this.category(categoryName); };
       if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', reloadCategory, this);
         return;
       }
       mapLocations.off('reset', reloadCategory);
-      addHistory(this.category, category);
+      addHistory(this.category, categoryName);
       mapFooterView.setNav('browse');
-      mapCategoryDetailView.setCategoryName(category);
+      mapCategoryDetailView.setCategoryName(categoryName);
       mapCategoryDetailView.render();
   
       showOnly([mapCategoryDetailView]);
+      mapFooterView.bindNavTo('map', function () { this.categoryMap(categoryName) }, this);
     };
     
     /* categoryMap()
@@ -725,7 +734,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadCategoryMap);
       addHistory(this.categoryMap, categoryName);
-      mapFooterView.setNav('browse');
+      mapFooterView.setNav('map');
       
       // Find all locations within a category
       matches= mapLocations.findByCategory(categoryName);
@@ -839,10 +848,16 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         }, this);
 
       mapFooterView
-        .on('clickBrowse', function () {
+        .bindNavTo('back', function () {
+          goBack();
+        }, this)
+        .bindNavTo('search', function () {
+          this.home();
+        }, this)
+        .bindNavTo('browse', function () {
           this.categories();
         }, this)
-        .on('clickSearch', function () {
+        .bindNavTo('map', function () {
           this.home();
         }, this);
       /* / LISTENERS */
