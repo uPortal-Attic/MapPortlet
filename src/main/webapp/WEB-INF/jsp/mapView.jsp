@@ -100,23 +100,12 @@ ${n}.mapPortlet= new MapPortlet(
         height:50px;
         background-color:#fff;
     }
-    .map-portlet #map-container .map-buttons {
-        display:none;
-        height:50px;
-        background-color:#fff;
-    }
-    .map-portlet #map-container .map-show-buttons .map-buttons {
-        display:block;
-    }
     .map-portlet #map-container .portlet-content {
         position:absolute;
         top:50px;
         left:0;
         right:0;
         bottom:0;
-    }
-    .map-portlet #map-container .map-show-buttons .portlet-content {
-        top:100px;
     }
     .map-portlet .map-display {
         width:100%;
@@ -168,10 +157,6 @@ ${n}.mapPortlet= new MapPortlet(
     
     <!-- MAP VIEW -->
     <script type="template" id="map-view-template">
-        <div class="map-buttons">
-            <a data-role="button" data-icon="list" data-inline="true" class="map-list-link">list</a>
-        </div>
-
         <div class="portlet-content" data-role="content">
             <div class="map-display"></div>
         </div>
@@ -191,9 +176,6 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- MAP SEARCH RESULTS -->
     <script type="template" id="map-search-results-view-template">
         <div class="portlet-content" data-role="content">
-            
-            <a class="map-search-result-map-link" data-role="button" data-icon="map" data-inline="true">Map</a>
-            
             <ul data-role="listview">
                 {! _.each(results, function (result) { !}
                 <li class="map-search-result">
@@ -235,8 +217,6 @@ ${n}.mapPortlet= new MapPortlet(
         <div class="portlet">
             <div class="portlet-content" data-role="content">
 
-                <a data-role="button" data-icon="map" data-inline="true" class="map-category-map-link">Map</a>
-                
                 <ul data-role="listview">
                     {! locations.each( function (location) { !}
                     <li class="map-location">
@@ -259,9 +239,6 @@ ${n}.mapPortlet= new MapPortlet(
         </div>
 
         <div class="portlet ui-content">
-            <p>
-                <a data-role="button" data-icon="back" data-inline="true" class="map-location-back-link">Back</a>
-            </p>
             <div class="portlet-content map-box ui-corner-all ui-shadow" data-role="content">
                 <h3 class="map-location-name">{{ location.name }}</h3>
                 <p class="map-location-description">{{ location.description != null ? location.description : '' }}</p>

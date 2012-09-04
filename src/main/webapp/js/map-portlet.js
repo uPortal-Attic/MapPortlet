@@ -151,7 +151,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     template: '#map-search-results-view-template',
     
     events : {
-      'click .map-search-result-map-link' : 'clickMap',
       'click .map-search-result-link' : 'clickResult'
     },
     
@@ -163,10 +162,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.query= q;
     },
 
-    clickMap : function (e) {
-      this.trigger('clickMap', this.query);
-    },
-    
     clickResult : function (e) {
       var id= $(e.target).data('locationid');
       this.trigger('clickResult', id)
@@ -190,13 +185,13 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     className: 'portlet',
 
     events : {
-      'click .map-list-link' : 'clickList',
       'click .map-link' : 'clickLocation'
     },
 
     initialize: function (options) {
-      this.mapLocations= options.mapLocations.on('reset', this.createMap, this);
-      this.mapLocations.on('reset', this.createMap, this);
+      this.mapLocations= options.mapLocations
+      this.mapLocations
+        .on('reset', this.createMap, this);
       this.matchingMapLocations= options.matchingMapLocations;
       this.isVisible= true;
       this.mapOptions= options.mapOptions;
@@ -226,18 +221,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
     },
 
-    clickList : function (e) {
-      this.trigger('clickList', "categoryName");
-    },
-
-    hideListLink : function () {
-      this.$el.removeClass('map-show-buttons');
-    },
-
-    showListLink : function () {
-      this.$el.addClass('map-show-buttons');
-      //this.$el.find('.map-list-link').show();
-    },
     
     createMap : function () {
       var coords;
@@ -386,7 +369,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     model : new MapLocation(),
   
     events : {
-      'click .map-location-back-link' : 'clickBack',
       'click .map-location-map-link' : 'clickViewInMap'
     },
   
@@ -399,10 +381,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       return { location : this.model ? this.model.toJSON() : {} };
     },
   
-    clickBack : function () {
-      this.trigger('clickBack');
-    },
-
     clickViewInMap : function () {
       this.matchingMapLocations.reset(this.model);
       this.trigger('clickViewInMap', this.model.get('id'));
@@ -419,7 +397,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     categories : {},
   
     events : {
-      'click a.map-search-link' : 'returnToHome',
       'click a.map-category-link' : 'clickCategory'
     },
   
@@ -427,10 +404,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.mapLocations= options.mapLocations;
       // TODO: Should this run every time mapLocations is reset?
       this.mapLocations.on('reset', function () { this.render(); this.$el.trigger("create"); }, this);
-    },
-  
-    returnToHome : function () {
-      this.trigger('returnToHome');
     },
   
     clickCategory : function (e) {
@@ -449,8 +422,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   var MapCategoryDetailView = Backbone.View.extend({
     template : '#map-category-detail-template',
     events : {
-      'click a.map-category-map-link' : 'clickMap',
-      'click a.map-location-back-link' : 'clickBack',
       'click a.map-location-link' : 'clickLocation'
     },
   
@@ -464,14 +435,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       var matches= this.mapLocations.findByCategory(categoryName);
       this.matchingMapLocations.reset( matches );
       this.categoryName= categoryName.toString();
-    },
-
-    clickMap : function (e) {
-      this.trigger('clickMap', this.categoryName);
-    },
-
-    clickBack : function (e) {
-      this.trigger('clickBack');
     },
 
     clickLocation : function (e) {
@@ -495,23 +458,27 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
    */
   var MapFooterView = Backbone.View.extend({
     template : '#map-footer-template',
+
+    /* tabs: all tabs and if they are enabled */
+    tabs : { 'back':false, 'search':true, 'browse':true, 'map':true },
+    
+    /* EVENTS */
     events : {
-      'click a.map-footer-back-link' : 'clickBack',
+      'click a.map-footer-back-link'   : 'clickBack',
       'click a.map-footer-search-link' : 'clickSearch',
       'click a.map-footer-browse-link' : 'clickBrowse',
-      'click a.map-footer-map-link' : 'clickMap'
+      'click a.map-footer-map-link'    : 'clickMap'
     },
-
-    tabs : ['back','search','browse','map'],
+    click : function (tabName) {
+      if( this.tabs[tabName] )
+        this.trigger('click-' + tabName);
+    },
+    clickBack   : function (e) { this.click('back');   },
+    clickSearch : function (e) { this.click('search'); },
+    clickBrowse : function (e) { this.click('browse'); },
+    clickMap    : function (e) { this.click('map');    },
+    /* / EVENTS */
     
-    clickBack : function (e) {
-      if( ! this.getTab('back').hasClass('ui-disabled') )
-        this.trigger('click-back');
-    },
-    clickSearch : function (e) { this.trigger('click-search'); },
-    clickBrowse : function (e) { this.trigger('click-browse'); },
-    clickMap : function (e) { this.trigger('click-map'); },
-
     getTab : function (tabName) {
       return $('a.map-footer-' + tabName + '-link');
     },
@@ -529,13 +496,16 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       return this;
     },
 
-    enableBackButton : function () {
-      this.getTab('back').removeClass('ui-disabled');
+    enableButton : function (tabName, isEnabled) {
+      this.getTab(tabName)[isEnabled ? 'removeClass' : 'addClass']('ui-disabled');
+      this.tabs[tabName]=isEnabled;
+      return this;
     },
 
-    disableBackButton : function () {
-      this.getTab('back').addClass('ui-disabled');
-    }
+    enableBackButton  : function () { return this.enableButton('back', true);  },
+    disableBackButton : function () { return this.enableButton('back', false); },
+    enableMapButton   : function () { return this.enableButton('map',  true);  },
+    disableMapButton  : function () { return this.enableButton('map',  false); }
     
   });
   
@@ -624,8 +594,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       addHistory(this.home);
       showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('search');
-      mapView.hideListLink();
-      //mapFooterView.bindNavTo('map', this.home, this);
+      mapFooterView
+        //.bindNavTo('map', this.home, this)
+        .enableMapButton();
     };
     
     /* searchResults()
@@ -646,7 +617,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapFooterView.setNav('search');
       mapSearchFormView.search(q);
       mapSearchResultsView.render();
-      mapFooterView.bindNavTo('map', function () { this.searchResultsMap(q) }, this);
+      mapFooterView
+        .bindNavTo('map', function () { this.searchResultsMap(q) }, this)
+        .enableMapButton();
     };
     
     /* searchResultsMap()
@@ -666,12 +639,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapSearchFormView.search(q);
       mapView.drawMap();
 
-      mapView
-        .off('clickList')
-        .on('clickList', function () {
-          this.searchResults(q);
-        }, this)
-        .showListLink();
       mapFooterView.bindNavTo('search', function () { this.searchResults(q) }, this);
     };
 
@@ -690,7 +657,14 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
       showOnly([mapLocationDetailView]);
-      mapFooterView.bindNavTo('map', function (id) { this.locationMap(id); }, this);
+      if( location.get('latitude') != null && location.get('longitude') != null ) {
+        mapFooterView
+          .bindNavTo('map', function () { this.locationMap(id); }, this)
+          .enableMapButton();
+      } else {
+        mapFooterView
+          .disableMapButton();
+      }
     };
 
     /* locationMap()
@@ -725,7 +699,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapLocations.off('reset', this.categories);
       addHistory(this.categories);
       showOnly([mapCategoriesView]);
-      mapFooterView.setNav('browse');
+      mapFooterView
+        .setNav('browse')
+        // TODO: should this be disabled, or go to search results map?
+        .disableMapButton();
     };
 
     /* category()
@@ -745,7 +722,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapCategoryDetailView.render();
   
       showOnly([mapCategoryDetailView]);
-      mapFooterView.bindNavTo('map', function () { this.categoryMap(categoryName) }, this);
+      mapFooterView
+        .bindNavTo('map', function () { this.categoryMap(categoryName) }, this)
+        .enableMapButton();
     };
     
     /* categoryMap()
@@ -769,12 +748,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       showOnly([mapView]);
       mapView.drawMap();
       
-      mapView
-        .off('clickList')
-        .on('clickList', function () {
-          this.category(categoryName);
-        }, this)
-        .showListLink();
     };
   
     /* doViews()
@@ -825,32 +798,20 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
       /* LISTENERS */
       mapSearchResultsView
-        .on('clickMap', function (q) {
-          this.searchResultsMap(q);
-        }, this)
         .on('clickResult', function (id) {
           this.locationDetail(id);
         }, this);
       mapView
-        .on('clickList', function (categoryName) {
-          this.category( categoryName );
-        }, this)
         .on('clickLocation', function (id) {
           this.locationDetail( id );
         }, this);
   
       mapLocationDetailView
-        .on('clickBack', function () {
-          goBack();
-        }, this)
         .on('clickViewInMap', function (id) {
           this.locationMap(id);
         }, this);
   
       mapSearchFormView
-        .on('clickBrowse', function () {
-          this.categories();
-        }, this)
         .on('submitSearch', function (query) {
           this.searchResults(query);
         }, this);
@@ -858,18 +819,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapCategoriesView
         .on('clickCategory', function (category) {
           this.category(category);
-        }, this)
-        .on('returnToHome', function () {
-          this.home();
         }, this);
   
       mapCategoryDetailView
-        .on('clickMap', function (categoryName) {
-          this.categoryMap(categoryName);
-        }, this)
-        .on('clickBack', function () {
-          goBack();
-        }, this)
         .on('clickLocation', function (id) {
           this.locationDetail( id );
         }, this);
