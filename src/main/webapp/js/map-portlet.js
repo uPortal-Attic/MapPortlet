@@ -495,7 +495,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
 
     tabs : ['back','search','browse','map'],
     
-    clickBack : function (e) { this.trigger('click-back'); },
+    clickBack : function (e) {
+      if( ! this.getTab('back').hasClass('ui-disabled') )
+        this.trigger('click-back');
+    },
     clickSearch : function (e) { this.trigger('click-search'); },
     clickBrowse : function (e) { this.trigger('click-browse'); },
     clickMap : function (e) { this.trigger('click-map'); },
@@ -515,6 +518,14 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.off('click-'+tabName);
       this.on('click-'+tabName, method, context);
       return this;
+    },
+
+    enableBackButton : function () {
+      this.getTab('back').removeClass('ui-disabled');
+    },
+
+    disableBackButton : function () {
+      this.getTab('back').addClass('ui-disabled');
     }
     
   });
@@ -571,8 +582,12 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       if( ! self.hasOwnProperty('_history') ) self._history=[];
       // Add new stop at beginning of array
       self._history.unshift( args );
-      // Truncate history to just 3 stops
-      //self._history= self._history.slice(0,3);
+      // If only 1 stop, disable the back button (should just happen on page load)
+      if( self._history.length == 1 )
+        mapFooterView.disableBackButton();
+      // If more than 1 stop, enable the back button
+      else if( self._history.length > 1 )
+        mapFooterView.enableBackButton();
     };
     
     var goBack = function () {
@@ -581,6 +596,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       if( ! f ) return;
       // apply function (first item) with arguments (items after first)
       self._history= self._history.slice(2);
+      // If no more stops, disable the back button
+      if( self._history.length == 0 )
+        mapFooterView.disableBackButton();
       f[0].apply( self, f.slice(1) );
     };
     
