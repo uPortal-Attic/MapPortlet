@@ -8,6 +8,15 @@
 
 MapPortlet= function ( $, _, Backbone, google, options ) {
   
+  // Scope models
+  var mapLocations, matchingMapLocations;
+  
+  // Scope views
+  var mapFooterView,        mapSearchFormView, 
+      mapSearchResultsView, mapLocationDetailView, 
+      mapCategoriesView,    mapCategoryDetailView,
+      mapView;
+  
   Backbone.LayoutManager.configure({
       manage: true
   });
