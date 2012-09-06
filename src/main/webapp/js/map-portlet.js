@@ -168,7 +168,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
 
     serialize : function () {
-      return { results : this.matchingMapLocations.toJSON() };
+      return {
+        query : this.query,
+        results : this.matchingMapLocations.toJSON()
+      };
     },
     
     afterRender : function () {
@@ -347,6 +350,12 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       });
       this.matchingMapLocations= options.matchingMapLocations;
       this.title= '';
+    },
+
+    setQuery : function (query) {
+      this.query= query;
+      this.render();
+      return this;
     },
 
     setTitle : function (title) {
@@ -621,7 +630,21 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     
     var hasViews = function () {
       return _.flatten(self.layout.views).length > 0;
-    }
+    };
+    
+    this.findPortletHeight = function () {
+      var siblingsHeight= 0,
+          $siblings= $(this.options.target).siblings().not('script').not('style');
+      _.each( $siblings, function (s) {
+        siblingsHeight += $(s).outerHeight();
+      });
+      this.layout.$el.find('.map-fullscreen').css('top', siblingsHeight + 'px');
+    };
+    
+    // BIND FindPortletHeight TO WINDOW RESIZE
+    $(window).bind('throttledresize', function () { self.findPortletHeight(); });
+    
+    
     
     /* VIEWS */
     /* home()
@@ -668,6 +691,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapFooterView
         .bindNavTo('map', function () { this.searchResultsMap(q) }, this)
         .enableMapButton();
+      
+      // TODO: how to get search field to show again?
+      mapView.showControl('search').showControl('title');
+      mapSearchFormView.setTitle('searchResults');
+      
     };
     
     /* searchResultsMap()
@@ -683,7 +711,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadSearchResultsMap);
       addHistory(this.searchResultsMap, q);
-      mapSearchFormView.setTitle(q);
+      mapSearchFormView.setQuery(q).setTitle(q);
       showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('map');
       mapSearchFormView.search(q);

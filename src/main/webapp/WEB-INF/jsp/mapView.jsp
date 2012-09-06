@@ -190,7 +190,7 @@ ${n}.mapPortlet= new MapPortlet(
     <script type="template" id="map-search-form-template">
         <div class="portlet-content map-search" data-role="content">
             <form class="map-search-form" onsubmit="return false;">
-                <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search"/>
+                <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search" value="{{ typeof query != 'undefined' ? query : '' }}"/>
             </form>
         </div>
         <div data-role="header" class="portlet-titlebar ui-bar map-title">
@@ -203,8 +203,21 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP SEARCH RESULTS -->
     <script type="template" id="map-search-results-view-template">
-        <div>TODO: ADD SEARCH FIELD</div>
-        <div>TODO: ADD SEARCH TERM TITLE</div>
+        <%-- TODO: THIS IS DUPLICATE CODE. FIND A WAY TO REMOVE IT --%>
+        <div class="portlet-content map-search" data-role="content">
+            <form class="map-search-form" onsubmit="return false;">
+                <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search" value="{{ query }}"/>
+            </form>
+        </div>
+        <div data-role="header" class="portlet-titlebar ui-bar map-title">
+            <h2 class="map-category-name">
+                {{ query }}
+            </h2>
+        </div>
+        <%-- / TODO: THIS IS DUPLICATE CODE. FIND A WAY TO REMOVE IT --%>
+        
+        
+        
         <div class="portlet-content" data-role="content">
             <ul data-role="listview">
                 {! _.each(results, function (result) { !}
