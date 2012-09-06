@@ -303,11 +303,28 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     show : function () {
       this.$el.show();
       this.isVisible= true;
+      return this;
     },
 
     hide : function () {
       this.$el.hide();
       this.isVisible= false;
+      return this;
+    },
+
+    showControl : function (control) {
+      this.$el.closest('.map-fullscreen').addClass('map-show-'+control);
+      return this;
+    },
+
+    hideControl : function (control) {
+      this.$el.closest('.map-fullscreen').removeClass('map-show-'+control);
+      return this;
+    },
+    
+    setTop : function (top) {
+      this.$el.find('.portlet-content').css('top', top + 'px');
+      return this;
     }
 
   });
@@ -329,6 +346,23 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         console.log('ERROR WITH LOADING DATA:', e.statusText);
       });
       this.matchingMapLocations= options.matchingMapLocations;
+      this.title= '';
+    },
+
+    setTitle : function (title) {
+      this.title= title;
+      this.render();
+      return this;
+    },
+    
+    getHeight : function () {
+      var h= 0,
+          classes= this.$el.closest('.map-fullscreen').attr('class').split(' ');
+      if( _.indexOf(classes, 'map-show-search') != -1 )
+        h += mapSearchFormView.$el.find('.map-search-form').outerHeight();
+      if( _.indexOf(classes, 'map-show-title') != -1 )
+        h += mapSearchFormView.$el.find('.map-title').outerHeight();
+      return h;
     },
   
     submitSearch : function (e){
@@ -356,6 +390,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         });
         this.matchingMapLocations.reset(matches);
       }
+    },
+    
+    serialize : function () {
+      return { title : this.title };
     }
 
   });
@@ -590,13 +628,23 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      * Check if doViews() has been run, add view to history, show mapSearch and mapView, set bottom nav to 'search'
      */
     this.home = function () {
+      var controlsHeight;
       if( ! hasViews() ) this.doViews();
       addHistory(this.home);
+      mapSearchFormView.setTitle('');
+      
       showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('search');
       mapFooterView
         //.bindNavTo('map', this.home, this)
         .enableMapButton();
+
+      mapView
+        .hideControl('title')
+        .showControl('search');
+      controlsHeight= mapSearchFormView.getHeight();
+      mapView.setTop( controlsHeight );
+
     };
     
     /* searchResults()
@@ -626,6 +674,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      * 
      */
     this.searchResultsMap = function (q) {
+      var controlsHeight;
       reloadSearchResultsMap= function () { this.searchResultsMap(q); };
       if( ! hasViews() ) {
         this.doViews();
@@ -634,12 +683,19 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadSearchResultsMap);
       addHistory(this.searchResultsMap, q);
+      mapSearchFormView.setTitle(q);
       showOnly([mapSearchFormView,mapView]);
       mapFooterView.setNav('map');
       mapSearchFormView.search(q);
       mapView.drawMap();
 
       mapFooterView.bindNavTo('search', function () { this.searchResults(q) }, this);
+
+      mapView
+        .showControl('search')
+        .showControl('title');
+      controlsHeight= mapSearchFormView.getHeight();
+      mapView.setTop( controlsHeight );
     };
 
     /* locationDetail()
@@ -671,7 +727,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      *
      */
     this.locationMap = function (id) {
-      var location, reloadLocationMap= function () { this.locationMap(id); };
+      var location, controlsHeight, reloadLocationMap= function () { this.locationMap(id); };
       if( ! hasViews() ) {
         this.doViews();
         mapLocations.on('reset', reloadLocationMap, this);
@@ -681,10 +737,16 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       addHistory(this.locationMap, id);
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
-      showOnly([mapView]);
+      showOnly([mapSearchFormView,mapView]);
       matchingMapLocations.reset([location]);
       mapView.drawMap();
       mapFooterView.setNav('map');
+      
+      mapView
+        .hideControl('search')
+        .showControl('title');
+      controlsHeight= mapSearchFormView.getHeight();
+      mapView.setTop( controlsHeight );
     };
 
     /* categories()
@@ -731,7 +793,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      * Display locations within a category on the map.
      */
     this.categoryMap = function (categoryName) {
-      var matches;
+      var matches, controlsHeight;
       reloadCategoryMap= function () { this.category(category) };
       if( ! hasViews() ) {
         this.doViews();
@@ -740,14 +802,20 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadCategoryMap);
       addHistory(this.categoryMap, categoryName);
+      mapSearchFormView.setTitle('categoryMap');
       mapFooterView.setNav('map');
       
       // Find all locations within a category
       matches= mapLocations.findByCategory(categoryName);
       matchingMapLocations.reset(matches);
-      showOnly([mapView]);
+      showOnly([mapSearchFormView,mapView]);
       mapView.drawMap();
-      
+
+      mapView
+        .hideControl('search')
+        .showControl('title');
+      controlsHeight= mapSearchFormView.getHeight();
+      mapView.setTop( controlsHeight );
     };
   
     /* doViews()

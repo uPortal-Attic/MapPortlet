@@ -91,16 +91,9 @@ ${n}.mapPortlet= new MapPortlet(
         text-align:center;
     }
     .map-portlet #map-search-form .map-search-form {
-        /*
-        position:absolute;
-        top:0;
-        left:0%;
-        width:100%;
-        */
-        height:50px;
-        background-color:#fff;
+        position: relative;
     }
-    .map-portlet #map-container .portlet-content {
+     .map-fullscreen #map-container .portlet-content {
         position:absolute;
         top:50px;
         left:0;
@@ -155,6 +148,36 @@ ${n}.mapPortlet= new MapPortlet(
     </script>
     <!-- / MAIN LAYOUT -->
     
+<style type="text/css">
+    /*
+    .map-fullscreen.map-show-search .portlet-content, .map-fullscreen .map-show-title .portlet-content {
+        top:0;
+    }
+    */
+    .map-fullscreen .map-search {
+        display:none;
+        background-color:#fff;
+    }
+    .map-fullscreen.map-show-search .map-search {
+        display:block;
+    }
+    .map-fullscreen .map-title {
+        display:none;
+        background-color:#fff;
+    }
+    .map-fullscreen.map-show-title .map-title {
+        display:block;
+    }
+    /*
+    .map-fullscreen.map-show-search.map-show-title .map-title {
+        top:50px;
+    }
+    */
+    .map-fullscreen.map-show-search.map-show-title .map-container .portlet-content {
+        top:100px;
+    }
+</style>
+
     <!-- MAP VIEW -->
     <script type="template" id="map-view-template">
         <div class="portlet-content" data-role="content">
@@ -165,22 +188,29 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP SEARCH FORM -->
     <script type="template" id="map-search-form-template">
-        <div class="portlet-content" data-role="content">
+        <div class="portlet-content map-search" data-role="content">
             <form class="map-search-form" onsubmit="return false;">
                 <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search"/>
             </form>
+        </div>
+        <div data-role="header" class="portlet-titlebar ui-bar map-title">
+            <h2 class="map-category-name">
+                {{ title }}
+            </h2>
         </div>
     </script>
     <!-- / MAP SEARCH FORM -->
 
     <!-- MAP SEARCH RESULTS -->
     <script type="template" id="map-search-results-view-template">
+        <div>TODO: ADD SEARCH FIELD</div>
+        <div>TODO: ADD SEARCH TERM TITLE</div>
         <div class="portlet-content" data-role="content">
             <ul data-role="listview">
                 {! _.each(results, function (result) { !}
-                <li class="map-search-result">
-                    <a class="map-search-result-link" data-locationid='{{ result.id }}'>{{ result.name }}</a>
-                </li>
+                    <li class="map-search-result">
+                        <a class="map-search-result-link" data-locationid='{{ result.id }}'>{{ result.name }}</a>
+                    </li>
                 {! }); !}
             </ul>
         </div>
@@ -216,7 +246,6 @@ ${n}.mapPortlet= new MapPortlet(
 
         <div class="portlet">
             <div class="portlet-content" data-role="content">
-
                 <ul data-role="listview">
                     {! locations.each( function (location) { !}
                     <li class="map-location">
@@ -231,7 +260,6 @@ ${n}.mapPortlet= new MapPortlet(
 
     <!-- MAP LOCATION -->
     <script type="template" id="map-location-detail-template">
-        <!-- TODO: ADD LINK TO PARENT CATEGORY -->
         <div data-role="header" class="portlet-titlebar ui-bar">
             <h2 class="map-location-namemap-category-name">
                 {{ location.name }}
