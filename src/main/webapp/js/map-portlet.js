@@ -314,19 +314,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.isVisible= false;
       return this;
     },
-
-    showControl : function (control) {
-      this.$el.closest('.map-fullscreen').addClass('map-show-'+control);
-      return this;
-    },
-
-    hideControl : function (control) {
-      this.$el.closest('.map-fullscreen').removeClass('map-show-'+control);
-      return this;
-    },
     
     setTop : function (top) {
-      this.$el.find('.portlet-content').css('top', top + 'px');
+      this.$el.closest('.map-fullscreen').css('top', top + 'px');
       return this;
     }
 
@@ -366,12 +356,22 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     
     getHeight : function () {
       var h= 0,
-          classes= this.$el.closest('.map-fullscreen').attr('class').split(' ');
+          classes= this.$el.attr('class').split(' ');
       if( _.indexOf(classes, 'map-show-search') != -1 )
         h += mapSearchFormView.$el.find('.map-search-form').outerHeight();
       if( _.indexOf(classes, 'map-show-title') != -1 )
         h += mapSearchFormView.$el.find('.map-title').outerHeight();
       return h;
+    },
+
+    showControl : function (control) {
+      this.$el.addClass('map-show-'+control);
+      return this;
+    },
+
+    hideControl : function (control) {
+      this.$el.removeClass('map-show-'+control);
+      return this;
     },
   
     submitSearch : function (e){
@@ -403,6 +403,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     
     serialize : function () {
       return { title : this.title };
+    },
+
+    afterRender : function () {
+      this.$el.trigger('create');
     }
 
   });
@@ -552,7 +556,17 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     enableBackButton  : function () { return this.enableButton('back', true);  },
     disableBackButton : function () { return this.enableButton('back', false); },
     enableMapButton   : function () { return this.enableButton('map',  true);  },
-    disableMapButton  : function () { return this.enableButton('map',  false); }
+    disableMapButton  : function () { return this.enableButton('map',  false); },
+    
+    afterRender : function () {
+      /* Set height of footer footprint. 
+       * The footer is fixed at the bottom, setting
+       * the footprint height allows scrolling content to clear.
+       * jQM already adds padding to the bottom of the page when there is a footer,
+       * but it currently isn't enough.
+       */
+      this.$el.height( this.$el.find('[data-role=footer]').outerHeight() );
+    }
     
   });
   
@@ -638,6 +652,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       _.each( $siblings, function (s) {
         siblingsHeight += $(s).outerHeight();
       });
+      this.portletTop= siblingsHeight;
       this.layout.$el.find('.map-fullscreen').css('top', siblingsHeight + 'px');
     };
     
@@ -662,11 +677,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         //.bindNavTo('map', this.home, this)
         .enableMapButton();
 
-      mapView
+      mapSearchFormView
         .hideControl('title')
         .showControl('search');
       controlsHeight= mapSearchFormView.getHeight();
-      mapView.setTop( controlsHeight );
+      mapView.setTop( this.portletTop + controlsHeight );
 
     };
     
@@ -693,8 +708,8 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         .enableMapButton();
       
       // TODO: how to get search field to show again?
-      mapView.showControl('search').showControl('title');
-      mapSearchFormView.setTitle('searchResults');
+      mapSearchFormView.showControl('search').showControl('title');
+      mapSearchFormView.setTitle(q);
       
     };
     
@@ -719,11 +734,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
 
       mapFooterView.bindNavTo('search', function () { this.searchResults(q) }, this);
 
-      mapView
+      mapSearchFormView
         .showControl('search')
         .showControl('title');
       controlsHeight= mapSearchFormView.getHeight();
-      mapView.setTop( controlsHeight );
+      mapView.setTop( this.portletTop + controlsHeight );
     };
 
     /* locationDetail()
@@ -770,11 +785,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapView.drawMap();
       mapFooterView.setNav('map');
       
-      mapView
+      mapSearchFormView
         .hideControl('search')
         .showControl('title');
       controlsHeight= mapSearchFormView.getHeight();
-      mapView.setTop( controlsHeight );
+      mapView.setTop( this.portletTop + controlsHeight );
     };
 
     /* categories()
@@ -830,7 +845,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', reloadCategoryMap);
       addHistory(this.categoryMap, categoryName);
-      mapSearchFormView.setTitle('categoryMap');
+      mapSearchFormView.setTitle(categoryName);
       mapFooterView.setNav('map');
       
       // Find all locations within a category
@@ -839,11 +854,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       showOnly([mapSearchFormView,mapView]);
       mapView.drawMap();
 
-      mapView
+      mapSearchFormView
         .hideControl('search')
         .showControl('title');
       controlsHeight= mapSearchFormView.getHeight();
-      mapView.setTop( controlsHeight );
+      mapView.setTop( this.portletTop + controlsHeight );
     };
   
     /* doViews()
