@@ -67,13 +67,50 @@ ${n}.mapPortlet= new MapPortlet(
 );
 </script>
 <style type="text/css">
-    /* TODO: Move into stylesheet */
-    .map-portlet .map-fullscreen {
+
+        /* TODO: Move into stylesheet */
+
+
+    .map-search-results.out, .map-categories.out, .map-category-detail.out, .map-location-detail.out {
         position:absolute;
+        top:0;
+        width:100%;
+    }
+    .map-location-detail {
+        background-color:#fff;
+    }
+    
+    
+    
+    .map-portlet {
+        position: relative;
+        margin-bottom:-57px;
+    }
+    
+    .map-portlet .map-list-tray {
+        
+    }
+
+    .map-portlet .map-search-results {
+        background-color:#fff;
+    }
+    .map-portlet .map-categories {
+        background-color:#fff;
+    }
+    .map-portlet .map-category-detail {
+        background-color:#fff;
+    }
+    .map-portlet .map-location-detail {
+        background-color:#fff
+    }
+    
+    .map-portlet .map-fullscreen {
+        position:fixed;
         top:0;
         left:0;
         right:0;
         bottom:0;
+        z-index:0;
     }
     .map-portlet .ui-bar { text-align: center; }
     .map-portlet .ui-bar a.ui-btn { float: left; }
@@ -93,10 +130,7 @@ ${n}.mapPortlet= new MapPortlet(
     .map-portlet #map-search-form .map-search-form {
         position: relative;
     }
-     .map-fullscreen {
-         position: relative
-     }
-     .map-fullscreen .portlet-content {
+    .map-fullscreen .portlet-content {
         position:absolute;
         top:0;
         left:0;
@@ -139,13 +173,15 @@ ${n}.mapPortlet= new MapPortlet(
         
     <!-- MAIN LAYOUT -->
     <script type="layout" id="N_map-template">
-        <div id="map-search-form"></div>
-        <div id="map-search-results"></div>
-        <div id="map-categories"></div>
-        <div id="map-category-detail"></div>
-        <div id="map-location-detail"></div>
         <div class="map-fullscreen">
             <div id="map-container"></div>
+        </div>
+        <div id="map-search-form"></div>
+        <div class="map-list-tray">
+            <div id="map-search-results"></div>
+            <div id="map-categories"></div>
+            <div id="map-category-detail"></div>
+            <div id="map-location-detail"></div>
         </div>
         <div id="map-footer"></div>
     </script>

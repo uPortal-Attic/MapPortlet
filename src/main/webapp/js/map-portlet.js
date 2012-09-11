@@ -149,6 +149,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
    */
   var MapSearchResultsView= Backbone.View.extend({
     template: '#map-search-results-view-template',
+    className: 'map-search-results',
     
     events : {
       'click .map-search-result-link' : 'clickResult'
@@ -156,6 +157,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     
     initialize : function (options) {
       this.matchingMapLocations = options.matchingMapLocations;
+      this.$el.hide();
     },
     
     setSearchQuery : function (q) {
@@ -176,7 +178,21 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     
     afterRender : function () {
       this.$el.trigger('create');
+    },
+
+    setHeight : function (height) {
+      this.$el.css('min-height', height + 'px');
+    },
+
+    show : function (classes) {
+      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      return this;
+    },
+
+    hide : function (classes) {
+      return this.show(classes);
     }
+    
   });
   
   
@@ -303,14 +319,12 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.infoWindow.open( this.createMap(), this.markers[0] );
     },
 
-    show : function () {
-      this.$el.show();
+    show : function (classes) {
       this.isVisible= true;
       return this;
     },
 
-    hide : function () {
-      this.$el.hide();
+    hide : function (classes) {
       this.isVisible= false;
       return this;
     },
@@ -407,6 +421,17 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
 
     afterRender : function () {
       this.$el.trigger('create');
+    },
+
+    // TODO: should search form be hidden?
+    show : function (classes) {
+      this.$el.show();
+      return this;
+    },
+
+    hide : function (classes) {
+      this.$el.hide();
+      return this;
     }
 
   });
@@ -426,6 +451,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     initialize : function (options) {
       this.matchingMapLocations= options.matchingMapLocations;
       this.model.on('change', function () { this.render(); this.$el.trigger("create"); }, this);
+      this.$el.hide();
     },
   
     serialize : function () {
@@ -435,6 +461,19 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     clickViewInMap : function () {
       this.matchingMapLocations.reset(this.model);
       this.trigger('clickViewInMap', this.model.get('id'));
+    },
+
+    setHeight : function (height) {
+      this.$el.css('min-height', height + 'px');
+    },
+
+    show : function (classes) {
+      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      return this;
+    },
+
+    hide : function (classes) {
+      return this.show(classes);
     }
   
   });
@@ -455,6 +494,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.mapLocations= options.mapLocations;
       // TODO: Should this run every time mapLocations is reset?
       this.mapLocations.on('reset', function () { this.render(); this.$el.trigger("create"); }, this);
+      this.$el.hide();
     },
   
     clickCategory : function (e) {
@@ -463,6 +503,19 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
     serialize : function () {
       return { categories : this.mapLocations.categories || {} };
+    },
+    
+    setHeight : function (height) {
+      this.$el.css('min-height', height + 'px');
+    },
+
+    show : function (classes) {
+      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      return this;
+    },
+
+    hide : function (classes) {
+      return this.show(classes);
     }
 
   });
@@ -470,8 +523,9 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   /* MAP CATEGORY DETAIL VIEW *********************
    * 
    */
-  var MapCategoryDetailView = Backbone.View.extend({
+  var MapCategoryDetailView= Backbone.View.extend({
     template : '#map-category-detail-template',
+    className : 'map-category-detail',
     events : {
       'click a.map-location-link' : 'clickLocation'
     },
@@ -480,6 +534,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       this.mapLocations= options.mapLocations;
       this.matchingMapLocations= options.matchingMapLocations;
       this.categoryName= '';
+      this.$el.hide();
     },
   
     setCategoryName : function (categoryName) {
@@ -498,6 +553,19 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         categoryName : this.categoryName, 
         locations : this.matchingMapLocations
       };
+    },
+
+    setHeight : function (height) {
+      this.$el.css('min-height', height + 'px');
+    },
+
+    show : function (classes) {
+      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      return this;
+    },
+
+    hide : function (classes) {
+      return this.show(classes);
     }
   
   });
@@ -507,7 +575,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   /* MAP FOOTER VIEW *********************
    * 
    */
-  var MapFooterView = Backbone.View.extend({
+  var MapFooterView= Backbone.View.extend({
     template : '#map-footer-template',
 
     /* tabs: all tabs and if they are enabled */
@@ -566,6 +634,16 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
        * but it currently isn't enough.
        */
       this.$el.height( this.$el.find('[data-role=footer]').outerHeight() );
+    },
+    
+    show : function (classes) {
+      this.$el.show();
+      return this;
+    },
+
+    hide : function (classes) {
+      this.$el.hide();
+      return this;
     }
     
   });
@@ -581,32 +659,71 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
   var MapPortletRouter= function () {
     var self= this;
-  
+    // TODO: Find a spot for this:
+    this.lastCoords= [0,0];
+    this.lastShowOnly= [];
+
+    // SET SPACIAL LOCATIONS FOR ANIMATING VIEW TRANSITIONS
+    this.viewCoords= {
+      "home" : [0,0],
+      "searchResults" : [0,1],
+      "searchResultsMap" : [0,0],
+      "locationDetail" : [3,1],
+      "locationMap" : [0,0],
+      "categories" : [1,1],
+      "category" : [2,1],
+      "categoryMap" : [0,0]
+    };
+    
+    
     /* showOnly()
      * Hide all views except for the ones passed as a parameter.
      * @param views array - array of view objects that are to be shown
      * Note: MapView is a special case. Google Maps doesn't render well in elements with display:none.
      */
-    var showOnly = function (views) {
-      var allViews= [mapSearchFormView, mapSearchResultsView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
+    var showOnly = function (views, coords) {
+      var allViews= [mapView,mapSearchFormView, mapSearchResultsView, mapLocationDetailView, mapCategoriesView, mapCategoryDetailView];
       if( ! _.isArray(views) ) alert('Error\nshowOnly(): parameter must be an array.');
-      _.each( allViews, function (v) {
-        v.$el[ _.indexOf(views, v) == -1 ? 'hide' : 'show' ]();
-      });
-      //mapView[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
-      self.layout.$el.find('.map-fullscreen')[ _.indexOf(views, mapView) == -1 ? 'hide' : 'show' ]();
+      var hideArgs= [''], showArgs=[''];
       
+      if( coords[1] != self.lastCoords[1] ) {
+        // up/down
+        // new coords > old lastCoords = slide up (i.e. go down)
+        hideArgs= coords[1] > self.lastCoords[1] ? ['not-used'] : ['slideup out reverse'];// move up (slideup?) : move down (slidedown)
+        showArgs= coords[1] > self.lastCoords[1] ? ['slideup in'] : ['slideup out'];// move up (slideup) : move down (slidedown)
+      } else if( coords[0] != self.lastCoords[0] ) {
+        // left/right
+        // new coords > old lastCoords = slide out (i.e. go from right to left)
+        hideArgs= coords[0] > self.lastCoords[0] ? ['slide out'] : ['slide out reverse'];// 
+        showArgs= coords[0] > self.lastCoords[0] ? ['slide in'] : ['slide in reverse'];// slide left (slide.in) : slide right (slide.in.reverse)
+      }
+      
+      _.each( self.lastShowOnly, function (v) {
+        // hide
+        if( _.indexOf(views, v) == -1 )
+          v.hide.apply(v, hideArgs);
+      });
+      _.each( views, function (v) {
+        // show
+        if( _.indexOf(self.lastShowOnly, v) == -1 )
+          v.show.apply(v, showArgs);
+      });
+      
+      
+      // TODO: why show every time?
       mapFooterView.$el.show();
       self.layout.$el.trigger('create');
 
       // fix resizing
       if( parseInt( self.layout.$el.find('.map-fullscreen').css('bottom'), 10) == 0 ) {
-        self.layout.$el.find('.map-fullscreen').css({
+        self.layout.$el.find('.map-fullscreen, .map-list-tray').css({
           'bottom' : self.layout.$el.find('.map-footer').outerHeight() + 'px'
         });
         $( window ).trigger( "throttledresize" );
       }
       
+      self.lastCoords= coords;
+      self.lastShowOnly= views;
     };
     
     /* addHistory()
@@ -618,6 +735,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      * @params arguments - optional
      */
     var addHistory = function () {
+      // TODO: Don't add a stop when user has clicked same button twice
       var args = Array.prototype.slice.call(arguments);
       if( ! self.hasOwnProperty('_history') ) self._history=[];
       // Add new stop at beginning of array
@@ -653,7 +771,12 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         siblingsHeight += $(s).outerHeight();
       });
       this.portletTop= siblingsHeight;
-      this.layout.$el.find('.map-fullscreen').css('top', siblingsHeight + 'px');
+      var liveAreaHeight= this.layout.$el.find('.map-fullscreen').css('top', siblingsHeight + 'px').outerHeight();
+      // registry of full height views
+      mapSearchResultsView.setHeight(liveAreaHeight);
+      mapCategoriesView.setHeight(liveAreaHeight);
+      mapCategoryDetailView.setHeight(liveAreaHeight);
+      mapLocationDetailView.setHeight(liveAreaHeight);
     };
     
     // BIND FindPortletHeight TO WINDOW RESIZE
@@ -671,7 +794,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       addHistory(this.home);
       mapSearchFormView.setTitle('');
       
-      showOnly([mapSearchFormView,mapView]);
+      showOnly([ mapSearchFormView,mapView], this.viewCoords['home'] );
       mapFooterView.setNav('search');
       mapFooterView
         //.bindNavTo('map', this.home, this)
@@ -689,6 +812,12 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
      * 
      */
     this.searchResults = function (q) {
+      // If no search term, do home().
+      if( ! $.trim(q).length ) {
+        this.home();
+        return;
+      }
+      
       reloadSearchResults = function () { this.searchResults(q); };
       if( ! hasViews() ) {
         this.doViews();
@@ -699,15 +828,14 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       addHistory(this.searchResults, q);
       mapSearchResultsView.setSearchQuery(q);
       
-      showOnly([mapSearchFormView,mapSearchResultsView]);
+      showOnly( [mapSearchFormView,mapSearchResultsView], this.viewCoords['searchResults'] );
       mapFooterView.setNav('search');
       mapSearchFormView.search(q);
       mapSearchResultsView.render();
       mapFooterView
+        .bindNavTo('search', function () { this.searchResults(q) }, this)
         .bindNavTo('map', function () { this.searchResultsMap(q) }, this)
         .enableMapButton();
-      
-      // TODO: how to get search field to show again?
       mapSearchFormView.showControl('search').showControl('title');
       mapSearchFormView.setTitle(q);
       
@@ -727,7 +855,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapLocations.off('reset', reloadSearchResultsMap);
       addHistory(this.searchResultsMap, q);
       mapSearchFormView.setQuery(q).setTitle(q);
-      showOnly([mapSearchFormView,mapView]);
+      showOnly( [mapSearchFormView,mapView], this.viewCoords['searchResultsMap'] );
       mapFooterView.setNav('map');
       mapSearchFormView.search(q);
       mapView.drawMap();
@@ -755,7 +883,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       addHistory(this.locationDetail, id);
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
-      showOnly([mapLocationDetailView]);
+      showOnly( [mapLocationDetailView], this.viewCoords['locationDetail'] );
       if( location.get('latitude') != null && location.get('longitude') != null ) {
         mapFooterView
           .bindNavTo('map', function () { this.locationMap(id); }, this)
@@ -780,7 +908,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       addHistory(this.locationMap, id);
       location= mapLocations.findById(id);
       mapLocationDetailView.model.set( location.toJSON() );
-      showOnly([mapSearchFormView,mapView]);
+      showOnly( [mapSearchFormView,mapView], this.viewCoords['locationMap'] );
       matchingMapLocations.reset([location]);
       mapView.drawMap();
       mapFooterView.setNav('map');
@@ -803,7 +931,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       }
       mapLocations.off('reset', this.categories);
       addHistory(this.categories);
-      showOnly([mapCategoriesView]);
+      showOnly( [mapCategoriesView], this.viewCoords['categories'] );
       mapFooterView
         .setNav('browse')
         // TODO: should this be disabled, or go to search results map?
@@ -826,7 +954,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapCategoryDetailView.setCategoryName(categoryName);
       mapCategoryDetailView.render();
   
-      showOnly([mapCategoryDetailView]);
+      showOnly( [mapCategoryDetailView], this.viewCoords['category'] );
       mapFooterView
         .bindNavTo('map', function () { this.categoryMap(categoryName) }, this)
         .enableMapButton();
@@ -851,7 +979,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       // Find all locations within a category
       matches= mapLocations.findByCategory(categoryName);
       matchingMapLocations.reset(matches);
-      showOnly([mapSearchFormView,mapView]);
+      showOnly( [mapSearchFormView,mapView], this.viewCoords['categoryMap'] );
       mapView.drawMap();
 
       mapSearchFormView
@@ -903,8 +1031,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
         '#map-category-detail' : mapCategoryDetailView,
         '#map-footer' : mapFooterView
       });
+
+      
       // Hide all views
-      showOnly([]);
+      showOnly([], [0,0]);
       this.layout.render();
   
       /* LISTENERS */
