@@ -37,7 +37,7 @@
 <script type="text/javascript">
 if( typeof ${n} == 'undefined' ) ${n} = {};
 ${n}.mapPortlet= new MapPortlet(
-    up.jQuery,
+    up.jQuery.noConflict(true),
     up._,
     up.Backbone,
     window.google,
@@ -70,41 +70,34 @@ ${n}.mapPortlet= new MapPortlet(
 
         /* TODO: Move into stylesheet */
 
-
-    .map-search-results.out, .map-categories.out, .map-category-detail.out, .map-location-detail.out {
+    .ui-mobile .map-search-results.out, .ui-mobile .map-categories.out, .ui-mobile .map-category-detail.out, .ui-mobile .map-location-detail.out {
         position:absolute;
         top:0;
         width:100%;
     }
-    .map-location-detail {
+    .ui-mobile .map-location-detail {
         background-color:#fff;
     }
-    
-    
-    
-    .map-portlet {
+
+    .ui-mobile .map-portlet {
         position: relative;
         margin-bottom:-57px;
     }
     
-    .map-portlet .map-list-tray {
-        
-    }
-
-    .map-portlet .map-search-results {
+    .ui-mobile .map-portlet .map-search-results {
         background-color:#fff;
     }
-    .map-portlet .map-categories {
+    .ui-mobile .map-portlet .map-categories {
         background-color:#fff;
     }
-    .map-portlet .map-category-detail {
+    .ui-mobile .map-portlet .map-category-detail {
         background-color:#fff;
     }
-    .map-portlet .map-location-detail {
+    .ui-mobile .map-portlet .map-location-detail {
         background-color:#fff
     }
-    
-    .map-portlet .map-fullscreen {
+
+    .ui-mobile .map-portlet .map-fullscreen {
         position:fixed;
         top:0;
         left:0;
@@ -112,59 +105,50 @@ ${n}.mapPortlet= new MapPortlet(
         bottom:0;
         z-index:0;
     }
-    .map-portlet .ui-bar { text-align: center; }
-    .map-portlet .ui-bar a.ui-btn { float: left; }
-    .map-portlet .map-box { 
+    .ui-mobile .map-portlet .ui-bar { text-align: center; }
+    .ui-mobile .map-portlet .ui-bar a.ui-btn { float: left; }
+    .ui-mobile .map-portlet .map-box { 
         border: 1px solid gray;
         padding: 2em;
     }
-    .map-portlet .map-box h3 {
+    .ui-mobile .map-portlet .map-box h3 {
         margin:0;
     }
-    .map-portlet .map-box + .map-box {
+    .ui-mobile .map-portlet .map-box + .map-box {
         margin-top:2em;
     }
-    .map-portlet .map-location-image {
+    .ui-mobile .map-portlet .map-location-image {
         text-align:center;
     }
-    .map-portlet #map-search-form .map-search-form {
+    .ui-mobile .map-portlet #map-search-form .map-search-form {
         position: relative;
     }
-    .map-fullscreen .portlet-content {
+    .map-portlet .map-display {
+        height:500px;
+    }
+    .ui-mobile .map-fullscreen .portlet-content {
         position:absolute;
         top:0;
         left:0;
         right:0;
         bottom:0;
     }
-    .map-portlet .map-display {
+    .ui-mobile .map-portlet .map-display {
         width:100%;
         height: 100%;
     }
-    .map-portlet .map-centered-buttons {
+    .ui-mobile .map-portlet .map-centered-buttons {
         text-align:center
     }
-    .map-portlet .map-centered-buttons div {
+    .ui-mobile .map-portlet .map-centered-buttons div {
         width:100%
     }
-    .map-portlet .ui-btn-up-c {
-        border-color: #08180f;
-        background: #21653f;
-        color: white;
-        background-image: -moz-linear-gradient(top, #21653f, #08180f);
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #21653f), color-stop(1, #08180f));
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#21653f', EndColorStr='#08180f')";
+    .map-portlet .ui-accordion li {
+        display:block;
+        width:100%;
     }
-    .map-portlet .ui-btn-hover-c {
-        border-color: #08180f;
-        background: #2e8b57;
-        color: white;
-        background-image: -moz-linear-gradient(top, #2e8b57, #143f27);
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #2e8b57), color-stop(1, #143f27));
-        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2e8b57', EndColorStr='#143f27')";
-    }
-    .map-portlet #map-footer .map-footer {
-        
+    .map-portlet .ui-accordion li a {
+        display: block;
     }
 </style>
 

@@ -17,6 +17,8 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapCategoriesView,    mapCategoryDetailView,
       mapView;
   
+  var isMobile;
+  
   Backbone.LayoutManager.configure({
       manage: true
   });
@@ -33,7 +35,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   
     getCoords : function () {
       var lat= this.get('latitude'),
-        lon= this.get('longitude');
+          lon= this.get('longitude');
       return lat != null && lon != null && { latitude : lat, longitude : lon }
     }
   
@@ -177,6 +179,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
     
     afterRender : function () {
+      if( ! isMobile ) this.$el.find('ul').accordion();
       this.$el.trigger('create');
     },
 
@@ -185,12 +188,18 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
 
     show : function (classes) {
-      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      if( isMobile )
+        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      else
+        this.$el.show();
       return this;
     },
 
     hide : function (classes) {
-      return this.show(classes);
+      if( isMobile )
+        return this.show(classes);
+      this.$el.hide();
+      return this;
     }
     
   });
@@ -320,11 +329,13 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
 
     show : function (classes) {
+      if( ! isMobile ) this.$el.show();
       this.isVisible= true;
       return this;
     },
 
     hide : function (classes) {
+      if( ! isMobile ) this.$el.hide();
       this.isVisible= false;
       return this;
     },
@@ -468,12 +479,18 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
 
     show : function (classes) {
-      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      if( isMobile )
+        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      else
+        this.$el.show();
       return this;
     },
 
     hide : function (classes) {
-      return this.show(classes);
+      if( isMobile )
+        return this.show(classes);
+      this.$el.hide();
+      return this;
     }
   
   });
@@ -510,12 +527,22 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
 
     show : function (classes) {
-      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      if( isMobile )
+        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      else
+        this.$el.show();
       return this;
     },
 
     hide : function (classes) {
-      return this.show(classes);
+      if( isMobile )
+        return this.show(classes);
+      this.$el.hide();
+      return this;
+    },
+    
+    afterRender : function () {
+      if( ! isMobile ) this.$el.find('ul').accordion();
     }
 
   });
@@ -560,12 +587,22 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
 
     show : function (classes) {
-      this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      if( isMobile )
+        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      else
+        this.$el.show();
       return this;
     },
 
     hide : function (classes) {
-      return this.show(classes);
+      if( isMobile )
+        return this.show(classes);
+      this.$el.hide();
+      return this;
+    },
+
+    afterRender : function () {
+      if( ! isMobile ) this.$el.find('ul').accordion();
     }
   
   });
@@ -588,6 +625,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       'click a.map-footer-browse-link' : 'clickBrowse',
       'click a.map-footer-map-link'    : 'clickMap'
     },
+    
+    initialize : function () {
+      this.$el.show();
+    },
+    
     click : function (tabName) {
       if( this.tabs[tabName] )
         this.trigger('click-' + tabName);
@@ -633,16 +675,20 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
        * jQM already adds padding to the bottom of the page when there is a footer,
        * but it currently isn't enough.
        */
-      this.$el.height( this.$el.find('[data-role=footer]').outerHeight() );
+      if( isMobile ) {
+        this.$el.height( this.$el.find('[data-role=footer]').outerHeight() );
+      } else {
+        $( this.el ).find('ul').parent().tabs();
+      }
     },
     
     show : function (classes) {
-      this.$el.show();
+      //this.$el.show();
       return this;
     },
 
     hide : function (classes) {
-      this.$el.hide();
+      //this.$el.hide();
       return this;
     }
     
@@ -663,6 +709,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     this.lastCoords= [0,0];
     this.lastShowOnly= [];
 
+    this.setIsMobile = function (bool) {
+      isMobile= bool;
+    }
+    
     // SET SPACIAL LOCATIONS FOR ANIMATING VIEW TRANSITIONS
     this.viewCoords= {
       "home" : [0,0],
@@ -1102,6 +1152,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   router.options= options;
   $(document).ready(function () {
     $(options.target).html(router.layout.el);
+    router.setIsMobile( $('html').hasClass('ui-mobile') );
     router.home();
   });
   
