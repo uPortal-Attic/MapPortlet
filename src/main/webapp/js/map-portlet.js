@@ -149,7 +149,31 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   /* SEARCH RESULTS VIEW **************************
    *
    */
-  var MapSearchResultsView= Backbone.View.extend({
+  var MapPortletView= Backbone.View.extend({
+
+    setHeight : function (height) {
+      this.$el.css('min-height', height + 'px');
+    },
+
+    show : function (classes) {
+      if( isMobile )
+        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
+      else
+        this.$el.show();
+      return this;
+    },
+
+    hide : function (classes) {
+      if( isMobile )
+        return this.show(classes);
+      this.$el.hide();
+      return this;
+    }
+
+  });
+
+
+  var MapSearchResultsView= MapPortletView.extend({
     template: '#map-search-results-view-template',
     className: 'map-search-results',
     
@@ -179,27 +203,8 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     },
     
     afterRender : function () {
-      if( ! isMobile ) this.$el.find('ul').accordion();
+      if( ! isMobile ) this.$el.find('ul').accordion({ active:false, animated:false });
       this.$el.trigger('create');
-    },
-
-    setHeight : function (height) {
-      this.$el.css('min-height', height + 'px');
-    },
-
-    show : function (classes) {
-      if( isMobile )
-        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
-      else
-        this.$el.show();
-      return this;
-    },
-
-    hide : function (classes) {
-      if( isMobile )
-        return this.show(classes);
-      this.$el.hide();
-      return this;
     }
     
   });
@@ -352,7 +357,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
    */
   var MapSearchFormView= Backbone.View.extend({
     template: '#map-search-form-template',
-    className: 'map-search-form',
   
     events : {
       'keypress input[type=text]' : 'submitSearchByEnter'
@@ -365,6 +369,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       });
       this.matchingMapLocations= options.matchingMapLocations;
       this.title= '';
+      this.isMoved= false;
     },
 
     setQuery : function (query) {
@@ -383,7 +388,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       var h= 0,
           classes= this.$el.attr('class').split(' ');
       if( _.indexOf(classes, 'map-show-search') != -1 )
-        h += mapSearchFormView.$el.find('.map-search-form').outerHeight();
+        h += mapSearchFormView.$el.outerHeight();
       if( _.indexOf(classes, 'map-show-title') != -1 )
         h += mapSearchFormView.$el.find('.map-title').outerHeight();
       return h;
@@ -432,6 +437,11 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
 
     afterRender : function () {
       this.$el.trigger('create');
+      if( ! isMobile && ! this.isMoved ) {
+        // TODO: Be more specific where this is to be inserted.
+        this.$el.parent().prependTo(options.target);
+        this.isMoved= true;
+      }
     },
 
     // TODO: should search form be hidden?
@@ -450,7 +460,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   /* MAP LOCATION DETAIL VIEW *********************
    * 
    */
-  var MapLocationDetailView= Backbone.View.extend({
+  var MapLocationDetailView= MapPortletView.extend({
     template : '#map-location-detail-template',
     className : 'map-location-detail portlet',
     model : new MapLocation(),
@@ -472,25 +482,6 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     clickViewInMap : function () {
       this.matchingMapLocations.reset(this.model);
       this.trigger('clickViewInMap', this.model.get('id'));
-    },
-
-    setHeight : function (height) {
-      this.$el.css('min-height', height + 'px');
-    },
-
-    show : function (classes) {
-      if( isMobile )
-        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
-      else
-        this.$el.show();
-      return this;
-    },
-
-    hide : function (classes) {
-      if( isMobile )
-        return this.show(classes);
-      this.$el.hide();
-      return this;
     }
   
   });
@@ -498,7 +489,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   /* MAP CATEGORIES VIEW **************************
    * 
    */
-  var MapCategoriesView= Backbone.View.extend({
+  var MapCategoriesView= MapPortletView.extend({
     template : '#map-categories-template',
     className : 'map-categories',
     categories : {},
@@ -522,27 +513,8 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       return { categories : this.mapLocations.categories || {} };
     },
     
-    setHeight : function (height) {
-      this.$el.css('min-height', height + 'px');
-    },
-
-    show : function (classes) {
-      if( isMobile )
-        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
-      else
-        this.$el.show();
-      return this;
-    },
-
-    hide : function (classes) {
-      if( isMobile )
-        return this.show(classes);
-      this.$el.hide();
-      return this;
-    },
-    
     afterRender : function () {
-      if( ! isMobile ) this.$el.find('ul').accordion();
+      if( ! isMobile ) this.$el.find('ul').accordion({ active:false, animated:false });
     }
 
   });
@@ -550,7 +522,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
   /* MAP CATEGORY DETAIL VIEW *********************
    * 
    */
-  var MapCategoryDetailView= Backbone.View.extend({
+  var MapCategoryDetailView= MapPortletView.extend({
     template : '#map-category-detail-template',
     className : 'map-category-detail',
     events : {
@@ -582,27 +554,8 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       };
     },
 
-    setHeight : function (height) {
-      this.$el.css('min-height', height + 'px');
-    },
-
-    show : function (classes) {
-      if( isMobile )
-        this.$el.show().removeClass('slide slideup in out reverse').addClass(classes);
-      else
-        this.$el.show();
-      return this;
-    },
-
-    hide : function (classes) {
-      if( isMobile )
-        return this.show(classes);
-      this.$el.hide();
-      return this;
-    },
-
     afterRender : function () {
-      if( ! isMobile ) this.$el.find('ul').accordion();
+      if( ! isMobile ) this.$el.find('ul').accordion({ active:false, animated:false });
     }
   
   });
@@ -628,6 +581,7 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     
     initialize : function () {
       this.$el.show();
+      this.isMoved= false;
     },
     
     click : function (tabName) {
@@ -678,17 +632,20 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       if( isMobile ) {
         this.$el.height( this.$el.find('[data-role=footer]').outerHeight() );
       } else {
-        $( this.el ).find('ul').parent().tabs();
+        this.$el.find('ul').parent().tabs();
+        if( ! this.isMoved ) {
+          // TODO: Be more specific where this is to be inserted.
+          this.$el.parent().prependTo( options.target );
+          this.isMoved= true;
+        }
       }
     },
     
     show : function (classes) {
-      //this.$el.show();
       return this;
     },
 
     hide : function (classes) {
-      //this.$el.hide();
       return this;
     }
     
@@ -1073,13 +1030,13 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       mapFooterView= new MapFooterView();
   
       this.layout.setViews( {
-        '#map-search-form' : mapSearchFormView,
-        '#map-search-results' : mapSearchResultsView,
-        '#map-container' : mapView,
-        '#map-location-detail' : mapLocationDetailView,
-        '#map-categories' : mapCategoriesView,
-        '#map-category-detail' : mapCategoryDetailView,
-        '#map-footer' : mapFooterView
+        '.map-search-form' : mapSearchFormView,
+        '.map-search-results-box' : mapSearchResultsView,
+        '.map-container' : mapView,
+        '.map-location-detail-box' : mapLocationDetailView,
+        '.map-categories-box' : mapCategoriesView,
+        '.map-category-detail-box' : mapCategoryDetailView,
+        '.map-footer-box' : mapFooterView
       });
 
       

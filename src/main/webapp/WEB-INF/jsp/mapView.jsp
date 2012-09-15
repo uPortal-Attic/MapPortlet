@@ -43,7 +43,7 @@ ${n}.mapPortlet= new MapPortlet(
     window.google,
     {
         target : '#${n}map',
-        template : '#N_map-template',
+        template : '#${n}map-template',
         root : 'http://map.dev/src/main/webapp/WEB-INF/jsp/map.html',
         data : '<portlet:resourceURL/>',
         mapOptions : {
@@ -120,7 +120,7 @@ ${n}.mapPortlet= new MapPortlet(
     .ui-mobile .map-portlet .map-location-image {
         text-align:center;
     }
-    .ui-mobile .map-portlet #map-search-form .map-search-form {
+    .ui-mobile .map-portlet .map-search-form form {
         position: relative;
     }
     .map-portlet .map-display {
@@ -149,25 +149,31 @@ ${n}.mapPortlet= new MapPortlet(
     }
     .map-portlet .ui-accordion li a {
         display: block;
+        padding:.5em 0 .5em 2em;
+    }
+    .map-portlet .ui-accordion li a.ui-corner-top {
+        moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
     }
 </style>
 
 
 <!-- TEMPLATES -->
-        
+
     <!-- MAIN LAYOUT -->
-    <script type="layout" id="N_map-template">
+    <script type="layout" id="${n}map-template">
         <div class="map-fullscreen">
-            <div id="map-container"></div>
+            <div class="map-container"></div>
         </div>
-        <div id="map-search-form"></div>
+        <div class="map-search-form"></div>
         <div class="map-list-tray">
-            <div id="map-search-results"></div>
-            <div id="map-categories"></div>
-            <div id="map-category-detail"></div>
-            <div id="map-location-detail"></div>
+            <div class="map-search-results-box"></div>
+            <div class="map-categories-box"></div>
+            <div class="map-category-detail-box"></div>
+            <div class="map-location-detail-box"></div>
         </div>
-        <div id="map-footer"></div>
+        <div class="map-footer-box"></div>
     </script>
     <!-- / MAIN LAYOUT -->
     
@@ -204,7 +210,7 @@ ${n}.mapPortlet= new MapPortlet(
     <!-- MAP SEARCH FORM -->
     <script type="template" id="map-search-form-template">
         <div class="portlet-content map-search" data-role="content">
-            <form class="map-search-form" onsubmit="return false;">
+            <form onsubmit="return false;">
                 <input type="text" placeholder="Search" class="map-search-input" autocomplete="off" data-mini="true" size="10" name="search" title="search" value="{{ typeof query != 'undefined' ? query : '' }}"/>
             </form>
         </div>
