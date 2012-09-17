@@ -66,98 +66,6 @@ ${n}.mapPortlet= new MapPortlet(
     }
 );
 </script>
-<style type="text/css">
-
-        /* TODO: Move into stylesheet */
-
-    .ui-mobile .map-search-results.out, .ui-mobile .map-categories.out, .ui-mobile .map-category-detail.out, .ui-mobile .map-location-detail.out {
-        position:absolute;
-        top:0;
-        width:100%;
-    }
-    .ui-mobile .map-location-detail {
-        background-color:#fff;
-    }
-
-    .ui-mobile .map-portlet {
-        position: relative;
-        margin-bottom:-57px;
-    }
-    
-    .ui-mobile .map-portlet .map-search-results {
-        background-color:#fff;
-    }
-    .ui-mobile .map-portlet .map-categories {
-        background-color:#fff;
-    }
-    .ui-mobile .map-portlet .map-category-detail {
-        background-color:#fff;
-    }
-    .ui-mobile .map-portlet .map-location-detail {
-        background-color:#fff
-    }
-
-    .ui-mobile .map-portlet .map-fullscreen {
-        position:fixed;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        z-index:0;
-    }
-    .ui-mobile .map-portlet .ui-bar { text-align: center; }
-    .ui-mobile .map-portlet .ui-bar a.ui-btn { float: left; }
-    .ui-mobile .map-portlet .map-box { 
-        border: 1px solid gray;
-        padding: 2em;
-    }
-    .ui-mobile .map-portlet .map-box h3 {
-        margin:0;
-    }
-    .ui-mobile .map-portlet .map-box + .map-box {
-        margin-top:2em;
-    }
-    .ui-mobile .map-portlet .map-location-image {
-        text-align:center;
-    }
-    .ui-mobile .map-portlet .map-search-form form {
-        position: relative;
-    }
-    .map-portlet .map-display {
-        height:500px;
-    }
-    .ui-mobile .map-fullscreen .portlet-content {
-        position:absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-    }
-    .ui-mobile .map-portlet .map-display {
-        width:100%;
-        height: 100%;
-    }
-    .ui-mobile .map-portlet .map-centered-buttons {
-        text-align:center
-    }
-    .ui-mobile .map-portlet .map-centered-buttons div {
-        width:100%
-    }
-    .map-portlet .ui-accordion li {
-        display:block;
-        width:100%;
-    }
-    .map-portlet .ui-accordion li a {
-        display: block;
-        padding:.5em 0 .5em 2em;
-    }
-    .map-portlet .ui-accordion li a.ui-corner-top {
-        moz-border-radius: 4px;
-        -webkit-border-radius: 4px;
-        border-radius: 4px;
-    }
-</style>
-
 
 <!-- TEMPLATES -->
 
@@ -176,28 +84,6 @@ ${n}.mapPortlet= new MapPortlet(
         <div class="map-footer-box"></div>
     </script>
     <!-- / MAIN LAYOUT -->
-    
-<style type="text/css">
-    /*
-    .map-fullscreen.map-show-search .portlet-content, .map-fullscreen .map-show-title .portlet-content {
-        top:0;
-    }
-    */
-    .map-search {
-        display:none;
-        background-color:#fff;
-    }
-    .map-show-search .map-search {
-        display:block;
-    }
-    .map-title {
-        display:none;
-        background-color:#fff;
-    }
-    .map-show-title .map-title {
-        display:block;
-    }
-</style>
 
     <!-- MAP VIEW -->
     <script type="template" id="map-view-template">

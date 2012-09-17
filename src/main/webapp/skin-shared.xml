@@ -22,7 +22,9 @@
 <resources xmlns="http://www.jasig.org/uportal/web/skin" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.jasig.org/uportal/web/skin https://source.jasig.org/schemas/resource-server/skin-configuration/skin-configuration-v1.2.xsd">
 
-    <js>js/backbone.layoutmanager.js</js>
-    <js>js/map-portlet.js</js>
+  <css>css/map.css</css>
+
+  <js>js/backbone.layoutmanager.js</js>
+  <js>js/map-portlet.js</js>
 
 </resources>
