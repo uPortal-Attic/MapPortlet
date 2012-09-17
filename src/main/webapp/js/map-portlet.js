@@ -647,6 +647,12 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
 
     hide : function (classes) {
       return this;
+    },
+    
+    applyFixes : function () {
+      // Fix 1: Firefox doesn't add this class for some reason. This doesn't work in afterRender(), either.
+      if( isMobile )
+        this.$el.find("div[data-role=footer][data-position=fixed]").addClass("ui-footer-fixed");
     }
     
   });
@@ -1090,6 +1096,10 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
       /* / LISTENERS */
   
     };
+
+    this.applyFixes = function () {
+      mapFooterView.applyFixes();
+    };
   
    };
   
@@ -1111,6 +1121,8 @@ MapPortlet= function ( $, _, Backbone, google, options ) {
     $(options.target).html(router.layout.el);
     router.setIsMobile( $('html').hasClass('ui-mobile') );
     router.home();
+    router.applyFixes();
+    
   });
   
 }
