@@ -121,3 +121,9 @@
   -webkit-border-radius: 4px;
   border-radius: 4px;
 }
+
+.map-portlet .map-footer a.ui-disabled{
+  zoom: 1;
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
