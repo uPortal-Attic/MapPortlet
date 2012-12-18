@@ -33,6 +33,10 @@
     <!-- Properties configuration -->
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"
         p:location="classpath:configuration.properties"/>
+
+    <bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+        <property name="interceptors"><bean class="org.jasig.portlet.maps.mvc.MinimizedStateHandlerInterceptor"/></property>
+    </bean>
     
     <bean class="org.springframework.web.portlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
     
