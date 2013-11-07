@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
 
     Licensed to Jasig under one or more contributor license
@@ -86,8 +87,8 @@
 
     <div class="map-search-container">
         <div data-role="header" class="titlebar portlet-titlebar">
-            <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;">Browse</a>
-            <h2>Search</h2>
+            <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;"><spring:message code="map.link.browse"/></a>
+            <h2><spring:message code="map.search"/></h2>
         </div>
         <div class="portlet-content" data-role="content">
             <form class="map-search-form">
@@ -99,7 +100,7 @@
     
     <div class="map-search-results" style="display:none">
         <div class="portlet-content" data-role="content">
-            <ul data-role="listview">
+            <ul data-role="listview">         Location
                 <li class="map-search-result">
                     <a href="javascript:;" class="map-search-result-link"></a>
                 </li>
@@ -109,14 +110,14 @@
     
     <div class="map-categories" style="display:none">
         <div data-role="header" class="titlebar portlet-titlebar">
-            <h2>Browse</h2>
-            <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search">Search</a>
+            <h2><spring:message code="map.browse"/></h2>
+            <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search"><spring:message code="map.link.search"/></a>
         </div>
     
         <div class="portlet-content" data-role="content">
             <ul data-role="listview">
                 <li class="map-category">
-                    <a href="javascript:;" class="map-category-link">Category Name</a>
+                    <a href="javascript:;" class="map-category-link"><spring:message code="map.link.category.name"/></a>
                 </li>
             </ul>
         </div>
@@ -125,15 +126,15 @@
     <div class="map-category-detail" style="display:none">
         
         <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-            <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;">Back</a>
-            <h2 class="map-category-name">Browse</h2>
+            <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;"><spring:message code="map.link.back"/></a>
+            <h2 class="map-category-name"><spring:message code="map.browse"/></h2>
         </div>
     
         <div class="portlet">
             <div class="portlet-content" data-role="content">
                 <ul data-role="listview">
                     <li class="map-location">
-                        <a href="javascript:;" class="map-location-link">Location Name</a>
+                        <a href="javascript:;" class="map-location-link"><spring:message code="map.link.location.name"/></a>
                     </li>
                 </ul>
             </div>
@@ -143,8 +144,8 @@
     <div class="map-location-detail portlet" style="display:none">
     
         <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-            <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;">Back</a>
-            <h2 class="map-location-name">Location</h2>
+            <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;"><spring:message code="map.link.back"/></a>
+            <h2 class="map-location-name"><spring:message code="map.location"/></h2>
         </div>
 
         <div class="portlet">        
@@ -152,8 +153,8 @@
                 <h3 class="map-location-name"></h3>
                 <p class="map-location-description"></p>
                 <p class="map-location-address"></p>
-                <p><a class="map-location-directions-link" href="javascript:;">Get Directions</a>
-                <p><a class="map-location-map-link" href="javascript:;">View in Map</a>
+                <p><a class="map-location-directions-link" href="javascript:;"><spring:message code="map.link.directions"/></a>
+                <p><a class="map-location-map-link" href="javascript:;"><spring:message code="map.link.view.in.map"/></a>
                 <p><img class="map-location-image"/></p>
             </div>
         </div>
