@@ -19,29 +19,29 @@
 
 package org.jasig.portlet.maps.dao;
 
-import java.util.Collections;
-
-import javax.portlet.PortletRequest;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jasig.portlet.maps.model.xml.Location;
 import org.jasig.portlet.maps.model.xml.MapData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
+
 /**
- * Default map DAO retrieves map data from a static JSON file hosted from within
- * the portlet itself.
+ * Restful JSON map DAO retrieves map data from a static JSON file hosted from within
+ * the portlet itself or at a specified URL.
  *  
  * @author Jen Bourey, jennifer.bourey@gmail.com
  * @version $Revision$
  */
-public class DefaultMapDaoImpl implements IMapDao {
+@Component
+public class RestfulJsonMapDaoImpl implements IMapDao {
 
-    protected Log log = LogFactory.getLog(getClass());
+    final protected Log log = LogFactory.getLog(getClass());
     
     private RestTemplate restTemplate;
 
@@ -50,26 +50,18 @@ public class DefaultMapDaoImpl implements IMapDao {
         this.restTemplate = restTemplate;
     }
     
-    private String mapDataUrl;
-
-    @Value("${map.defaultdao.url:http://localhost:8080/MapPortlet/data/map.json}")
-    public void setMapDataUrl(String mapDataUrl) {
-        this.mapDataUrl = mapDataUrl;
-    }
-    
     @Override
-    public MapData getMap(PortletRequest request) {
-        
-        log.debug("Requesting map data from " + this.mapDataUrl);
-        final MapData map = restTemplate.getForObject(mapDataUrl,
+    @Cacheable("mapCache")
+    public MapData getMap(String selectedMapDataUrl) {
+        log.debug("Fetching json data file from URL " + selectedMapDataUrl);
+        final MapData map = restTemplate.getForObject(selectedMapDataUrl,
                 MapData.class, Collections.<String, String> emptyMap());
-        
+
         // perform any required post-processing
         postProcessData(map);
-
         return map;
     }
-    
+
     /**
      * Perform data post-processing to set a search string for each location.
      * 

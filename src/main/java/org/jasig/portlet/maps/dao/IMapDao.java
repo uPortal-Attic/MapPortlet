@@ -24,8 +24,7 @@ import javax.portlet.PortletRequest;
 import org.jasig.portlet.maps.model.xml.MapData;
 
 /**
- * IMapDao represents a generic interface for retrieving map data for a
- * particular portlet request.
+ * IMapDao represents a generic interface for retrieving map data from a particular location.
  * 
  * @author Jen Bourey, jennifer.bourey@gmail.com
  * @version $Revision$
@@ -33,11 +32,11 @@ import org.jasig.portlet.maps.model.xml.MapData;
 public interface IMapDao {
     
     /**
-     * Retrieve map data for the specified PortletRequest.
+     * Retrieve map data for the specified location.
      * 
-     * @param request
+     * @param location location to obtain the map data from
      * @return
      */
-    public MapData getMap(PortletRequest request);
+    public MapData getMap(String location);
 
 }

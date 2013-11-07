@@ -140,6 +140,11 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
                 <version>${spring.version}</version>
             </dependency>
@@ -257,6 +262,10 @@
         <dependency>
             <groupId>org.owasp</groupId>
             <artifactId>antisamy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -528,14 +537,14 @@
                         </configuration>
                     </plugin>
                     <plugin>
-                        <artifactId>maven-uportal-plugin</artifactId>
                         <groupId>org.jasig.portal</groupId>
-                        <version>1.0.0-M4-SNAPSHOT</version>
+                        <artifactId>maven-uportal-plugin</artifactId>
+                        <version>1.0.0-M4</version>
                         <configuration>
-                            <contextName>${pom.artifactId}</contextName>
-                            <artifactId>${pom.artifactId}</artifactId>
-                            <artifactGroupId>${pom.groupId}</artifactGroupId>
-                            <artifactVersion>${pom.version}</artifactVersion>
+                            <contextName>${project.artifactId}</contextName>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <artifactGroupId>${project.groupId}</artifactGroupId>
+                            <artifactVersion>${project.version}</artifactVersion>
                             <artifactClassifier>localdev</artifactClassifier>
                             <removeExistingDirectories>true</removeExistingDirectories>
                             <extractWars>true</extractWars>

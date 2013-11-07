@@ -19,16 +19,19 @@
 
 package org.jasig.portlet.maps.mvc.portlet;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.portlet.PortletPreferences;
-import javax.portlet.RenderRequest;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
+import javax.portlet.*;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jasig.portlet.maps.dao.IMapDao;
+import org.jasig.portlet.maps.model.xml.DefaultLocation;
 import org.jasig.portlet.maps.model.xml.MapData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +51,7 @@ public class MapViewController {
     public static final String PREFERENCE_STARTING_LATITUDE ="latitude";
     public static final String PREFERENCE_STARTING_LONGITUDE ="longitude";
     public static final String PREFERENCE_STARTING_ZOOM = "zoom";
+    public static final String PREFERENCE_MAP_DATA_URL = "mapDataUrl";
     public static final String MAP_OPTION_MAPTYPE_CONTROL = "mapTypeControl";
     public static final String MAP_OPTIONS_PAN_CONTROL = "panControl";
     public static final String MAP_OPTIONS_ZOOM_CONTROL = "zoomControl";
@@ -56,13 +60,21 @@ public class MapViewController {
     public static final String MAP_OPTIONS_ROTATE_CONTROL = "rotateControl";
     public static final String MAP_OPTIONS_OVERVIEW_CONTROL = "overviewControl";
 
+    final protected Log log = LogFactory.getLog(getClass());
     private IMapDao dao;
     
     @Autowired(required = true)
     public void setMapDao(IMapDao dao) {
         this.dao = dao;
     }
-    
+
+    private String mapDataUrl;
+
+    @Value("${map.defaultdao.url:http://localhost:8080/MapPortlet/data/map.json}")
+    public void setMapDataUrl(String mapDataUrl) {
+        this.mapDataUrl = mapDataUrl;
+    }
+
     private String portalProtocol;
 
     @Value("${portal.protocol:http}")
@@ -86,7 +98,7 @@ public class MapViewController {
     
     private String defaultZoom;
     
-    @Value("${map.default.zoom:18}")
+    @Value("${map.default.zoom:17}")
     public void setDefaultZoom(String defaultZoom) {
         this.defaultZoom = defaultZoom;
     }
@@ -94,16 +106,24 @@ public class MapViewController {
     @RequestMapping
 	public ModelAndView getView(RenderRequest request, @RequestParam(required=false) String location) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
-		
+
+        log.debug("Getting map data during render request");
+        MapData mapData = getMapData(request);
+
 		PortletPreferences preferences = request.getPreferences();
 		
 		String apiKey = preferences.getValue(PREFERENCE_API_KEY, null);
 		map.put(PREFERENCE_API_KEY, apiKey);
-		
-        double startingLatitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LATITUDE, defaultLatitude));
+
+        DefaultLocation defaultLocation = mapData.getDefaultLocation();
+        Double startingLatitude = getLatOrLong(preferences,
+                defaultLocation != null ? defaultLocation.getLatitude() : null,
+                PREFERENCE_STARTING_LATITUDE, defaultLatitude);
         map.put(PREFERENCE_STARTING_LATITUDE, startingLatitude);
-        
-        double startingLongitude = Double.parseDouble(preferences.getValue(PREFERENCE_STARTING_LONGITUDE, defaultLongitude));
+
+        Double startingLongitude = getLatOrLong(preferences,
+                defaultLocation != null ? defaultLocation.getLongitude() : null,
+                PREFERENCE_STARTING_LONGITUDE, defaultLongitude);
         map.put(PREFERENCE_STARTING_LONGITUDE, startingLongitude);
 
         int startingZoom = Integer.parseInt(preferences.getValue(PREFERENCE_STARTING_ZOOM, defaultZoom));
@@ -139,12 +159,47 @@ public class MapViewController {
 		
 		return new ModelAndView("mapView", map);
 	}
+
+    private MapData getMapData(PortletRequest request) {
+        PortletPreferences preferences = request.getPreferences();
+        String selectedMapDataUrl = preferences.getValue(PREFERENCE_MAP_DATA_URL, null);
+        if (StringUtils.isBlank(selectedMapDataUrl)) {
+            selectedMapDataUrl = this.mapDataUrl;
+        }
+
+        log.debug("Requesting map data from " + selectedMapDataUrl);
+        return dao.getMap(selectedMapDataUrl);
+    }
+
+    /**
+     * Get the Lat or Long value, giving preference to
+     * 1) Portlet preference value
+     * 2) value specified in map file
+     * 3) fail safe default
+     * @param preferences
+     * @param mapValue
+     * @param preferenceName
+     * @param defaultValue
+     * @return
+     */
+    private Double getLatOrLong (PortletPreferences preferences, BigDecimal mapValue,
+                                 String preferenceName, String defaultValue) {
+        String preferenceValue = preferences.getValue(preferenceName, null);
+        if (preferenceValue != null) {
+            return Double.parseDouble(preferenceValue);
+        }
+        else if (mapValue != null) {
+            return mapValue.doubleValue();
+        }
+        return Double.parseDouble(defaultValue);
+    }
     
     @ResourceMapping 
     public ModelAndView getMapData(ResourceRequest request, ResourceResponse response) {
-        
-        MapData map = dao.getMap(request);
-        String etag = String.valueOf(map.hashCode());
+
+        log.debug("Getting map data during resource request");
+        MapData mapData = getMapData(request);
+        String etag = String.valueOf(mapData.hashCode());
         String requestEtag = request.getETag();
         
         // if the request ETag matches the hash for this response, send back
@@ -152,6 +207,7 @@ public class MapViewController {
         if (request.getETag() != null && etag.equals(requestEtag)) {
             response.getCacheControl().setExpirationTime(360);
             response.getCacheControl().setUseCachedContent(true);
+            response.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(HttpServletResponse.SC_NOT_MODIFIED));
             // returning null appears to cause the response to be committed
             // before returning to the portal, so just use an empty view
             return new ModelAndView("json", Collections.<String,String>emptyMap());
@@ -162,7 +218,7 @@ public class MapViewController {
         response.getCacheControl().setExpirationTime(360);
         
         ModelAndView mv = new ModelAndView("json");
-        mv.addObject(map);
+        mv.addObject(mapData);
         return mv;
     }
     

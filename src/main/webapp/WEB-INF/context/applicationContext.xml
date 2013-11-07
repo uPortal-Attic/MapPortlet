@@ -21,21 +21,23 @@
 -->
 
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans" 
+       xmlns="http://www.springframework.org/schema/beans"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:context="http://www.springframework.org/schema/context" 
-       xmlns:task="http://www.springframework.org/schema/task"
-       xsi:schemaLocation="
-           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd">
+           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
     <context:annotation-config/>
+    <cache:annotation-driven/>
 
+    <!-- taskScheduler loading of GoogleMyMapsDaoImpl deferred to use cache strategy instead
     <task:annotation-driven scheduler="taskScheduler"/>
     <task:scheduler id="taskScheduler" pool-size="5"/>
+    -->
 
     <!-- mapmessages.propreties Configuration -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
@@ -45,24 +47,24 @@
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"
         p:location="classpath:configuration.properties"/>
 
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcache"></property>
+    </bean>
+
 	<!-- EHCache Configuration -->
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+	<bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="configLocation">
 			<value>classpath:ehcache.xml</value>
 		</property>
 	</bean>
 
-    <!-- Main map cache -->
-    <bean id="mapCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean"
-        p:cacheManager-ref="cacheManager" p:cacheName="mapCache"/>
-    
     <bean id="elementsProvider" class="org.jasig.resourceserver.utils.aggr.ResourcesElementsProviderImpl"/>
 
     <bean id="pageCachingFilter" class="org.jasig.portlet.maps.mvc.AggregationAwareFilterBean">
         <property name="elementsProvider" ref="elementsProvider"/>
         <property name="filter">
             <bean class="org.jasig.resourceserver.utils.cache.ConfigurablePageCachingFilter">
-                <constructor-arg ref="cacheManager"/>
+                <constructor-arg ref="ehcache"/>
                 <constructor-arg value="org.jasig.portal.utils.cache.ConfigurablePageCachingFilter.PAGE_CACHE"/>
             </bean>
         </property>
@@ -99,7 +101,19 @@
         </property>
     </bean>
 	
-	<bean class="org.jasig.portlet.maps.dao.DefaultMapDaoImpl" p:restTemplate-ref="restTemplate"/>
+	<bean class="org.jasig.portlet.maps.dao.RestfulJsonMapDaoImpl" p:restTemplate-ref="restTemplate"/>
+
+    <!-- If using GoogleMyMapsDaoImpl you may want to increase the timeToLiveSeconds value in ehcache.xml
+         to put less load on the system.
+    -->
+    <!--<bean class="org.jasig.portlet.maps.dao.GoogleMyMapsDaoImpl">-->
+        <!--<property name="categories">-->
+            <!--<map>-->
+                <!--<entry key="enterCategory" value="enterValue"/>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+
 
     <!-- 
      | View resolvers, look for a named view bean before going to JSP resolution

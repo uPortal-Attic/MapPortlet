@@ -25,6 +25,7 @@ import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -32,10 +33,10 @@ import com.google.map.kml.Document;
 import com.google.map.kml.Kml;
 import com.google.map.kml.Placemark;
 import com.google.map.kml.Style;
+import org.springframework.stereotype.Component;
 
-public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
-    
-    protected final static String CACHE_KEY = "map";
+@Component
+public class GoogleMyMapsDaoImpl implements IMapDao {
     
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -54,7 +55,6 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
     
     private Resource kmlFile;
     
-    @Required
     @Value("${map.googlemymapsdao.file:classpath:/mymap.kml}")
     public void setKmlFile(Resource kmlFile) {
         this.kmlFile = kmlFile;
@@ -82,8 +82,10 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
     }
     
     @Override
-    @Scheduled(fixedRate=900000)
-    public void prefetchMap() {
+    @Cacheable("mapCache")
+    public MapData getMap(String selectedMapDataUrl) {
+
+        //todo change this method to use the string passed in
         
         final MapData map = new MapData();
 
@@ -161,10 +163,7 @@ public class GoogleMyMapsDaoImpl extends AbstractPrefetchableMapDaoImpl {
         }
         
         postProcessData(map);
-
-        final Element cachedElement = new Element(CACHE_KEY, map);
-        this.getCache().put(cachedElement);
-        
+        return map;
     }
 
     /**

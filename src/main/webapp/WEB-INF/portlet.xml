@@ -53,6 +53,60 @@
                 <name>portalJsNamespace</name>
                 <value>up</value>
             </preference>
+
+            <!--
+                Location of the json file containing additional map details. This preference is noted for documentation
+                purposes to indicate that you can override the location via a the preference in a portlet definition.
+                The preference should not be uncommented in the main code line because it would override the value
+                in configuration.properties.
+            -->
+            <!--
+            <preference>
+                <name>mapDataUrl</name>
+                <value>http://localhost:8080/MapPortlet/data/map.json</value>
+            </preference>
+            -->
+
+            <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
+                 the preference in a portlet definition. The preference should not be uncommented in the main code line
+            -->
+            <!--
+            <preference>
+                <name>apiKey</name>
+                <value>ABQIAAAAgd861Ac19qdSSj9UgD4bxhQ5HH0H0rMS9D0iTsa6x6EplXna2xTQwQhED3NEvzb9uY_A3wPQnuBw-A</value>
+            </preference>
+            -->
+
+            <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
+                 the preference in a portlet definition. The preference should not be uncommented in the main code line
+            -->
+            <!--
+            <preference>
+                <name>latitude</name>
+                <value>40.077628</value>
+            </preference>
+            -->
+
+            <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
+                 the preference in a portlet definition. The preference should not be uncommented in the main code line
+            -->
+            <!--
+            <preference>
+                <name>longitude</name>
+                <value>-80.975654</value>
+            </preference>
+            -->
+
+            <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
+                 the preference in a portlet definition. The preference should not be uncommented in the main code line
+            -->
+            <!--
+            <preference>
+                <name>zoom</name>
+                <value>18</value>
+            </preference>
+            -->
+
         </portlet-preferences>
     </portlet>
     

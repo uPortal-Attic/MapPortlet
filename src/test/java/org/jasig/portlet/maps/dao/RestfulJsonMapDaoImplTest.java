@@ -20,7 +20,6 @@
 package org.jasig.portlet.maps.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
@@ -38,10 +37,10 @@ import org.mockito.MockitoAnnotations;
  * @author Jen Bourey, jennifer.bourey@gmail.com
  * @version $Revision$
  */
-public class DefaultMapDaoImplTest {
+public class RestfulJsonMapDaoImplTest {
 
     @Mock PortletRequest request;
-    DefaultMapDaoImpl dao = new DefaultMapDaoImpl();        
+    RestfulJsonMapDaoImpl dao = new RestfulJsonMapDaoImpl();
     
     @Before
     public void setUp() {
