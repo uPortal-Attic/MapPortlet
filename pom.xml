@@ -13,7 +13,7 @@
 
     <scm>
         <connection>scm:git:git://github.com/Jasig/MapPortlet.git</connection>
-        <developerConnection>scm:git:git://github.com/Jasig/MapPortlet.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:Jasig/MapPortlet.git</developerConnection>
       <url>https://github.com/Jasig/MapPortlet</url>
   </scm>
 
