@@ -53,6 +53,7 @@ This project includes:
   SLF4J API Module under MIT License
   spring-aop under Apache License, Version 2.0
   spring-asm under Apache License, Version 2.0
+  spring-aspects under Apache License, Version 2.0
   spring-beans under Apache License, Version 2.0
   spring-context under Apache License, Version 2.0
   spring-context-support under Apache License, Version 2.0
@@ -63,7 +64,7 @@ This project includes:
   spring-webmvc under Apache License, Version 2.0
   spring-webmvc-portlet under Apache License, Version 2.0
   standard under Apache License, Version 2.0
-  Streaming API for XML under GNU General Public Library or COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
+  Streaming API for XML under Sun Binary Code License
   Xerces2 Java Parser under The Apache Software License, Version 2.0
   XML Commons External Components XML APIs Extensions under The Apache Software License, Version 2.0
   xml-apis under The Apache Software License, Version 2.0
