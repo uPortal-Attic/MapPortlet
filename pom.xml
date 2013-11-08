@@ -12,9 +12,9 @@
     <name>Maps Portlet</name>
 
     <scm>
-        <connection>scm:svn:https://source.jasig.org/sandbox/MapPortlet/trunk</connection>
-        <developerConnection>scm:svn:https://source.jasig.org/sandbox/MapPortlet/trunk</developerConnection>
-      <url>https://developer.jasig.org/source/browse/jasigsvn/jasig-parent/tags/jasig-parent-30/MapPortlet</url>
+        <connection>scm:git:git://github.com/Jasig/MapPortlet.git</connection>
+        <developerConnection>scm:git:git://github.com/Jasig/MapPortlet.git</developerConnection>
+      <url>https://github.com/Jasig/MapPortlet</url>
   </scm>
 
     <properties>
