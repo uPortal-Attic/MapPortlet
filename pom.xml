@@ -27,19 +27,6 @@
         <resource-server.version>1.0.23</resource-server.version>
     </properties>
 
-    <repositories>
-            <repository>
-                <releases>
-                        <updatePolicy>never</updatePolicy>
-                        <checksumPolicy>warn</checksumPolicy>
-                        <enabled>true</enabled>
-                </releases>
-                <id>geogoogle</id>
-                <name>geogoogle repo</name>
-                <url>https://www.cs.drexel.edu/~zl25/maven2/repo</url>
-        </repository>
-    </repositories>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -197,13 +184,6 @@
     </dependencyManagement>
 
     <dependencies>
-    
-      <dependency>
-                <groupId>geoGoogle</groupId>
-                <artifactId>geoGoogle</artifactId>
-                <version>1.5.0</version> 
-  </dependency>
-
         <!-- ===== Compile Time Dependencies ============================== -->
         <dependency>
             <groupId>com.googlecode.ehcache-spring-annotations</groupId>
