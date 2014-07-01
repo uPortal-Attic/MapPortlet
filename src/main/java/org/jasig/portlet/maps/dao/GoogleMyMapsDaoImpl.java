@@ -29,12 +29,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import net.sf.ehcache.Element;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jasig.portlet.maps.model.xml.DefaultLocation;
 import org.jasig.portlet.maps.model.xml.Location;
 import org.jasig.portlet.maps.model.xml.MapData;
 import org.owasp.validator.html.AntiSamy;
@@ -44,15 +40,13 @@ import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.google.map.kml.Document;
 import com.google.map.kml.Kml;
 import com.google.map.kml.Placemark;
 import com.google.map.kml.Style;
-import org.springframework.stereotype.Component;
 
 @Component
 public class GoogleMyMapsDaoImpl implements IMapDao {
@@ -101,7 +95,6 @@ public class GoogleMyMapsDaoImpl implements IMapDao {
     }
     
     @Override
-    @Cacheable("mapCache")
     public MapData getMap(String selectedMapDataUrl) {
 
         //todo change this method to use the string passed in
@@ -180,36 +173,15 @@ public class GoogleMyMapsDaoImpl implements IMapDao {
             map.getLocations().add(location);
             
         }
-        
-        postProcessData(map);
+        new MapDataProcessor().postProcessData(map, defaultLatitude, defaultLongitude);
         return map;
     }
 
-    /**
-     * Perform data post-processing to set a search string for each location.
-     * 
-     * @param map
-     */
-    protected void postProcessData(MapData map) {
+	@Override
+	public String getVersion() {
+		// TODO Auto-generated method stub
+		return "";
+	}
 
-        // set the default location
-        final DefaultLocation defaultLocation = new DefaultLocation();
-        defaultLocation.setLatitude(new BigDecimal(defaultLatitude));
-        defaultLocation.setLongitude(new BigDecimal(defaultLongitude));
-        map.setDefaultLocation(defaultLocation);
-        
-        // assemble a tilde-delimited search string for each location
-        // from the list of search keys, the location name, and the address
-        for (Location location : map.getLocations()) {
-            final StringBuffer searchString = new StringBuffer();
-            searchString.append(location.getName().toLowerCase());
-            searchString.append("~");
-            searchString.append(location.getAbbreviation().toLowerCase());
-            searchString.append("~");
-            searchString.append(StringUtils.join(location.getSearchKeys(), "~"));
-            location.setSearchText(searchString.toString());
-        }
-
-    }
     
 }

@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Map Portlet Test Suite</title>
+    <!--  These are the jqUnit test framework files -->
+<link rel="Stylesheet" type="text/css" media="screen" href="qunit/css/qunit.css" />
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
+
+<script type="text/javascript" src="jquery/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="jqueryui/jquery-ui-1.8.13.js"></script>
+<script type="text/javascript" src="../../main/webapp/js/jquery.ui.map.js"></script>
+<script type="text/javascript" src="../../main/webapp/js/jquery.ui.map.extensions.js"></script>
+<script type="text/javascript" src="../../main/webapp/js/jquery.ui.map.overlays.js"></script>
+<script type="text/javascript" src="../../main/webapp/js/StyledMarker.js"></script>
+<script type="text/javascript" src="../../main/webapp/js/markerwithlabel.js"></script>
+<script type="text/javascript" src="../../main/webapp/js/map-helper.js"></script>
+<script type="text/javascript" src="../../main/webapp/js/blockUI.js"></script>
+<script type="text/javascript" src="jquery/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="fluid_upmc/js/fluid-all-1.4.0.js"></script>
+<script type="text/javascript" src="test-core/sinon/sinon-1.10.0.js"></script>
+<script type="text/javascript" src="qunit/js/qunit.js"></script>
+<script type="text/javascript" src="test-core/jqUnit/js/jqUnit.js"></script>
+ <script type="text/javascript" src="test-core/jqUnit/js/jqUnit-browser.js"></script>
+<script type="text/javascript" src="MapPortlet-test.js"></script>
+</head>
+<body id="body">
+<h1 id="qunit-header">Map Portlet Test Suite</h1>
+      <h2 id="qunit-banner"></h2>
+      <div id="qunit-testrunner-toolbar"></div>
+      <h2 id="qunit-userAgent"></h2>
+      <ol id="qunit-tests"></ol>
+      <div id="qunit-fixture"></div>
+      <div id="qunit-testresult"></div>
+
+<div data-role='panel' data-position='right' data-display='reveal' id='mypanel' data-theme='a' >
+    <ul data-role='listview' data-inset='true' > \
+    <li data-icon='grid'><a class='map-categories-link' data-rel='close' id='Categories' href='javascript:;'>Categories</a></li> \
+    <li data-icon='bars'><a  class='map-campuses-link' data-rel='close' id='Campuses' href='javascript:;'>Campuses</a></li>  \
+    <li data-icon='back'><a class='map-display-link' data-rel='close' href='javascript:;' >Map</a></li> \
+    <li data-icon='delete'><a data-rel='close'  href='javascript:;' >Close</a></li> \
+    </ul>
+</div>
+<div class="portlet-wrapper-titlebar">some title text
+    <a href='javascript:;' id='titleShowSearch'  class = 'ui-btn-right' data-icon='search' data-iconpos='notext' data-mini='true' data-inline='true'  data-theme='c'  >Search</a>
+    <a href='#mypanel' id='panel_button' class='ui-btn-right' data-mini='true' data-inline='true' data-theme='c' data-iconpos='notext' data-icon='custom-panel-icon'>More</a>
+    <h6 id='global_title' class='title'></h6>
+</div>
+<div id="test_map" class="portlet map" data-role='content'>
+    <div class="map-search-container" id='map_search_container'>
+        <form class='map-search-form' >
+            <input  type='search' class='map-search-input' autocomplete='off' type='text' data-mini='true' size='10' name='search' title='search' placeholder='Search for a campus location'/>
+        </form>
+    </div>
+
+    <div id="search-dialog-modal" title="How to use the search box" style='display:none'>
+        <p>Please choose a value from the autocomplete list. If this is empty please choose a different search term. Enter at least three characters.</p>
+    </div>
+    <div class="map-search-results" style="display:none">
+        <a id="map_search" href="javascript:;" data-role="button" class="map-search-link" data-icon="search"><spring:message code="map.link.search"/></a>
+    </div>
+    <div id='locate_me_holder' >
+        <a  id='Locate_me'   data-role='button' data-icon='custom-locate-me' data-mini='true' data-inline='true' data-iconpos='notext' data-theme='b' href='javascript:;'>Locate me</a>
+    </div>
+
+    <div class="map-categories" id='map_categories'>
+        <div class="portlet-content" data-role="content">
+            <ul data-role="listview">
+                <li class="map-category">
+                    <a href="javascript:;" class="map-category-link">Category Name</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="map-location-detail portlet" id="map_location_detail" style="display:none">
+        <div class="portlet" data-role="content">
+            <h3 class="map-location-name"></h3>
+            <p class="map-location-description"></p>
+            <p class="map-location-address"></p>
+            <div class="ui-grid-a">
+                <div class="ui-block-a map-location-directions-link "><a data-inline="true" data-mini="true" data-role="button" href="javascript:;"><spring:message code="map.link.directions"/></a></div>
+                <div class="ui-block-b map-location-map-link"><a data-inline="true" data-mini="true" data-role="button" href="javascript:;"><spring:message code="map.link.view.in.map"/></a></div>
+            </div>
+            <p><img class="map-location-image"/></p>
+
+        </div>
+
+    </div>
+    <div data-role='header' data-theme='b'  id='map-info'><h1 class='title'>Campus<h1></div>
+    <div class="map-container">
+            <div class="map-display" style="width: 100%; height: 500px;"></div>
+    </div>
+    </div>
+</body></html>

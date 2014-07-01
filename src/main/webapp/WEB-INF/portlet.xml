@@ -70,42 +70,38 @@
             <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
                  the preference in a portlet definition. The preference should not be uncommented in the main code line
             -->
-            <!--
             <preference>
                 <name>apiKey</name>
-                <value>ABQIAAAAgd861Ac19qdSSj9UgD4bxhQ5HH0H0rMS9D0iTsa6x6EplXna2xTQwQhED3NEvzb9uY_A3wPQnuBw-A</value>
+                <value></value>
             </preference>
-            -->
 
             <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
                  the preference in a portlet definition. The preference should not be uncommented in the main code line
             -->
-            <!--
             <preference>
                 <name>latitude</name>
-                <value>40.077628</value>
+                <value>55.94576197912079</value>
             </preference>
-            -->
 
             <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
                  the preference in a portlet definition. The preference should not be uncommented in the main code line
             -->
-            <!--
             <preference>
                 <name>longitude</name>
-                <value>-80.975654</value>
+                <value>-3.1864418613769203</value>
             </preference>
-            -->
 
             <!-- This preference is noted for documentation purposes to indicate that you can override the value via a
                  the preference in a portlet definition. The preference should not be uncommented in the main code line
             -->
-            <!--
             <preference>
                 <name>zoom</name>
-                <value>18</value>
+                <value>16</value>
             </preference>
-            -->
+            <preference>
+                <name>defaultMapInfoHeader</name>
+                <value>University of Edinburgh</value>
+            </preference>
 
         </portlet-preferences>
     </portlet>

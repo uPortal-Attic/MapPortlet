@@ -25,6 +25,8 @@
         <jaxb2basics.version>0.6.0</jaxb2basics.version>
         <spring.version>3.1.0.RELEASE</spring.version>
         <resource-server.version>1.0.23</resource-server.version>
+        <env>local</env>
+        <filters.file>filters/${env}.properties</filters.file>
     </properties>
 
     <dependencyManagement>
@@ -321,11 +323,63 @@
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
 
     </dependencies>
 
     <build>
+    	<filters>
+            <filter>${filters.file}</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
+		    <plugin>
+				<groupId>com.github.klieber</groupId>
+				<artifactId>phantomjs-maven-plugin</artifactId>
+				<version>0.2.1</version>
+				<configuration>
+					<version>1.9.2</version>
+					<checkSystemPath>true</checkSystemPath>
+					<script>src/test/jQUnit/run-qunit.js</script>
+					<arguments>
+						<argument>src/test/jQUnit/MapPortlet-test.html</argument>
+					</arguments>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>install</goal>
+							<!-- uncomment this to have this plugin run the tests, it will work but unfortunately wont fail the build if phantomjs exists with value
+							other than 0 <goal>exec</goal>-->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+        	<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>exec-maven-plugin</artifactId>
+					<version>1.3</version>
+					<configuration>
+						<executable>${phantomjs.binary}</executable>
+						<arguments>
+							<argument>src/test/jQUnit/run-qunit.js</argument>
+							<argument>src/test/jQUnit/MapPortlet-test.html</argument>
+						</arguments>
+					</configuration>
+					<executions>
+						<execution>
+						<phase>test</phase>
+							<goals>
+								<goal>exec</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
             <!-- Generates JAXB binding classes -->            
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>

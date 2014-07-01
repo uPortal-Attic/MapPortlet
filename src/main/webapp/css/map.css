@@ -17,27 +17,139 @@
  * under the License.
  */
 
-table.building-list {
-    width: 100%;
+ /* Note the css for the blockUI widget is applied as an options object passed in to the function call in map-helper.js */
+ 
+
+/* jQuery UI autocomplete ul changes */
+.map_body  ul.ui-autocomplete { 
+	right: 0px!important;
+	left: 0px!important;
+	z-index: 1000!important;
 }
 
-table.building-list tr th{ 
-    background-color: #2758B3; color: #fff; text-align: left;  padding:3px;
-    border: none;
+.map_body .ui-autocomplete {  
+    border-radius: 0px;
 }
 
-.building-list tr td {
-    padding:6px;
+.map_body .ui-menu .ui-menu-item a{
+	border-bottom: 1px solid #F8F8F8!important;
+    text-transform: uppercase!important;
+	text-align:left!important;
+	vertical-align: middle!important;
+	padding: 10px!important;
+	border-radius: 0px!important;
+	height:30px!important;
 }
 
-.building-list tr.main td {
-    background-color: #fff;
+
+/* search button, needs to stay clear of panel menu button*/
+.map #titleShowSearch.ui-btn-right {
+right:50px
+} 
+
+/* global title bar visible in all views and holding navigation button*/
+.map #map_portlet_titlebar {
+position:relative;
+
+z-index:10;
 }
 
-.building-list tr.alt td {
-    background-color: #E6EEFB; 
+/* the map */
+.map #map_display {
+width:100%;
+height:99%;
 }
 
-.building-list tr.bottom td {
-    border-bottom: thin solid #999;
+/* 
+Removes jQm border-radius from search box and children, 
+then adds box shadow to emphasise that search sits above the maps 
+*/
+.map #map_search_container, .map #map_search_container > *,.map .map-search-form, .map .map-search-form > * { 
+	border-radius: 0px; 
+}
+.map .map-search-form {
+box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.3); 
+}
+
+
+/* map categories and location detail made scrollable*/
+.map #map_categories .portlet-content,.map #map_categories .portlet-content >*, .map #map_location_detail .portlet-content{
+height:99%;
+}
+
+/* location details */
+.map #map_location_detail .portlet {
+position:relative;
+width:100%;
+height:99%;
+}
+
+/* the text in the info window */
+.map #map-info .title {
+margin:0.6em 0% 0.8em;
+}
+
+/* the panel menu*/
+.map #mypanel {
+background: #666;
+z-index:11;
+}
+
+/* Adjustments to google maps Info Window */
+.gm-style-iw {
+    height: 100% !important;
+    overflow: hidden !important;
+	padding: .1em;
+}
+
+.map .ui-icon-custom-panel-icon{
+	
+	background-image: url(../img/location-white.png);
+	background-size: 18px 20px;
+}
+.map .ui-icon-custom-locate-me {
+	background-color:rgba(255,255,255,0);
+	background-image: url(../img/locate-me.png);
+	background-size: 25px 25px;
+	height: 25px;
+	width: 25px;
+	margin: 0;
+}
+
+.map #Locate_me {
+	border-radius: 5px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.3),0 4px 15px -5px rgba(0,0,0,0.3);
+	width: 35px;
+	height: 35px;
+	border: none;
+	background: #fff;
+	background-image: none;
+}
+
+/* required to center the geolocation icon*/
+.map #locate_me_holder .ui-icon.ui-icon-custom-locate-me.ui-icon-shadow {
+margin : 0 0 0 0;
+}
+
+.map #Locate_me span.ui-btn-inner {
+	padding: .4em;
+}
+
+/*gives sufficient room for the text in the search box modal and a white background*/
+#search-dialog-modal {
+background:white;
+height: 80px!important;
+
+}
+
+/* the close button on jqueryUI modals is off center without this*/
+.ui-button-icon-primary.ui-icon.ui-icon-closethick {
+left : -5%;
+top :-5%;
+}
+
+/* the bottom div holding the OK button in jqueryUI modals does not join to the div above without this*/
+.ui-dialog .ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix {
+margin :0 0 0;
+border-width: 0px;
 }

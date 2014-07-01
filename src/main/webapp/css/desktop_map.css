@@ -1,0 +1,42 @@
+/* for desktop devices*/
+
+
+	/* view of categories, view containing details of a chosen location */
+	.map #map_categories, .map #map_location_detail {
+	z-index:2 ;
+	display:none;
+	}
+	
+	.map #locate_me_holder {
+		display:none;
+		opacity: 0;
+	}
+	
+	/* search form */
+	.map .map-search-input.ui-autocomplete-input {
+		width:100%;
+		left:20px;
+		top:100px;
+		opacity: 0.93; 
+	}
+	/* search form holder*/
+	.map #map_search_container {
+		left: 10px;
+		top: -10px;
+		position: relative;
+		z-index: 10;
+	}
+	
+	/* hide the mobile map info*/
+	.map #map-info {
+		position:fixed;
+	}
+	/* show the desktop map-info: displays info about a chosen category when the map is viewed*/
+	.map #map-info.desktop {
+		position:static;
+		float: top;
+		display: inline;
+		top: 22%;
+		left: 10%;
+		width: 30%;
+	}

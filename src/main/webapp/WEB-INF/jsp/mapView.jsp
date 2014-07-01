@@ -22,148 +22,146 @@
 
 <!-- required includes -->
 <jsp:directive.include file="/WEB-INF/jsp/include.jsp"/>
+<link href="<c:url value="/css/map.css"/>" rel="stylesheet" type="text/css" />
 <portlet:defineObjects/>
 
 <c:set var="n"><portlet:namespace/></c:set>
-<c:set var="apiUrl">${ portalProtocol }://maps.google.com/maps/api/js?sensor=true</c:set>
+<c:set var="apiUrl">https://maps.googleapis.com/maps/api/js?sensor=true </c:set>
 <c:if test="${ not empty apiKey }">
-    <c:set var="apiUrl">${ apiUrl }&amp;key=${ apiKey }</c:set>
+<c:set var="apiUrl">${ apiUrl }&amp;key=${ apiKey }</c:set>
 </c:if>
 <script src="${apiUrl}"></script>
 <c:set var="usePortalJsLibs" value="${ false }"/>
 <rs:aggregatedResources path="${ usePortalJsLibs ? '/skin-shared.xml' : '/skin.xml' }"/>
-
 <script type="text/javascript"><rs:compressJs>
-    var ${n} = ${n} || {};
-    <c:choose>
-        <c:when test="${!usePortalJsLibs}">
-            ${n}.jQuery = jQuery.noConflict(true);
-            ${n}.fluid = fluid;
-            fluid = null; 
-            fluid_1_4 = null;
-        </c:when>
-        <c:otherwise>
-            <c:set var="ns"><c:if test="${ not empty portalJsNamespace }">${ portalJsNamespace }.</c:if></c:set>
-            ${n}.jQuery = ${ ns }jQuery;
-            ${n}.fluid = ${ ns }fluid;
-        </c:otherwise>
-    </c:choose>
-    if (!map.initialized) map.init(${n}.jQuery, ${n}.fluid, google);
-    ${n}.map = map;
+var ${n} = ${n} || {};
+<c:choose>
+    <c:when test="${!usePortalJsLibs}">
+        ${n}.jQuery = jQuery.noConflict(true);
+        ${n}.fluid = fluid;
+        fluid = null; 
+        fluid_1_4 = null;
+    </c:when>
+    <c:otherwise>
+        <c:set var="ns"><c:if test="${ not empty portalJsNamespace }">${ portalJsNamespace }.</c:if></c:set>
+        ${n}.jQuery = ${ ns }jQuery;
+        ${n}.fluid = ${ ns }fluid;
+    </c:otherwise>
+</c:choose>
+${n}.jQuery.mobile = up.jQuery.mobile;
+if (!map.initialized) map.init(${n}.jQuery, ${n}.fluid, google);
+${n}.map = map;
 
-    ${n}.jQuery(document).ready(function () { 
+if(up.jQuery.mobile){
+	up.jQuery(document).on("pagebeforecreate",function(event){
+		up.jQuery('body').append('<link href="<c:url value="/css/mobile_map.css"/>" rel="stylesheet" type="text/css" />');
+		up.jQuery('body').addClass('map_body');
+		up.jQuery("<div data-role='panel' data-position='right' data-display='reveal' id='mypanel' data-theme='a' ><ul data-role='listview' data-inset='true' > \
+			<li data-icon='grid'><a class='map-categories-link' data-rel='close' id='Categories' href='javascript:;'>Categories</a></li> \
+			<li data-icon='bars'><a  class='map-campuses-link' data-rel='close' id='Campuses' href='javascript:;'>Campuses</a></li>  \
+			<li data-icon='back'><a class='map-display-link' data-rel='close' href='javascript:;' >Map</a></li> \
+			<li data-icon='delete'><a data-rel='close'  href='javascript:;' >Close</a></li> \
+		</ul></div>").insertBefore('.map .portlet-wrapper-titlebar');
+		up.jQuery('.map .portlet-wrapper-titlebar').attr('id','map_portlet_titlebar');
+		up.jQuery('.map .portlet-wrapper-titlebar').attr('data-theme','a');
+		up.jQuery('.map .portlet-wrapper-titlebar .title').remove();
+		up.jQuery('.map .portlet-wrapper-titlebar>a').attr({'data-inline':'true','data-mini':'true','data-theme':'a','data-type':'horizontal'});
+		up.jQuery('.map .portlet-wrapper-titlebar>a').removeAttr('data-direction');
+		up.jQuery("<a href='javascript:;' id='titleShowSearch'  class = 'ui-btn-right' data-icon='search' data-iconpos='notext' data-mini='true' data-inline='true'  data-theme='c'  >Search</a> \
+		<a href='#mypanel' id='panel_button' class='ui-btn-right' data-mini='true' data-inline='true' data-theme='c' data-iconpos='notext' data-icon='custom-panel-icon'>More</a>").insertAfter('.map .portlet-wrapper-titlebar>a');
+		var before=up.jQuery('.map .portlet-wrapper-titlebar').html();
+		up.jQuery('.map .portlet-wrapper-titlebar').html(before+"<h6 id='global_title' class='title'></h6>");
+		
+	});
+} else {
+	${n}.jQuery(document).ready(function () {
+		${n}.jQuery('head').append('<link href="<c:url value="/css/desktop_map.css"/>" rel="stylesheet" type="text/css" />');
+		${n}.jQuery("<li><a class='map-categories-link' id='Categories'  href='javascript:;'>Categories</a></li> \
+		<li><a  class='map-campuses-link' id='Campuses'  href='javascript:;'>Campuses</a></li> \
+		<li><a  id='Locate_me' href='javascript:;'>Locate me</a></li>\
+		<div class='desktop' id='map-info'><h1 class='title'>Campus<h1></div>").insertAfter('.up-portlet-titlebar');
+		${n}.jQuery('.map-display').height(600);
+	});
+}
+${n}.jQuery(document).ready(function () { 
+	
+    var $ = ${n}.jQuery;
+    $("#titleShowSearch").hide();
+    mapOptions = {
+    	defaultMapInfoHeader : '${defaultMapInfoHeader}',
+    	mapdatarefreshdate :'${mapdatarefreshdate}',
+        zoom: ${ zoom },
+        mapTypeControl: ${ mapTypeControl },
+        mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DEFAULT
+        },
+        panControl: ${ panControl },
+        zoomControl: ${ zoomControl },
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL
+        },
+        scaleControl: ${ scaleControl },
+        streetViewControl: ${ streetView },
+        rotateControl: ${ rotateControl },
+        overviewMapControl: ${ overviewControl },
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
 
-        var $ = ${n}.jQuery;
-        
-        mapOptions = {
-            zoom: ${ zoom },
-            mapTypeControl: ${ mapTypeControl },
-            mapTypeControlOptions: {
-                style: google.maps.MapTypeControlStyle.DEFAULT
-            },
-            panControl: ${ panControl },
-            zoomControl: ${ zoomControl },
-            zoomControlOptions: {
-                style: google.maps.ZoomControlStyle.SMALL
-            },
-            scaleControl: ${ scaleControl },
-            streetViewControl: ${ streetView },
-            rotateControl: ${ rotateControl },
-            overviewMapControl: ${ overviewControl },
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        map.CampusMap($("#${n}map"), {
-            defaultCoordinates: { latitude: ${ latitude }, longitude: ${ longitude } },
-            location: '${ location }',
-            mapOptions: mapOptions,
-            mapDataUrl: '<portlet:resourceURL/>'
-        });
+    map.CampusMap($("#${n}map"), {
+        defaultCoordinates: { latitude: ${ latitude }, longitude: ${ longitude } },
+        location: '${ location }',
+        mapOptions: mapOptions,
+        mapDataUrl: '<portlet:resourceURL/>'
     });
+
+	
+});
 
 </rs:compressJs></script>
 
-<div id="${n}map" class="portlet"> 
+<div id="${n}map" class="portlet"  data-role='content'> 
+<!-- raise this up so that when it is shown/hidden the map underneath does not 'move'. Its jarring for the user and it causes any open infoWindows to vanish. 
+Keep the position as 'absolute' else when results are chosen from the autocomplete candidate list they can push it off the screen, never to return-->
+<div class="map-search-container" id='map_search_container'>
+        <form class='map-search-form' > 
+            <input  type='search' class='map-search-input' autocomplete='off' type='text' data-mini='true' size='10' name='search' title='search' placeholder='Search for a campus location'/> 
+        </form>
+</div>
+<div id="search-dialog-modal" title="How to use the search box" style='display:none'>
+  <p>Please choose a value from the autocomplete list. If this is empty please choose a different search term. Enter at least three characters.</p>
+</div>
+<div id='locate_me_holder' >
+	<a  id='Locate_me'   data-role='button' data-icon='custom-locate-me' data-mini='true' data-inline='true' data-iconpos='notext' data-theme='b' href='javascript:;'>Locate me</a>
+</div>
 
-    <div class="map-search-container">
-        <div data-role="header" class="titlebar portlet-titlebar">
-            <a class="map-browse-link" data-role="button" data-icon="grid" data-inline="true" href="javascript:;"><spring:message code="map.link.browse"/></a>
-            <h2><spring:message code="map.search"/></h2>
-        </div>
-        <div class="portlet-content" data-role="content">
-            <form class="map-search-form">
-                <input class="map-search-input" autocomplete="off" type="text" data-mini="true" size="10" name="search" title="search"/>
-                <input data-role="button" data-inline="true" type="submit" value="Go"/>
-            </form>
-        </div>
+<div class="map-categories" id='map_categories'>
+    
+    <div class="portlet-content" data-role="content">
+		
+        <ul data-role="listview">
+            <li class="map-category">
+                <a href="javascript:;" class="map-category-link"><spring:message code="map.link.category.name"/></a>
+            </li>
+        </ul>
     </div>
-    
-    <div class="map-search-results" style="display:none">
-        <div class="portlet-content" data-role="content">
-            <ul data-role="listview">         Location
-                <li class="map-search-result">
-                    <a href="javascript:;" class="map-search-result-link"></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="map-categories" style="display:none">
-        <div data-role="header" class="titlebar portlet-titlebar">
-            <h2><spring:message code="map.browse"/></h2>
-            <a href="javascript:;" data-role="button" class="map-search-link" data-icon="search"><spring:message code="map.link.search"/></a>
-        </div>
-    
-        <div class="portlet-content" data-role="content">
-            <ul data-role="listview">
-                <li class="map-category">
-                    <a href="javascript:;" class="map-category-link"><spring:message code="map.link.category.name"/></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="map-category-detail" style="display:none">
-        
-        <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-            <a data-role="button"  data-icon="back" data-inline="true" class="map-category-back-link" href="javascript:;"><spring:message code="map.link.back"/></a>
-            <h2 class="map-category-name"><spring:message code="map.browse"/></h2>
-        </div>
-    
-        <div class="portlet">
-            <div class="portlet-content" data-role="content">
-                <ul data-role="listview">
-                    <li class="map-location">
-                        <a href="javascript:;" class="map-location-link"><spring:message code="map.link.location.name"/></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-    <div class="map-location-detail portlet" style="display:none">
-    
-        <div data-role="header" class="titlebar portlet-titlebar search-back-div">
-            <a data-role="button"  data-icon="back" data-inline="true" class="map-location-back-link" href="javascript:;"><spring:message code="map.link.back"/></a>
-            <h2 class="map-location-name"><spring:message code="map.location"/></h2>
-        </div>
+</div>
+<div class="map-location-detail portlet" id="map_location_detail" style="display:none">
+    <div class="portlet" data-role="content">        
+	    <h3 class="map-location-name"></h3>
+	    <p class="map-location-description"></p>
+	    <p class="map-location-address"></p>
+		<div class="ui-grid-a">
+	    <div class="ui-block-a map-location-directions-link "><a data-inline="true" data-mini="true" data-role="button" href="javascript:;"><spring:message code="map.link.directions"/></a></div>
+	    <div class="ui-block-b map-location-map-link"><a data-inline="true" data-mini="true" data-role="button" href="javascript:;"><spring:message code="map.link.view.in.map"/></a></div>
+	    </div>
+		<p><img class="map-location-image"/></p>
 
-        <div class="portlet">        
-            <div class="portlet-content" data-role="content">
-                <h3 class="map-location-name"></h3>
-                <p class="map-location-description"></p>
-                <p class="map-location-address"></p>
-                <p><a class="map-location-directions-link" href="javascript:;"><spring:message code="map.link.directions"/></a>
-                <p><a class="map-location-map-link" href="javascript:;"><spring:message code="map.link.view.in.map"/></a>
-                <p><img class="map-location-image"/></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="map-container">
-        <div class="portlet-content" data-role="content">
-            <div class="map-display" style="width: 100%; height: 500px;"></div>
-        </div>
-    </div>    
+	</div>
     
+</div>
+<div data-role='header' data-theme='b'  id='map-info'><h1 class='title'>Campus<h1></div>
+<div class="map-container" id='map_container'>
+        <div class="map-display" id="map_display" ></div>
+</div>    
+
 </div> 

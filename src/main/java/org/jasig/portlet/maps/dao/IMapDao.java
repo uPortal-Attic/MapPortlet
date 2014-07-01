@@ -19,24 +19,30 @@
 
 package org.jasig.portlet.maps.dao;
 
-import javax.portlet.PortletRequest;
-
 import org.jasig.portlet.maps.model.xml.MapData;
 
 /**
- * IMapDao represents a generic interface for retrieving map data from a particular location.
+ * IMapDao represents a generic interface for retrieving map data from a
+ * particular location.
  * 
  * @author Jen Bourey, jennifer.bourey@gmail.com
  * @version $Revision$
  */
 public interface IMapDao {
-    
-    /**
-     * Retrieve map data for the specified location.
-     * 
-     * @param location location to obtain the map data from
-     * @return
-     */
-    public MapData getMap(String location);
+
+	/**
+	 * Retrieve map data for the specified location.
+	 * 
+	 * @param location
+	 *            location to obtain the map data from
+	 * @return MapData object
+	 */
+	public MapData getMap(String location);
+
+	/**
+	 * @return the version of the map - clients may use this to determine
+	 *         freshness of a cached map.
+	 */
+	public String getVersion();
 
 }
