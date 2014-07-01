@@ -59,6 +59,8 @@ public class MapViewController {
     public static final String MAP_OPTIONS_SCALE_CONTROL = "scaleControl";
     public static final String MAP_OPTIONS_ROTATE_CONTROL = "rotateControl";
     public static final String MAP_OPTIONS_OVERVIEW_CONTROL = "overviewControl";
+    public static final String MAP_OPTIONS_DEFAULT_MAP_INFO_HEADER = "defaultMapInfoHeader";
+    public static final String MAP_OPTIONS_REFRESH_DATE = "mapdatarefreshdate";
 
     final protected Log log = LogFactory.getLog(getClass());
     private IMapDao dao;
@@ -67,10 +69,24 @@ public class MapViewController {
     public void setMapDao(IMapDao dao) {
         this.dao = dao;
     }
+    
+    private boolean useCachedMapResponse = false;
+    
+    @Value("${map.useCachedResponse:false}")
+    public void setUseCachedMapResponse(boolean useCachedMapResponse) {
+		this.useCachedMapResponse = useCachedMapResponse;
+	}
+    
+    private int cachedResponseExpirationTime=0;
+    
+    @Value("${map.cachedResponse.expirationTime:0}")
+	public void setCachedResponseExpirationTime(int cachedResponseExpirationTime) {
+		this.cachedResponseExpirationTime = cachedResponseExpirationTime;
+	}
 
-    private String mapDataUrl;
+	private String mapDataUrl;
 
-    @Value("${map.defaultdao.url:http://localhost:8080/MapPortlet/data/map.json}")
+    @Value("${map.defaultdao.url:http://localhost:8080/MapPortlet/data/edinburgh.json}")
     public void setMapDataUrl(String mapDataUrl) {
         this.mapDataUrl = mapDataUrl;
     }
@@ -84,14 +100,14 @@ public class MapViewController {
 
     private String defaultLatitude;
     
-    @Value("${map.default.latitude:41.300937}")
+    @Value("${map.default.latitude:55.9474035772206400}")
     public void setDefaultLatitude(String defaultLatitude) {
         this.defaultLatitude = defaultLatitude;
     }
     
     private String defaultLongitude;
     
-    @Value("${map.default.longitude:-72.932103}")
+    @Value("${map.default.longitude:-3.1872797012329100}")
     public void setDefaultLongitude(String defaultLongitude) {
         this.defaultLongitude = defaultLongitude;
     }
@@ -102,13 +118,15 @@ public class MapViewController {
     public void setDefaultZoom(String defaultZoom) {
         this.defaultZoom = defaultZoom;
     }
+    /* this does NOT need to be threadsafe so we can use an instance variable for efficiency*/
+    private MapData mapData;
     
     @RequestMapping
 	public ModelAndView getView(RenderRequest request, @RequestParam(required=false) String location) throws Exception {
 		Map<String,Object> map = new HashMap<String,Object>();
 
         log.debug("Getting map data during render request");
-        MapData mapData = getMapData(request);
+        mapData = getMapData(request);
 
 		PortletPreferences preferences = request.getPreferences();
 		
@@ -128,7 +146,9 @@ public class MapViewController {
 
         int startingZoom = Integer.parseInt(preferences.getValue(PREFERENCE_STARTING_ZOOM, defaultZoom));
         map.put(PREFERENCE_STARTING_ZOOM, startingZoom);
-
+        String defaultMapInfoHeader = preferences.getValue(MAP_OPTIONS_DEFAULT_MAP_INFO_HEADER,"");
+        map.put(MAP_OPTIONS_DEFAULT_MAP_INFO_HEADER, defaultMapInfoHeader);
+        map.put(MAP_OPTIONS_REFRESH_DATE, dao.getVersion());
         boolean mapTypeControlBool = Boolean.parseBoolean(preferences.getValue(MAP_OPTION_MAPTYPE_CONTROL, "true"));
         map.put(MAP_OPTION_MAPTYPE_CONTROL, mapTypeControlBool);
         
@@ -166,7 +186,6 @@ public class MapViewController {
         if (StringUtils.isBlank(selectedMapDataUrl)) {
             selectedMapDataUrl = this.mapDataUrl;
         }
-
         log.debug("Requesting map data from " + selectedMapDataUrl);
         return dao.getMap(selectedMapDataUrl);
     }
@@ -193,30 +212,15 @@ public class MapViewController {
         }
         return Double.parseDouble(defaultValue);
     }
+   
     
     @ResourceMapping 
     public ModelAndView getMapData(ResourceRequest request, ResourceResponse response) {
 
-        log.debug("Getting map data during resource request");
-        MapData mapData = getMapData(request);
-        String etag = String.valueOf(mapData.hashCode());
-        String requestEtag = request.getETag();
-        
-        // if the request ETag matches the hash for this response, send back
-        // an empty response indicating that cached content should be used
-        if (request.getETag() != null && etag.equals(requestEtag)) {
-            response.getCacheControl().setExpirationTime(360);
-            response.getCacheControl().setUseCachedContent(true);
-            response.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(HttpServletResponse.SC_NOT_MODIFIED));
-            // returning null appears to cause the response to be committed
-            // before returning to the portal, so just use an empty view
-            return new ModelAndView("json", Collections.<String,String>emptyMap());
-        }
-        
-        // create new content with new validation tag
-        response.getCacheControl().setETag(etag);
-        response.getCacheControl().setExpirationTime(360);
-        
+        // create new content with new validation tag - ask browser to use cached response so that subsequent browser requests are not made
+        response.getCacheControl().setUseCachedContent(useCachedMapResponse);
+		response.getCacheControl().setExpirationTime(cachedResponseExpirationTime);
+		response.getCacheControl().setPublicScope(true);
         ModelAndView mv = new ModelAndView("json");
         mv.addObject(mapData);
         return mv;

@@ -64,33 +64,30 @@ public class MapDataTransformer {
     
     /**
      * @param args
+     * @throws IOException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        // translate the KML file to the map portlet's native data format
-        File kml = new File("map-data.xml");
-        File xslt = new File("google-earth.xsl");
-        
-        try {
-            TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance( );
-            Transformer trans = transFact.newTransformer(new StreamSource(xslt));
-            trans.transform(new StreamSource(kml), new StreamResult(System.out));
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
+//        // translate the KML file to the map portlet's native data format
+//        File kml = new File("map-data.xml");
+//        File xslt = new File("google-earth.xsl");
+//        
+//        try {
+//            TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance( );
+//            Transformer trans = transFact.newTransformer(new StreamSource(xslt));
+//            trans.transform(new StreamSource(kml), new StreamResult(System.out));
+//        } catch (TransformerConfigurationException e) {
+//            e.printStackTrace();
+//        } catch (TransformerException e) {
+//            e.printStackTrace();
+//        }
         
         // deserialize the map data from XML
         MapData data = null;
         try {
-            JAXBContext jc = JAXBContext.newInstance(MapData.class);
-            Unmarshaller u = jc.createUnmarshaller();
-            data = (MapData)u.unmarshal(new FileInputStream(new File("map-data-transformed.xml")));
-        } catch (JAXBException e1) {
-            e1.printStackTrace();
-            return;
-        } catch (FileNotFoundException e) {
+        	ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+        	data = mapper.readValue(new File("src\\main\\webapp\\data\\edinburgh.json"), MapData.class);
+        }  catch (FileNotFoundException e) {
             e.printStackTrace();
             return;
         }
@@ -105,8 +102,13 @@ public class MapDataTransformer {
         Collections.sort(data.getLocations(), new ByNameLocationComparator());
         
         // serialize new map data out to a file into JSON format
+        File out= new File("test_edinburgh_map.json");
+        if(out.exists()){
+        	out.delete();
+        }
+        out.createNewFile();
         try {
-            mapper.defaultPrettyPrintingWriter().writeValue(new File("map.json"), data);
+            mapper.defaultPrettyPrintingWriter().writeValue(out, data);
         } catch (JsonGenerationException e) {
             System.out.println("Error generating JSON data for map");
             e.printStackTrace();
