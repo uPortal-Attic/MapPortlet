@@ -70,7 +70,7 @@ public class MapViewController {
 
     private String mapDataUrl;
 
-    @Value("${map.defaultdao.url:/data/map.json}")
+    @Value("${map.defaultdao.url:http://localhost:8080/MapPortlet/data/map.json}")
     public void setMapDataUrl(String mapDataUrl) {
         this.mapDataUrl = mapDataUrl;
     }
