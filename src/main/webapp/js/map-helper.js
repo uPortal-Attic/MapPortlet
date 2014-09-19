@@ -381,11 +381,11 @@ if (!map.init) {
                 onShowCategory: function(that, category) {
                     that.refreshView();
                     that.container.show();
-                },
+                }
             },
             // renderer proto-tree defining how data should be bound
             protoTree: {
-                categoryName: { value: "${category.name}" },
+                categoryName: { value: "${category.name}" }
 //                expander: {
 //                    type: "fluid.renderer.repeat",
 //                    repeatID: "location",

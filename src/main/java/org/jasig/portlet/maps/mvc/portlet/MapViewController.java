@@ -70,16 +70,9 @@ public class MapViewController {
 
     private String mapDataUrl;
 
-    @Value("${map.defaultdao.url:http://localhost:8080/MapPortlet/data/map.json}")
+    @Value("${map.defaultdao.url:/data/map.json}")
     public void setMapDataUrl(String mapDataUrl) {
         this.mapDataUrl = mapDataUrl;
-    }
-
-    private String portalProtocol;
-
-    @Value("${portal.protocol:http}")
-    public void setPortalProtocol(String portalProtocol) {
-        this.portalProtocol = portalProtocol;
     }
 
     private String defaultLatitude;
@@ -153,7 +146,6 @@ public class MapViewController {
         map.put(PREFERENCE_USE_PORTAL_JS_LIBS, preferences.getValue(PREFERENCE_USE_PORTAL_JS_LIBS, "true"));
         map.put(PREFERENCE_PORTAL_JS_NAMESPACE, preferences.getValue(PREFERENCE_PORTAL_JS_NAMESPACE, "up"));
 
-        map.put("portalProtocol", portalProtocol);
         map.put("isMobile", "UniversalityMobile".equals(request.getProperty("themeName")));
         map.put("location", location);
 		
@@ -165,6 +157,16 @@ public class MapViewController {
         String selectedMapDataUrl = preferences.getValue(PREFERENCE_MAP_DATA_URL, null);
         if (StringUtils.isBlank(selectedMapDataUrl)) {
             selectedMapDataUrl = this.mapDataUrl;
+        }
+
+        // If protocol is not provided, match the portal's protocol.
+        if (selectedMapDataUrl.startsWith("//")) {
+            selectedMapDataUrl = request.getScheme() + ":" + selectedMapDataUrl;
+
+        // If only the path is specified, provide the context for this portlet webapp.
+        } else if (selectedMapDataUrl.startsWith("/")) {
+            selectedMapDataUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+                    + request.getContextPath() + selectedMapDataUrl;
         }
 
         log.debug("Requesting map data from " + selectedMapDataUrl);
