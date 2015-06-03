@@ -412,7 +412,6 @@
                             <displayJsWarnings>false</displayJsWarnings>
                             <includes>
                                 <include>skin.xml</include>
-                                <include>skin-shared.xml</include>
                             </includes>
                             <sharedJavaScriptDirectory>js/</sharedJavaScriptDirectory>
                         </configuration>
@@ -431,9 +430,8 @@
                             <groupId>org.jasig.resourceserver</groupId>
                             <artifactId>resource-server-content</artifactId>
                             <includes>
-                                <include>rs/jquery/1.6.1/</include>
-                                <include>rs/jqueryui/1.8.13/</include>
-                                <include>rs/fluid/1.4.0/js/</include>
+                                <include>rs/jquery/1.8.3/</include>
+                                <include>rs/jqueryui/1.8.24/</include>
                             </includes>
                         </overlay>
                     </overlays>
@@ -512,9 +510,8 @@
                                     <groupId>org.jasig.resourceserver</groupId>
                                     <artifactId>resource-server-content</artifactId>
                                     <includes>
-                                        <include>rs/jquery/1.6.1/</include>
-                                        <include>rs/jqueryui/1.8.13/</include>
-                                        <include>rs/fluid/1.4.0/js</include>
+                                        <include>rs/jquery/1.8.3/</include>
+                                        <include>rs/jqueryui/1.8.24/</include>
                                     </includes>
                                 </overlay>
                             </overlays>

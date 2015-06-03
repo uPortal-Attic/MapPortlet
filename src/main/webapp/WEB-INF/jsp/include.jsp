@@ -32,3 +32,5 @@
 <%@ taglib prefix="rs" uri="http://www.jasig.org/resource-server" %>
 
 <%@ taglib prefix="html" tagdir="/WEB-INF/tags/html" %>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>

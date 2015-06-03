@@ -1,347 +1,1017 @@
-{ 
-    "defaultLocation": { "latitude": "41.3137919", "longitude": "-72.9234645" },
-    "locations": [ 
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "ARG", "address": "North Frontage Road New Haven, CT 06511 New Haven, CT 06511", "latitude": "41.3068877", "longitude": "-72.9424517", "name": "Air Rights Garage", "img": "http://business.yale.edu/map/thumbnail/ARG.jpg" },
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "ALW", "address": "31 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3137919", "longitude": "-72.9234645", "name": "Allwin Hall", "img": "http://business.yale.edu/map/thumbnail/ALW.jpg" },
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "AMISB", "address": "10 Amistad Street New Haven, CT 06511", "latitude": "41.3005410", "longitude": "-72.9298077", "name": "10 Amistad Street", "img": "http://business.yale.edu/map/thumbnail/AMISB.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "AMISG", "address": "10 Amistad Street New Haven, CT 06511", "latitude": "41.3005410", "longitude": "-72.9298077", "name": "Amistad Street Garage", "img": "http://business.yale.edu/map/thumbnail/AMISG.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "TAC", "address": "300 Cedar Street New Haven, CT 06511", "latitude": "41.3016969", "longitude": "-72.9334607", "name": "Anlyan Center", "img": "http://business.yale.edu/map/thumbnail/TAC.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "ARMORY", "address": "70 Central Avenue New Haven, CT 06515", "latitude": "41.3125760", "longitude": "-72.9635699", "name": "Armory", "img": "http://business.yale.edu/map/thumbnail/ARMORY.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "ARNOLD", "address": "304 Elm Street New Haven, CT 06511", "latitude": "41.3112273", "longitude": "-72.9314304", "name": "Arnold Hall", "img": "http://business.yale.edu/map/thumbnail/ARNOLD.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "ARTTURF", "address": "256 Derby Avenue West Haven, CT 06516", "latitude": "41.3100858", "longitude": "-72.9595585", "name": "Artificial Turf Field", "img": "http://business.yale.edu/map/photo/nail/ARTTURF.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "AUDUGAR", "address": "78 Audubon Street New Haven, CT 06511", "latitude": "41.3111324", "longitude": "-72.9207514", "name": "Audubon Court Garage", "img": "http://business.yale.edu/map/thumbnail/AUDUGAR.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BASS", "address": "266 Whitney Avenue New Haven, CT 06511", "latitude": "41.3180281", "longitude": "-72.9214311", "name": "Bass Center", "img": "http://business.yale.edu/map/thumbnail/BASS.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BASSLB", "address": "110 Wall Street New Haven, CT 06511", "latitude": "41.3110330", "longitude": "-72.9269560", "name": "Bass Library", "img": "http://business.yale.edu/map/thumbnail/BASSLB.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "BATTELL", "address": "400 College Street New Haven, CT 06511", "latitude": "41.3094471", "longitude": "-72.9269999", "name": "Battell Chapel", "img": "http://business.yale.edu/map/thumbnail/BATTELL.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall","library"], "abbreviation": "BCT", "address": "15 Prospect Street New Haven, CT 06511", "latitude": "41.3125160", "longitude": "-72.9250570", "name": "Becton Center &amp; Davies Auditorium", "img": "http://business.yale.edu/map/thumbnail/BCT.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "BRBL", "address": "121 Wall Street New Haven, CT 06511", "latitude": "41.3115250", "longitude": "-72.9271390", "name": "Beinecke Rare Book &amp; Manuscript Library", "img": "http://business.yale.edu/map/thumbnail/BRBL.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "BELLAMY", "address": "354 Canner Street New Haven, CT 06511", "latitude": "41.3253814", "longitude": "-72.9206784", "name": "Bellamy Hall ", "img": "http://business.yale.edu/map/thumbnail/BELLAMY.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "BK", "address": "205 Elm Street New Haven, CT 06511", "latitude": "41.3101056", "longitude": "-72.9285542", "name": "Berkeley College", "img": "http://business.yale.edu/map/thumbnail/BK.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BETHOBSV", "address": "Hilltop Road, Bethany, CT New Haven, CT 06511", "latitude": "41.4244741", "longitude": "-72.9759596", "name": "Bethany Observatory", "img": "http://business.yale.edu/map/thumbnail/BETHOBSV.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BETTS", "address": "393 Prospect Street New Haven, CT 06511", "latitude": "41.3229654", "longitude": "-72.9233527", "name": "Betts House", "img": "http://business.yale.edu/map/thumbnail/BETTS.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall","library"], "abbreviation": "BM", "address": "300 College Street New Haven, CT 06511", "latitude": "41.3082085", "longitude": "-72.9279775", "name": "Bingham Hall", "img": "http://business.yale.edu/map/thumbnail/BM.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BB", "address": "330 Cedar Street New Haven, CT 06511", "latitude": "41.3024044", "longitude": "-72.9338542", "name": "Boardman Building", "img": "http://business.yale.edu/map/thumbnail/BB.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BCMM", "address": "295 Congress Avenue New Haven, CT 06511", "latitude": "41.3020574", "longitude": "-72.9329622", "name": "Boyer Center", "img": "http://business.yale.edu/map/thumbnail/BCMM.jpg" },        
-        { "campuses": ["Main"], "categories": ["library","lecture hall"], "abbreviation": "BML", "address": "310 Cedar Street New Haven, CT 06511", "latitude": "41.3019865", "longitude": "-72.9336171", "name": "Brady Memorial Laboratory", "img": "http://business.yale.edu/map/thumbnail/BML.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "BR", "address": "74 High Street New Haven, CT 06511", "latitude": "41.3089860", "longitude": "-72.9296490", "name": "Branford College", "img": "http://business.yale.edu/map/thumbnail/BR.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BRWY29", "address": "29-45 Broadway New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "29-45 Broadway", "img": "http://business.yale.edu/map/thumbnail/BRWY29.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "BRWY35", "address": "35 Broadway New Haven, CT 06511", "latitude": "41.3113057", "longitude": "-72.9306495", "name": "35 Broadway", "img": "http://business.yale.edu/map/thumbnail/BRWY35.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "BRWYPKG", "address": "Broadway &amp; Elm Street New Haven, CT 06511", "latitude": "", "longitude": "", "name": "Broadway Parking Lot", "img": "http://business.yale.edu/map/thumbnail/BRWYPKG.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "CC", "address": "189 Elm Street New Haven, CT 06511", "latitude": "41.3096960", "longitude": "-72.9274390", "name": "Calhoun College", "img": "http://business.yale.edu/map/thumbnail/CC.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHDC", "address": "150 Highland Street New Haven, CT 06511", "latitude": "41.3283430", "longitude": "-72.9196724", "name": "Calvin Hill Day Care Center", "img": "http://business.yale.edu/map/thumbnail/CHDC.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CPP", "address": "120 Tower Parkway New Haven, CT 06511", "latitude": "41.3129161", "longitude": "-72.9292055", "name": "Central Power Plant", "img": "http://business.yale.edu/map/thumbnail/CPP.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHAPEL1201", "address": "1201 Chapel Street New Haven, CT 06511", "latitude": "41.3091103", "longitude": "-72.9344119", "name": "1201 Chapel Street", "img": "http://business.yale.edu/map/thumbnail/CHAPEL1201.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHAPEL1203", "address": "1203 Chapel Street New Haven, CT 06511", "latitude": "41.3091351", "longitude": "-72.9345226", "name": "1203 Chapel Street", "img": "http://business.yale.edu/map/thumbnail/CHAPEL1203.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "CYPG", "address": "150 York Street New Haven, CT 06511", "latitude": "41.3142348", "longitude": "-72.9292219", "name": "Chapel-York Garage", "img": "http://business.yale.edu/map/thumbnail/CYPG.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHURCH1", "address": "1 Church Street New Haven, CT 06511", "latitude": "41.3028000", "longitude": "-72.9281039", "name": "1 Church Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH1.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHURCH55", "address": "55 Church Street New Haven, CT 06511", "latitude": "41.3047323", "longitude": "-72.9266872", "name": "55 Church Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH55.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHURCH129", "address": "129 Church Street New Haven, CT 06511", "latitude": "41.3063190", "longitude": "-72.9257870", "name": "129 Church Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH129.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHURCH157", "address": "157 Church Street New Haven, CT 06511", "latitude": "41.307052", "longitude": "-72.924135", "name": "157 Church Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH157.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHURCH195", "address": "195 Church Street New Haven, CT 06511", "latitude": "41.3080426", "longitude": "-72.9240484", "name": "195 Church Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH195.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHURCH246", "address": "246 Church Street New Haven, CT 06511", "latitude": "41.3099255", "longitude": "-72.9231362", "name": "246 Church Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH246.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "CHURCH250", "address": "250 Church Street New Haven, CT 06511", "latitude": "41.3099034", "longitude": "-72.9229672", "name": "250 Church Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH250.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "CHURCH258", "address": "258 Church Street New Haven, CT 06511", "latitude": "41.3099674", "longitude": "-72.9229207", "name": "258 Church Street / 96 Grove Street", "img": "http://business.yale.edu/map/thumbnail/CHURCH258.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CSS002", "address": "2 Church Street South New Haven, CT 06511", "latitude": "41.303055", "longitude": "-72.928255", "name": "2 Church Street South", "img": "http://business.yale.edu/map/thumbnail/CSS002.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CSS100", "address": "100 Church Street South New Haven, CT 06511", "latitude": "41.2996183", "longitude": "-72.9299095", "name": "100 Church Street South", "img": "http://business.yale.edu/map/thumbnail/CSS100.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CRB", "address": "175 Prospect Street New Haven, CT 06511", "latitude": "41.3165108", "longitude": "-72.9242519", "name": "Class of 1954 Chemistry Research Building", "img": "http://business.yale.edu/map/thumbnail/CRB.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "ESC", "address": "21 Sachem Street New Haven, CT 06511", "latitude": "41.3157517", "longitude": "-72.9221916", "name": "Class of 1954 Environmental Science Center", "img": "http://business.yale.edu/map/thumbnail/ESC.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CB", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Clinic Building", "img": "http://business.yale.edu/map/thumbnail/CB.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CLP", "address": "37-55 College Street New Haven, CT 06511", "latitude": "41.3035467", "longitude": "-72.9314513", "name": "College Place", "img": "http://business.yale.edu/map/thumbnail/CLP.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "COLL127", "address": "127 College Street New Haven, CT 06511", "latitude": "41.3044934", "longitude": "-72.9306519", "name": "127 College Street", "img": "http://business.yale.edu/map/thumbnail/COLL127.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "COLL135", "address": "135 College Street New Haven, CT 06511", "latitude": "41.3046080", "longitude": "-72.9304936", "name": "135 College Street", "img": "http://business.yale.edu/map/thumbnail/COLL135.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "COLL153", "address": "153 College Street New Haven, CT 06511", "latitude": "41.3048032", "longitude": "-72.9303252", "name": "153 College Street", "img": "http://business.yale.edu/map/thumbnail/COLL153.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "COLL451", "address": "451 College Street New Haven, CT 06511", "latitude": "41.3103332", "longitude": "-72.9263249", "name": "451 College Street", "img": "http://business.yale.edu/map/thumbnail/COLL451.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "COLL493", "address": "493 College Street New Haven, CT 06511", "latitude": "41.3110248", "longitude": "-72.9258462", "name": "493 College Street", "img": "http://business.yale.edu/map/thumbnail/COLL493.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "UC", "address": "168 Grove Street New Haven, CT 06511", "latitude": "41.3117073", "longitude": "-72.9255341", "name": "Commons", "img": "http://business.yale.edu/map/thumbnail/UC.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CONG270", "address": "270 Congress Avenue New Haven, CT 06511", "latitude": "41.3021433", "longitude": "-72.9325723", "name": "270 Congress Avenue", "img": "http://business.yale.edu/map/thumbnail/CONG270.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "YPI1", "address": "301 Cedar Street New Haven, CT 06511", "latitude": "41.3015895", "longitude": "-72.9333625", "name": "Congress Place", "img": "http://business.yale.edu/map/thumbnail/YPI1.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "C", "address": "1017 Chapel Street New Haven, CT 06511", "latitude": "41.3073826", "longitude": "-72.9288708", "name": "Connecticut Hall", "img": "http://business.yale.edu/map/thumbnail/C.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CMHC", "address": "34 Park Street New Haven, CT 06511", "latitude": "41.3168344", "longitude": "-72.9545251", "name": "Connecticut Mental Health Center", "img": "http://business.yale.edu/map/thumbnail/CMHC.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "COXE", "address": "257 Derby Avenue West Haven, CT 06516", "latitude": "41.3100872", "longitude": "-72.9597742", "name": "Coxe Cage", "img": "http://business.yale.edu/map/thumbnail/COXE.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CRWN270", "address": "270 Crown Street New Haven, CT 06511", "latitude": "41.3063480", "longitude": "-72.9307090", "name": "270 Crown Street", "img": "http://business.yale.edu/map/thumbnail/CRWN270.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CRWN295", "address": "295-297 Crown Street New Haven, CT 06511", "latitude": "41.3068652", "longitude": "-72.9316063", "name": "295-297 Crown Street", "img": "http://business.yale.edu/map/thumbnail/CRWN295.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CRWN301", "address": "301 Crown Street New Haven, CT 06511", "latitude": "41.3069596", "longitude": "-72.9318351", "name": "301 Crown Street", "img": "http://business.yale.edu/map/thumbnail/CRWN301.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CRWN305", "address": "305 Crown Street New Haven, CT 06511", "latitude": "41.3070840", "longitude": "-72.9320420", "name": "305 Crown Street", "img": "http://business.yale.edu/map/thumbnail/CRWN305.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CRWN341", "address": "341 Crown Street New Haven, CT 06511", "latitude": "41.3074821", "longitude": "-72.9330951", "name": "341 Crown Street", "img": "http://business.yale.edu/map/thumbnail/CRWN341.jpg" },        
-        { "campuses": ["Main"], "categories": ["bookstore","dorm"], "abbreviation": "CRWN353", "address": "353 Crown Street New Haven, CT 06511", "latitude": "41.3076942", "longitude": "-72.9336040", "name": "353 Crown Street", "img": "http://business.yale.edu/map/thumbnail/CRWN353.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "CHTC", "address": "253 Derby Avenue New Haven, CT 06511", "latitude": "41.3101533", "longitude": "-72.9593624", "name": "Cullman-Heyman Tennis Center", "img": "http://business.yale.edu/map/thumbnail/CHTC.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "CURTIS", "address": "350 Canner Street New Haven, CT 06511", "latitude": "41.3253730", "longitude": "-72.9205612", "name": "Curtis Hall", "img": "http://business.yale.edu/map/thumbnail/CURTIS.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "DCB", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Dana Clinic Building", "img": "http://business.yale.edu/map/thumbnail/DCB.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "DC", "address": "248 York Street New Haven, CT 06511", "latitude": "41.3100425", "longitude": "-72.9304671", "name": "Davenport College", "img": "http://business.yale.edu/map/thumbnail/DC.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "DAV132", "address": "132 Davenport Avenue New Haven, CT 06511", "latitude": "41.3027699", "longitude": "-72.9375095", "name": "132 Davenport Avenue", "img": "http://business.yale.edu/map/thumbnail/DAV132.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "DEWCUYL", "address": "256 Derby Avenue West Haven, CT 06516", "latitude": "41.3100858", "longitude": "-72.9595585", "name": "DeWitt Cuyler Complex", "img": "http://business.yale.edu/map/thumbnail/DEWCUYL.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "DEWITTFD", "address": "70 Central Avenue New Haven, CT 06515", "latitude": "41.3125760", "longitude": "-72.9635699", "name": "DeWitt Family Field", "img": "http://business.yale.edu/map/thumbnail/DEWITTFD.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "DNC", "address": "15 Mansfield Street New Haven, CT 06511", "latitude": "41.3154261", "longitude": "-72.9255694", "name": "Donaldson Commons", "img": "http://business.yale.edu/map/thumbnail/DNC.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "DL", "address": "10 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3120246", "longitude": "-72.9241991", "name": "Dunham Laboratory", "img": "http://business.yale.edu/map/thumbnail/DL.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "D", "address": "198 Elm Street New Haven, CT 06511", "latitude": "41.3102920", "longitude": "-72.9295210", "name": "Durfee Hall", "img": "http://business.yale.edu/map/thumbnail/D.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "TD", "address": "345 Temple Street New Haven, CT 06511", "latitude": "41.3103689", "longitude": "-72.9242367", "name": "Timothy Dwight College", "img": "http://business.yale.edu/map/thumbnail/TD.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "DW", "address": "67 High Street New Haven, CT 06511", "latitude": "41.3090840", "longitude": "-72.9294527", "name": "Dwight Hall &amp; Memorial Chapel", "img": "http://business.yale.edu/map/thumbnail/DW.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EDG32", "address": "32 Edgewood Avenue New Haven, CT 06511", "latitude": "41.3103982", "longitude": "-72.9338953", "name": "32 Edgewood Avenue", "img": "http://business.yale.edu/map/thumbnail/EDG32.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EDG36", "address": "36 Edgewood Avenue New Haven, CT 06511", "latitude": "41.3086960", "longitude": "-72.9317310", "name": "36 Edgewood Avenue", "img": "http://business.yale.edu/map/thumbnail/EDG36.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "JE", "address": "68 High Street New Haven, CT 06511", "latitude": "41.3089060", "longitude": "-72.9303570", "name": "Jonathan Edwards College", "img": "http://business.yale.edu/map/thumbnail/JE.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EDWARDS309", "address": "309 Edwards Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "309 Edwards Street", "img": "http://business.yale.edu/map/thumbnail/EDWARDS309.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EDWARDS340", "address": "340 Edwards Street New Haven, CT 06511", "latitude": "41.3200277", "longitude": "-72.9217762", "name": "340 Edwards Street", "img": "http://business.yale.edu/map/thumbnail/EDWARDS340.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "CSB", "address": "350 Edwards Street New Haven, CT 06511", "latitude": "41.3201069", "longitude": "-72.9222928", "name": "350 Edwards Street", "img": "http://business.yale.edu/map/thumbnail/CSB.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EDWARDS360", "address": "360 Edwards Street New Haven, CT 06511", "latitude": "41.3201862", "longitude": "-72.9228094", "name": "360 Edwards Street", "img": "http://business.yale.edu/map/thumbnail/EDWARDS360.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EDWARDS380", "address": "380 Edwards Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "380 Edwards Street", "img": "http://business.yale.edu/map/thumbnail/EDWARDS380.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EAL", "address": "270 Whitney Avenue New Haven, CT 06511", "latitude": "41.3179468", "longitude": "-72.9197057", "name": "Electron Accelerator Laboratory", "img": "http://business.yale.edu/map/thumbnail/EAL.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "COLL459", "address": "459 College Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "Elizabethan Club", "img": "http://business.yale.edu/map/thumbnail/COLL459.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "ELM143", "address": "143 Elm Street New Haven, CT 06511", "latitude": "41.3088844", "longitude": "-72.9256345", "name": "143 Elm Street", "img": "http://business.yale.edu/map/thumbnail/ELM143.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "ELM149", "address": "149 Elm Street New Haven, CT 06511", "latitude": "41.3090870", "longitude": "-72.9258303", "name": "149 Elm Street", "img": "http://business.yale.edu/map/thumbnail/ELM149.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "ESPLAPT", "address": "386 Prospect Street New Haven, CT 06511", "latitude": "41.3223115", "longitude": "-72.9234045", "name": "Esplanade Apartments", "img": "http://business.yale.edu/map/thumbnail/ESPLAPT.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "EVN", "address": "56 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3167310", "longitude": "-72.9245000", "name": "Evans Hall", "img": "http://business.yale.edu/map/thumbnail/EVN.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "F", "address": "380 College Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "Farnam Hall", "img": "http://business.yale.edu/map/thumbnail/F.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "FMB", "address": "310 Cedar Street New Haven, CT 06511", "latitude": "41.3019865", "longitude": "-72.9336171", "name": "Farnam Memorial Building", "img": "http://business.yale.edu/map/thumbnail/FMB.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "FARNGRDN", "address": "335 Prospect Street New Haven, CT 06511", "latitude": "41.3209837", "longitude": "-72.9233280", "name": "Farnam Gardens", "img": "http://business.yale.edu/map/thumbnail/FARNGRDN.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "FIELDA", "address": "45 Yale Avenue New Haven, CT 06515", "latitude": "41.3108549", "longitude": "-72.9579951", "name": "Intramural Practice Field A", "img": "http://business.yale.edu/map/thumbnail/FIELDA.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "FIELDB", "address": "55 Central Avenue New Haven, CT 06515", "latitude": "41.3121949", "longitude": "-72.9634115", "name": "Varsity Practice Field B", "img": "http://business.yale.edu/map/thumbnail/FIELDB.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDC", "address": "50 Central Avenue New Haven, CT 06515", "latitude": "41.3123148", "longitude": "-72.9634943", "name": "Intramural Field C", "img": "http://business.yale.edu/map/thumbnail/FIELDC.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDD", "address": "80 Central Avenue New Haven, CT 06515", "latitude": "41.3127066", "longitude": "-72.9636078", "name": "Intramural Field D", "img": "http://business.yale.edu/map/thumbnail/FIELDD.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDE", "address": "85 Central Avenue New Haven, CT 06515", "latitude": "41.3124877", "longitude": "-72.9634963", "name": "Varsity Practice Field E", "img": "http://business.yale.edu/map/thumbnail/FIELDE.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDF", "address": "95 Central Avenue New Haven, CT 06515", "latitude": "41.3126504", "longitude": "-72.9635435", "name": "Varsity Practice Field F", "img": "http://business.yale.edu/map/thumbnail/FIELDF.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDX", "address": "254 Derby Avenue West Haven, CT 06516", "latitude": "41.3101189", "longitude": "-72.9593526", "name": "Varsity Field X", "img": "http://business.yale.edu/map/thumbnail/FIELDX.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDY", "address": "252 Derby Avenue West Haven, CT 06516", "latitude": "41.3101520", "longitude": "-72.9591467", "name": "Varsity Field Y", "img": "http://business.yale.edu/map/thumbnail/FIELDY.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDH", "address": "60 Central Avenue New Haven, CT 06515", "latitude": "41.3124454", "longitude": "-72.9635321", "name": "Field Hockey Field", "img": "http://business.yale.edu/map/thumbnail/FIELDH.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDS", "address": "50 Central Avenue New Haven, CT 06515", "latitude": "41.3123148", "longitude": "-72.9634943", "name": "Varsity Softball Field", "img": "http://business.yale.edu/map/thumbnail/FIELDS.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDCF", "address": "256 Derby Avenue West Haven, CT 06516", "latitude": "41.3100858", "longitude": "-72.9595585", "name": "Clinton Frank Field", "img": "http://business.yale.edu/map/thumbnail/FIELDCF.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "JOHNFD", "address": "70 Central Avenue New Haven, CT 06515", "latitude": "41.3125760", "longitude": "-72.9635699", "name": "Johnson Field", "img": "http://business.yale.edu/map/thumbnail/JOHNFD.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "FIELDAT", "address": "80 Central Avenue New Haven, CT 06515", "latitude": "41.3127066", "longitude": "-72.9636078", "name": "Anthony Thompson Field", "img": "http://business.yale.edu/map/thumbnail/FIELDAT.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "FISHER", "address": "352 Canner Street New Haven, CT 06511", "latitude": "41.3253753", "longitude": "-72.9205964", "name": "Fisher Hall", "img": "http://business.yale.edu/map/thumbnail/FISHER.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "FMP", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Fitkin Memorial Pavilion", "img": "http://business.yale.edu/map/thumbnail/FMP.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "FMPA", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Fitkin Amphitheater", "img": "http://business.yale.edu/map/thumbnail/FMPA.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "FND", "address": "135 Prospect Street New Haven, CT 06511", "latitude": "41.3157640", "longitude": "-72.9243440", "name": "Founders Hall", "img": "http://business.yale.edu/map/thumbnail/FND.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "GALESBH", "address": "4 Riverside Place, Gales Ferry, CT New Haven, CT 06511", "latitude": "41.4293547", "longitude": "-72.0924931", "name": "Gales Ferry Boathouse", "img": "http://business.yale.edu/map/thumbnail/GALESBH.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GEORGE300", "address": "300 George Street New Haven, CT 06511", "latitude": "41.3053162", "longitude": "-72.9311029", "name": "300 George Street", "img": "http://business.yale.edu/map/thumbnail/GEORGE300.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall","library"], "abbreviation": "JWG", "address": "260 Whitney Avenue New Haven, CT 06511", "latitude": "41.3177079", "longitude": "-72.9198226", "name": "Gibbs Laboratories", "img": "http://business.yale.edu/map/thumbnail/JWG.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "GILDER", "address": "280 Roosevelt Drive, Derby, CT New Haven, CT 06511", "latitude": "41.3281849", "longitude": "-73.1041740", "name": "Gilder Boathouse", "img": "http://business.yale.edu/map/thumbnail/GILDER.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GCOURSE", "address": "200 Conrad Drive New Haven, CT 06515", "latitude": "41.3216810", "longitude": "-72.9785633", "name": "Golf Course at Yale", "img": "http://business.yale.edu/map/thumbnail/GCOURSE.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GML", "address": "370 Prospect Street New Haven, CT 06511", "latitude": "41.3221953", "longitude": "-72.9234669", "name": "Greeley Memorial Laboratory", "img": "http://business.yale.edu/map/thumbnail/GML.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GMLGH", "address": "370 Prospect Street New Haven, CT 06511", "latitude": "41.3221953", "longitude": "-72.9234669", "name": "Greeley Greenhouse", "img": "http://business.yale.edu/map/thumbnail/GMLGH.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GRN", "address": "1156 Chapel Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "Green Hall", "img": "http://business.yale.edu/map/thumbnail/GRN.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GBCC", "address": "391 Prospect Street New Haven, CT 06511", "latitude": "41.3229544", "longitude": "-72.9233528", "name": "Greenberg Conference Center", "img": "http://business.yale.edu/map/thumbnail/GBCC.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GSG", "address": "65 Grove Street New Haven, CT 06511", "latitude": "", "longitude": "", "name": "Grove Street Garage", "img": "http://business.yale.edu/map/thumbnail/GSG.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "GBFS", "address": "276 Old Quarry Road, Guilford, CT New Haven, CT 06511", "latitude": "41.2604795", "longitude": "-72.7301903", "name": "Guilford Biological Field Station", "img": "http://business.yale.edu/map/thumbnail/GBFS.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "HHH", "address": "420 Temple Street New Haven, CT 06511", "latitude": "41.3127321", "longitude": "-72.9224748", "name": "Helen Hadley Hall", "img": "http://business.yale.edu/map/thumbnail/HHH.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "HGS", "address": "320 York Street New Haven, CT 06511", "latitude": "41.3120209", "longitude": "-72.9290473", "name": "Hall of Graduate Studies", "img": "http://business.yale.edu/map/thumbnail/HGS.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "WLH", "address": "100 Wall Street New Haven, CT 06511", "latitude": "41.3106844", "longitude": "-72.9260371", "name": "Harkness Hall", "img": "http://business.yale.edu/map/thumbnail/WLH.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "ESH", "address": "367 Cedar Street New Haven, CT 06511", "latitude": "41.3042640", "longitude": "-72.9339620", "name": "Harkness Memorial Hall", "img": "http://business.yale.edu/map/thumbnail/ESH.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "MHMA", "address": "333 Cedar Street New Haven, CT 06511", "latitude": "41.3031280", "longitude": "-72.9340830", "name": "Harkness Memorial Auditorium", "img": "http://business.yale.edu/map/thumbnail/MHMA.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "HARKNESS", "address": "74 High Street New Haven, CT 06511", "latitude": "35.7092764", "longitude": "-89.0881099", "name": "Harkness Tower", "img": "http://business.yale.edu/map/thumbnail/HARKNESS.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "NIHB", "address": "230 South Frontage Road New Haven, CT 06511", "latitude": "41.3070371", "longitude": "-72.9388826", "name": "Harris Building", "img": "http://business.yale.edu/map/thumbnail/NIHB.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "HEN", "address": "165 Elm Street New Haven, CT 06511", "latitude": "41.3091989", "longitude": "-72.9263990", "name": "Hendrie Hall", "img": "http://business.yale.edu/map/thumbnail/HEN.jpg" },        
-        { "campuses": ["Main"], "categories": ["museum"], "abbreviation": "HLH15", "address": "15 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3113254", "longitude": "-72.9244594", "name": "15 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH15.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH17", "address": "17 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3113313", "longitude": "-72.9244570", "name": "17 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH17.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH24", "address": "24 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3113569", "longitude": "-72.9244872", "name": "24 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH24.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH27", "address": "27 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3135274", "longitude": "-72.9235770", "name": "27 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH27.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH28", "address": "28 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3135363", "longitude": "-72.9236141", "name": "28 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH28.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH30", "address": "30 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3137566", "longitude": "-72.9235203", "name": "30 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH30.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH33", "address": "33 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3139241", "longitude": "-72.9234082", "name": "33 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH33.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH35", "address": "35 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3157880", "longitude": "-72.9227610", "name": "35 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH35.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH37", "address": "37 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3141885", "longitude": "-72.9232957", "name": "37 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH37.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH43", "address": "43 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3144871", "longitude": "-72.9231713", "name": "43 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH43.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH46", "address": "46 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3144957", "longitude": "-72.9232085", "name": "46 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH46.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH51", "address": "51 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3149307", "longitude": "-72.9229963", "name": "51 Hillhouse Avenue", "img": "http://business.yale.edu/map/thumbnail/HLH51.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "JEH", "address": "315 Cedar Street New Haven, CT 06511", "latitude": "41.3022000", "longitude": "-72.9333620", "name": "Hope Memorial Building", "img": "http://business.yale.edu/map/thumbnail/JEH.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "HRCH", "address": "55 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3151743", "longitude": "-72.9229083", "name": "Horchow Hall", "img": "http://business.yale.edu/map/thumbnail/HRCH.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "HAG", "address": "790 Howard Avenue New Haven, CT 06511", "latitude": "41.3024278", "longitude": "-72.9358781", "name": "Howard Avenue Garage", "img": "http://business.yale.edu/map/thumbnail/HAG.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "HSG", "address": "67-81 Howe Street New Haven, CT 06511", "latitude": "41.3102249", "longitude": "-72.9347970", "name": "Howe Street Garage", "img": "http://business.yale.edu/map/thumbnail/HSG.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HRT", "address": "15 York Street New Haven, CT 06511", "latitude": "41.3135752", "longitude": "-72.9303174", "name": "Hunter Building", "img": "http://business.yale.edu/map/thumbnail/HRT.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "INFONH", "address": "1000 Chapel Street New Haven, CT 06511", "latitude": "39.6502542", "longitude": "-75.7324535", "name": "Info New Haven", "img": "http://business.yale.edu/map/thumbnail/INFONH.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "IR", "address": "73 Sachem Street New Haven, CT 06511", "latitude": "41.3162080", "longitude": "-72.9253289", "name": "Ingalls Rink", "img": "http://business.yale.edu/map/thumbnail/IR.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "IVY", "address": "164-182 Highland Street; 567-605 Prospect Street New Haven, CT 06511", "latitude": "41.0877266", "longitude": "-85.1346998", "name": "Ivy Manor Apartments", "img": "http://business.yale.edu/map/thumbnail/IVY.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "K", "address": "2 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3112933", "longitude": "-72.9245133", "name": "Kirtland Hall", "img": "http://business.yale.edu/map/thumbnail/K.jpg" },        
-        { "campuses": ["Main"], "categories": ["food","library"], "abbreviation": "KBT", "address": "219 Prospect Street New Haven, CT 06511", "latitude": "41.3172060", "longitude": "-72.9225790", "name": "Kline Biology Tower", "img": "http://business.yale.edu/map/thumbnail/KBT.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "KCL", "address": "255 Prospect Street New Haven, CT 06511", "latitude": "41.3189875", "longitude": "-72.9235627", "name": "Kline Chemistry Laboratory", "img": "http://business.yale.edu/map/thumbnail/KCL.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "KGL", "address": "210 Whitney Avenue New Haven, CT 06511", "latitude": "41.3166453", "longitude": "-72.9203381", "name": "Kline Geology Laboratory", "img": "http://business.yale.edu/map/thumbnail/KGL.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "KRN", "address": "195 Prospect Street New Haven, CT 06511", "latitude": "41.3169583", "longitude": "-72.9240923", "name": "Kroon Hall", "img": "http://business.yale.edu/map/thumbnail/KRN.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LMP", "address": "15 York Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "Laboratory for Medicine &amp; Pediatrics", "img": "http://business.yale.edu/map/thumbnail/LMP.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LSOG", "address": "375 Congress Avenue New Haven, CT 06511", "latitude": "41.3015952", "longitude": "-72.9344535", "name": "Laboratory for Surgery, Obstetrics &amp; Gynecology", "img": "http://business.yale.edu/map/thumbnail/LSOG.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LEPH", "address": "60 College Street New Haven, CT 06511", "latitude": "41.3034435", "longitude": "-72.9315672", "name": "Laboratory of Epidemiology &amp; Public Health", "img": "http://business.yale.edu/map/thumbnail/LEPH.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "LANMAN", "address": "70 Tower Parkway New Haven, CT 06511", "latitude": "41.3133830", "longitude": "-72.9305640", "name": "Lanman Center", "img": "http://business.yale.edu/map/thumbnail/LANMAN.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "LWR", "address": "206 Elm Street New Haven, CT 06511", "latitude": "41.3100660", "longitude": "-72.9285980", "name": "Lanman-Wright Hall", "img": "http://business.yale.edu/map/thumbnail/LWR.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LAPHAM", "address": "251 Derby Avenue West Haven, CT 06516", "latitude": "41.3101864", "longitude": "-72.9591565", "name": "Lapham Field House", "img": "http://business.yale.edu/map/thumbnail/LAPHAM.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LH", "address": "310 Cedar Street New Haven, CT 06511", "latitude": "41.3019865", "longitude": "-72.9336171", "name": "Lauder Hall", "img": "http://business.yale.edu/map/thumbnail/LH.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "L", "address": "358 College Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "Lawrance Hall", "img": "http://business.yale.edu/map/thumbnail/L.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "LOM", "address": "12 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3126290", "longitude": "-72.9241130", "name": "Leet Oliver Memorial Hall", "img": "http://business.yale.edu/map/thumbnail/LOM.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LGH", "address": "435 College Street New Haven, CT 06511", "latitude": "41.3100448", "longitude": "-72.9265273", "name": "Leigh Hall", "img": "http://business.yale.edu/map/thumbnail/LGH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LEITOBSV", "address": "355 Prospect Street New Haven, CT 06511", "latitude": "41.3216969", "longitude": "-72.9233441", "name": "Leitner Observatory", "img": "http://business.yale.edu/map/thumbnail/LEITOBSV.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "WL", "address": "154 Main Street, Farmington, CT New Haven, CT 06511", "latitude": "41.7156149", "longitude": "-72.8364107", "name": "Lewis Walpole Library", "img": "http://business.yale.edu/map/thumbnail/WL.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LSF", "address": "147 Leeder Hill Road, Hamden, CT New Haven, CT 06511", "latitude": "41.3453820", "longitude": "-72.9216469", "name": "Library Shelving Facility", "img": "http://business.yale.edu/map/thumbnail/LSF.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "LC", "address": "63 High Street New Haven, CT 06511", "latitude": "41.3085590", "longitude": "-72.9295740", "name": "Linsly-Chittenden Hall", "img": "http://business.yale.edu/map/thumbnail/LC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LLCI", "address": "15 York Street New Haven, CT 06511", "latitude": "41.3135752", "longitude": "-72.9303174", "name": "Lippard Laboratory", "img": "http://business.yale.edu/map/thumbnail/LLCI.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "LSG", "address": "57 Lock Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "Lock Street Garage", "img": "http://business.yale.edu/map/thumbnail/LSG.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "LORIA", "address": "190 York Street New Haven, CT 06511", "latitude": "41.3087204", "longitude": "-72.9313625", "name": "Loria Center", "img": "http://business.yale.edu/map/thumbnail/LORIA.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "LOT37V", "address": "Trumbull Street New Haven, CT 06511", "latitude": "41.313483", "longitude": "-72.922547", "name": "Lot 37", "img": "http://business.yale.edu/map/thumbnail/LOT37V.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "LUCE", "address": "34 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3143860", "longitude": "-72.9241190", "name": "Luce Hall", "img": "http://business.yale.edu/map/thumbnail/LUCE.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MRC", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Magnetic Resonance Center", "img": "http://business.yale.edu/map/thumbnail/MRC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MEC", "address": "55 Prospect Street New Haven, CT 06511", "latitude": "41.3132899", "longitude": "-72.9251430", "name": "Malone Center", "img": "http://business.yale.edu/map/thumbnail/MEC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MANS227", "address": "227 Mansfield Street New Haven, CT 06511", "latitude": "41.3213849", "longitude": "-72.9259059", "name": "227 Mansfield Street", "img": "http://business.yale.edu/map/thumbnail/MANS227.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MANS279", "address": "279 Mansfield Street New Haven, CT 06511", "latitude": "41.3227726", "longitude": "-72.9256857", "name": "279 Mansfield Street", "img": "http://business.yale.edu/map/thumbnail/MANS279.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MANSAPTA", "address": "291-309 Mansfield Street New Haven, CT 06511", "latitude": "41.3235802", "longitude": "-72.9253696", "name": "Mansfield Street Apartments", "img": "http://business.yale.edu/map/thumbnail/MANSAPTA.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MARQUAND", "address": "Sterling Divinity Quadrangle, 409 Prospect Street  New Haven, CT 06511", "latitude": "", "longitude": "", "name": "Marquand Chapel", "img": "http://business.yale.edu/map/thumbnail/MARQUAND.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MRSH", "address": "360 Prospect Street New Haven, CT 06511", "latitude": "41.3216359", "longitude": "-72.9234349", "name": "Marsh Hall", "img": "http://business.yale.edu/map/thumbnail/MRSH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MRSHGDN", "address": "Prospect Street &amp; Hillside Place New Haven, CT 06511", "latitude": "41.3207975", "longitude": "-72.9233495", "name": "Marsh Botanical Garden", "img": "http://business.yale.edu/map/thumbnail/MRSHGDN.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MBG1", "address": "227–269 Mansfield Street New Haven, CT 06511", "latitude": "41.3225127", "longitude": "-72.9257875", "name": "Marsh Garden Greenhouses ", "img": "http://business.yale.edu/map/thumbnail/MBG1.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "ML", "address": "9 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3113075", "longitude": "-72.9244667", "name": "Mason Laboratory", "img": "http://business.yale.edu/map/thumbnail/ML.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "EM", "address": "1037 Chapel Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "McClellan Hall", "img": "http://business.yale.edu/map/thumbnail/EM.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "YCYC", "address": "179 Clark Avenue, Branford, CT New Haven, CT 06511", "latitude": "41.2746000", "longitude": "-72.8173000", "name": "McNay Family Sailing Center", "img": "http://business.yale.edu/map/thumbnail/YCYC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "MEMORIAL", "address": "College and Grove Streets New Haven, CT 06511", "latitude": "36.3291613", "longitude": "-78.5929107", "name": "Memorial Hall", "img": "http://business.yale.edu/map/thumbnail/MEMORIAL.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "MC", "address": "304 York Street New Haven, CT 06511", "latitude": "41.3117743", "longitude": "-72.9292269", "name": "Morse College", "img": "http://business.yale.edu/map/thumbnail/MC.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "MUDD", "address": "38 Mansfield Street New Haven, CT 06511", "latitude": "41.3160950", "longitude": "-72.9257342", "name": "Mudd Library", "img": "http://business.yale.edu/map/thumbnail/MUDD.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "JMDW", "address": "100 John Murphy Drive  New Haven, CT 06513", "latitude": "41.3123526", "longitude": "-72.9058052", "name": "John Murphy Drive Warehouse", "img": "http://business.yale.edu/map/thumbnail/JMDW.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "OBT", "address": "41 Broadway New Haven, CT 06511", "latitude": "41.3113888", "longitude": "-72.9307290", "name": "Off Broadway Theater", "img": "http://business.yale.edu/map/thumbnail/OBT.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "OML", "address": "165 Prospect Street New Haven, CT 06511", "latitude": "41.3162842", "longitude": "-72.9243133", "name": "Osborn Memorial Laboratories", "img": "http://business.yale.edu/map/thumbnail/OML.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "OEC", "address": "124 Scott Road, East Lyme, CT New Haven, CT 06511", "latitude": "41.3690436", "longitude": "-72.2480817", "name": "Outdoor Education Center", "img": "http://business.yale.edu/map/thumbnail/OEC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PARK205", "address": "205 Park Street New Haven, CT 06511", "latitude": "41.3092448", "longitude": "-72.9332819", "name": "205 Park Street", "img": "http://business.yale.edu/map/thumbnail/PARK205.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PARK211", "address": "211 Park Street New Haven, CT 06511", "latitude": "41.3094164", "longitude": "-72.9331510", "name": "211 Park Street", "img": "http://business.yale.edu/map/thumbnail/PARK211.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PARK215", "address": "215 Park Street New Haven, CT 06511", "latitude": "41.3095308", "longitude": "-72.9330638", "name": "215 Park Street", "img": "http://business.yale.edu/map/thumbnail/PARK215.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PARK217", "address": "217 Park Street New Haven, CT 06511", "latitude": "41.3095880", "longitude": "-72.9330202", "name": "217 Park Street", "img": "http://business.yale.edu/map/thumbnail/PARK217.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "PWG", "address": "70 Tower Parkway New Haven, CT 06511", "latitude": "41.3133830", "longitude": "-72.9305640", "name": "Payne Whitney Gymnasium", "img": "http://business.yale.edu/map/thumbnail/PWG.jpg" },        
-        { "campuses": ["Main"], "categories": ["museum"], "abbreviation": "PM", "address": "170 Whitney Avenue New Haven, CT 06511", "latitude": "41.3151110", "longitude": "-72.9208520", "name": "Peabody Museum of Natural History", "img": "http://business.yale.edu/map/thumbnail/PM.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "PHELPS", "address": "344 College Street New Haven, CT 06511", "latitude": "41.3082646", "longitude": "-72.9279331", "name": "Phelps Hall &amp; Gate", "img": "http://business.yale.edu/map/thumbnail/PHELPS.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PL", "address": "290 Congress Avenue New Haven, CT 06511", "latitude": "30.2650776", "longitude": "-97.7439512", "name": "Pierce Laboratory", "img": "http://business.yale.edu/map/thumbnail/PL.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "PC", "address": "261 Park Street New Haven, CT 06511", "latitude": "41.3097351", "longitude": "-72.9325045", "name": "Pierson College", "img": "http://business.yale.edu/map/thumbnail/PC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PSPG", "address": "280 Whitney Avenue New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "Pierson-Sage Garage", "img": "http://business.yale.edu/map/thumbnail/PSPG.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PCC", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Primary Care Center", "img": "http://business.yale.edu/map/thumbnail/PCC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROSPL8", "address": "8 Prospect Place New Haven, CT 06511", "latitude": "41.3148692", "longitude": "-72.9253127", "name": "8 Prospect Place", "img": "http://business.yale.edu/map/thumbnail/PROSPL8.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS77", "address": "77 Prospect Street New Haven, CT 06511", "latitude": "41.3138471", "longitude": "-72.9249966", "name": "77 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS77.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS88", "address": "88 Prospect Street New Haven, CT 06511", "latitude": "41.3137616", "longitude": "-72.9250668", "name": "88 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS88.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS100", "address": "100 Prospect Street New Haven, CT 06511", "latitude": "41.3138932", "longitude": "-72.9250312", "name": "100 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS100.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS140", "address": "140 Prospect Street New Haven, CT 06511", "latitude": "41.3148168", "longitude": "-72.9247689", "name": "140 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS140.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS202", "address": "202 Prospect Street New Haven, CT 06511", "latitude": "41.3171458", "longitude": "-72.9241279", "name": "202 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS202.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS204", "address": "204 Prospect Street New Haven, CT 06511", "latitude": "41.3173609", "longitude": "-72.9241240", "name": "204 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS204.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS210", "address": "210 Prospect Street New Haven, CT 06511", "latitude": "41.3173616", "longitude": "-72.9240694", "name": "210 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS210.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS230", "address": "230 Prospect Street New Haven, CT 06511", "latitude": "41.3177216", "longitude": "-72.9239681", "name": "230 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS230.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS238", "address": "238 Prospect Street New Haven, CT 06511", "latitude": "41.3181396", "longitude": "-72.9238500", "name": "238 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS238.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS242", "address": "242 Prospect Street New Haven, CT 06511", "latitude": "41.3183486", "longitude": "-72.9237910", "name": "242 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS242.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS254", "address": "254 Prospect Street New Haven, CT 06511", "latitude": "41.3189756", "longitude": "-72.9236139", "name": "254 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS254.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS276", "address": "276 Prospect Street New Haven, CT 06511", "latitude": "41.3191534", "longitude": "-72.9235357", "name": "276 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS276.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS282", "address": "282 Prospect Street New Haven, CT 06511", "latitude": "41.3202817", "longitude": "-72.9233647", "name": "282 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS282.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS300", "address": "300 Prospect Street New Haven, CT 06511", "latitude": "41.3202952", "longitude": "-72.9233638", "name": "300 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS300.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS301", "address": "301 Prospect Street New Haven, CT 06511", "latitude": "41.3202798", "longitude": "-72.9233178", "name": "301 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS301.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS310", "address": "310 Prospect Street New Haven, CT 06511", "latitude": "41.3204110", "longitude": "-72.9233619", "name": "310 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS310.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS314", "address": "314 Prospect Street New Haven, CT 06511", "latitude": "41.3204578", "longitude": "-72.9233632", "name": "314 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS314.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS406", "address": "406 Prospect Street New Haven, CT 06511", "latitude": "", "longitude": "", "name": "406 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS406.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROS459", "address": "459 Prospect Street New Haven, CT 06511", "latitude": "41.3248262", "longitude": "-72.9231500", "name": "459 Prospect Street", "img": "http://business.yale.edu/map/thumbnail/PROS459.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "PROSGDN", "address": "470 Prospect Street New Haven, CT 06511", "latitude": "41.3252403", "longitude": "-72.9230239", "name": "Prospect Garden Apartments", "img": "http://business.yale.edu/map/thumbnail/PROSGDN.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "PSG", "address": "200 Prospect Street New Haven, CT 06511", "latitude": "41.3169386", "longitude": "-72.9241840", "name": "Prospect-Sachem Garage", "img": "http://business.yale.edu/map/thumbnail/PSG.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "SOCCLAX", "address": "75 Central Avenue New Haven, CT 06511", "latitude": "41.3123251", "longitude": "-72.9634492", "name": "Reese Stadium", "img": "http://business.yale.edu/map/thumbnail/SOCCLAX.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "RAH", "address": "232 York Street New Haven, CT 06511", "latitude": "41.3096593", "longitude": "-72.9307179", "name": "Rose Alumni House", "img": "http://business.yale.edu/map/thumbnail/RAH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "ROSE", "address": "101 Ashmun Street New Haven, CT 06511", "latitude": "41.3158529", "longitude": "-72.9290726", "name": "Rose Center", "img": "http://business.yale.edu/map/thumbnail/ROSE.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "RSN", "address": "109-111 Grove Street New Haven, CT 06511", "latitude": "41.3108452", "longitude": "-72.9234087", "name": "Rosenfeld Hall", "img": "http://business.yale.edu/map/thumbnail/RSN.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "RKZ", "address": "115 Prospect Street New Haven, CT 06511", "latitude": "41.3145795", "longitude": "-72.9247918", "name": "Rosenkranz Hall", "img": "http://business.yale.edu/map/thumbnail/RKZ.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall","library"], "abbreviation": "RDH", "address": "180 York Street New Haven, CT 06511", "latitude": "41.3084903", "longitude": "-72.9315239", "name": "Rudolph Hall", "img": "http://business.yale.edu/map/thumbnail/RDH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SACH10", "address": "10 Sachem Street New Haven, CT 06511", "latitude": "41.3154590", "longitude": "-72.9211564", "name": "10 Sachem Street", "img": "http://business.yale.edu/map/thumbnail/SACH10.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SACH41", "address": "41 Sachem Street New Haven, CT 06511", "latitude": "41.3157532", "longitude": "-72.9224057", "name": "41 Sachem Street", "img": "http://business.yale.edu/map/thumbnail/SACH41.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SACH80", "address": "80 Sachem Street New Haven, CT 06511", "latitude": "41.3161695", "longitude": "-72.9250572", "name": "80 Sachem Street", "img": "http://business.yale.edu/map/thumbnail/SACH80.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "SB", "address": "205 Prospect Street New Haven, CT 06511", "latitude": "41.3171660", "longitude": "-72.9238610", "name": "Sage Hall", "img": "http://business.yale.edu/map/thumbnail/SB.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "STRO175", "address": "175 St. Ronan Street New Haven, CT 06511", "latitude": "41.3213032", "longitude": "-72.9198074", "name": "175 St. Ronan Street", "img": "http://business.yale.edu/map/thumbnail/STRO175.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "STM", "address": "268 Park Street New Haven, CT 06511", "latitude": "41.3212912", "longitude": "-72.9283391", "name": "St. Thomas More Chapel &amp; Golden Center", "img": "http://business.yale.edu/map/thumbnail/STM.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "SY", "address": "242 Elm Street New Haven, CT 06511", "latitude": "41.3104896", "longitude": "-72.9295286", "name": "Saybrook College", "img": "http://business.yale.edu/map/thumbnail/SY.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SCIPK25", "address": "150 Munson Street New Haven, CT 06511", "latitude": "41.3214912", "longitude": "-72.9295438", "name": "25 Science Park", "img": "http://business.yale.edu/map/thumbnail/SCIPK25.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SEAMCO", "address": "464 Congress Avenue New Haven, CT 06511", "latitude": "41.3010595", "longitude": "-72.9361366", "name": "Seamco Building", "img": "http://business.yale.edu/map/thumbnail/SEAMCO.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "SSS", "address": "1 Prospect Street New Haven, CT 06511", "latitude": "41.3117681", "longitude": "-72.9255244", "name": "Sheffield-Sterling-Strathcona", "img": "http://business.yale.edu/map/thumbnail/SSS.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "SM", "address": "505 College Street New Haven, CT 06511", "latitude": "41.3111910", "longitude": "-72.9257230", "name": "Silliman College", "img": "http://business.yale.edu/map/thumbnail/SM.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WALL80", "address": "80 Wall Street New Haven, CT 06511", "latitude": "41.3102274", "longitude": "-72.9249854", "name": "Slifka Center", "img": "http://business.yale.edu/map/thumbnail/WALL80.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SPL", "address": "217 Prospect Street New Haven, CT 06511", "latitude": "41.3174291", "longitude": "-72.9240027", "name": "Sloane Physics Laboratory", "img": "http://business.yale.edu/map/thumbnail/SPL.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SCH", "address": "20 York Street New Haven, CT 06511", "latitude": "", "longitude": "", "name": "Smilow Cancer Hospital", "img": "http://business.yale.edu/map/thumbnail/SCH.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "SMILOW", "address": "251 Derby Avenue New Haven, CT 06511", "latitude": "", "longitude": "", "name": "Smilow Field Center", "img": "http://business.yale.edu/map/thumbnail/SMILOW.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "NSB", "address": "333 Cedar Street New Haven, CT 06511", "latitude": "41.3031280", "longitude": "-72.9340830", "name": "Nathan Smith Building", "img": "http://business.yale.edu/map/thumbnail/NSB.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "SMH", "address": "470 College Street New Haven, CT 06511", "latitude": "41.3103970", "longitude": "-72.9265810", "name": "Sprague Hall", "img": "http://business.yale.edu/map/thumbnail/SMH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "STN", "address": "52 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3158008", "longitude": "-72.9227223", "name": "Steinbach Hall", "img": "http://business.yale.edu/map/thumbnail/STN.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "SCL", "address": "225 Prospect Street New Haven, CT 06511", "latitude": "41.3175120", "longitude": "-72.9231690", "name": "Sterling Chemistry Laboratory", "img": "http://business.yale.edu/map/thumbnail/SCL.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "SDQ", "address": "409 Prospect Street New Haven, CT 06511", "latitude": "41.3235920", "longitude": "-72.9232980", "name": "Sterling Divinity Quadrangle", "img": "http://business.yale.edu/map/thumbnail/SDQ.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "SHM", "address": "333 Cedar Street New Haven, CT 06511", "latitude": "41.3031280", "longitude": "-72.9340830", "name": "Sterling Hall of Medicine", "img": "http://business.yale.edu/map/thumbnail/SHM.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall","library"], "abbreviation": "SLB", "address": "127 Wall Street New Haven, CT 06511", "latitude": "41.3116140", "longitude": "-72.9281370", "name": "Sterling Law Building", "img": "http://business.yale.edu/map/thumbnail/SLB.jpg" },        
-        { "campuses": ["Main"], "categories": ["library"], "abbreviation": "SML", "address": "120 High Street New Haven, CT 06511", "latitude": "41.3109892", "longitude": "-72.9281202", "name": "Sterling Memorial Library", "img": "http://business.yale.edu/map/thumbnail/SML.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "SPP", "address": "309 Congress Avenue New Haven, CT 06511", "latitude": "41.3019916", "longitude": "-72.9331946", "name": "Sterling Power Plant", "img": "http://business.yale.edu/map/thumbnail/SPP.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "ES", "address": "302 York Street New Haven, CT 06511", "latitude": "41.3117111", "longitude": "-72.9292747", "name": "Ezra Stiles College", "img": "http://business.yale.edu/map/thumbnail/ES.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "STOECK", "address": "469 College Street New Haven, CT 06511", "latitude": "41.3106576", "longitude": "-72.9260972", "name": "Stoeckel Hall", "img": "http://business.yale.edu/map/thumbnail/STOECK.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "ST", "address": "1071 Chapel Street New Haven, CT 06511", "latitude": "41.3079413", "longitude": "-72.9302709", "name": "Street Hall", "img": "http://business.yale.edu/map/thumbnail/ST.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TMC40", "address": "40 Temple Street New Haven, CT 06511", "latitude": "41.3039498", "longitude": "-72.9289463", "name": "40 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TMC40.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TMC60", "address": "60 Temple Street New Haven, CT 06511", "latitude": "41.3042314", "longitude": "-72.9287230", "name": "60 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TMC60.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP142", "address": "142 Temple Street New Haven, CT 06511", "latitude": "41.3056525", "longitude": "-72.9276963", "name": "142 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP142.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP302", "address": "302 Temple Street New Haven, CT 06511", "latitude": "41.3091103", "longitude": "-72.9252183", "name": "302 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP302.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP320", "address": "320 Temple Street New Haven, CT 06511", "latitude": "41.3087850", "longitude": "-72.9254330", "name": "320 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP320.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP370", "address": "370 Temple Street New Haven, CT 06511", "latitude": "41.3111755", "longitude": "-72.9237138", "name": "370 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP370.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP405", "address": "405 Temple Street New Haven, CT 06511", "latitude": "41.3122375", "longitude": "-72.9228746", "name": "405 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP405.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP421", "address": "421 Temple Street New Haven, CT 06511", "latitude": "41.3125919", "longitude": "-72.9226150", "name": "421 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP421.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP432", "address": "432-434 Temple Street New Haven, CT 06511", "latitude": "41.3128485", "longitude": "-72.9224807", "name": "432-434 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP432.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP433", "address": "433 Temple Street New Haven, CT 06511", "latitude": "41.3128577", "longitude": "-72.9224203", "name": "433 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP433.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TEMP442", "address": "442 Temple Street New Haven, CT 06511", "latitude": "41.3129994", "longitude": "-72.9223701", "name": "442 Temple Street", "img": "http://business.yale.edu/map/thumbnail/TEMP442.jpg" },        
-        { "campuses": ["Main"], "categories": ["parking"], "abbreviation": "TSG", "address": "Temple &amp; Crown Streets New Haven, CT 06511", "latitude": "41.3052985", "longitude": "-72.9279229", "name": "Temple Street Garage", "img": "http://business.yale.edu/map/thumbnail/TSG.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "RTH", "address": "20 Tower Parkway New Haven, CT 06511", "latitude": "41.3129361", "longitude": "-72.9321451", "name": "Ray Tompkins House", "img": "http://business.yale.edu/map/thumbnail/RTH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TE", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Tompkins East", "img": "http://business.yale.edu/map/thumbnail/TE.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TMP", "address": "789 Howard Avenue New Haven, CT 06511", "latitude": "41.3023930", "longitude": "-72.9358059", "name": "Tompkins Memorial Pavilion", "img": "http://business.yale.edu/map/thumbnail/TMP.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "NRH", "address": "100 Tower Parkway New Haven, CT 06511", "latitude": "41.3135400", "longitude": "-72.9292360", "name": "100 Tower Parkway", "img": "http://business.yale.edu/map/thumbnail/NRH.jpg" },        
-        { "campuses": ["Main"], "categories": ["residential college"], "abbreviation": "TC", "address": "241 Elm Street New Haven, CT 06511", "latitude": "41.3103691", "longitude": "-72.9291602", "name": "Trumbull College", "img": "http://business.yale.edu/map/thumbnail/TC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "TRUM87", "address": "87 Trumbull Street New Haven, CT 06511", "latitude": "41.3135405", "longitude": "-72.9236058", "name": "87 Trumbull Street", "img": "http://business.yale.edu/map/thumbnail/TRUM87.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "HLH38", "address": "38 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3144420", "longitude": "-72.9236200", "name": "Undergraduate Admissions", "img": "http://business.yale.edu/map/thumbnail/HLH38.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "UT", "address": "222 York Street New Haven, CT 06511", "latitude": "41.3094257", "longitude": "-72.9308707", "name": "University Theatre", "img": "http://business.yale.edu/map/thumbnail/UT.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "V", "address": "1035 Chapel Street New Haven, CT 06511", "latitude": "41.3074541", "longitude": "-72.9290500", "name": "Vanderbilt Hall", "img": "http://business.yale.edu/map/thumbnail/V.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "WALL53", "address": "53 Wall Street New Haven, CT 06511", "latitude": "41.3097703", "longitude": "-72.9238668", "name": "53 Wall Street", "img": "http://business.yale.edu/map/thumbnail/WALL53.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WALL66", "address": "66 Wall Street New Haven, CT 06511", "latitude": "41.3099181", "longitude": "-72.9242777", "name": "66 Wall Street", "img": "http://business.yale.edu/map/thumbnail/WALL66.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WALL81", "address": "81 Wall Street New Haven, CT 06511", "latitude": "41.3104425", "longitude": "-72.9254028", "name": "81 Wall Street", "img": "http://business.yale.edu/map/thumbnail/WALL81.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WALL82", "address": "82-90 Wall Street New Haven, CT 06511", "latitude": "41.3104559", "longitude": "-72.9255113", "name": "82-90 Wall Street", "img": "http://business.yale.edu/map/thumbnail/WALL82.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WARNER", "address": "1 Hillhouse Avenue New Haven, CT 06511", "latitude": "41.3112837", "longitude": "-72.9244765", "name": "Warner House", "img": "http://business.yale.edu/map/thumbnail/WARNER.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WTS", "address": "60 Sachem Street New Haven, CT 06511", "latitude": "41.3157953", "longitude": "-72.9227969", "name": "Watson Center", "img": "http://business.yale.edu/map/thumbnail/WTS.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "AKW", "address": "51 Prospect Street New Haven, CT 06511", "latitude": "41.3132167", "longitude": "-72.9251623", "name": "Watson Hall", "img": "http://business.yale.edu/map/thumbnail/AKW.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WEIR", "address": "66 High Street New Haven, CT 06511", "latitude": "41.3084038", "longitude": "-72.9299922", "name": "Weir Hall", "img": "http://business.yale.edu/map/thumbnail/WEIR.jpg" },        
-        { "campuses": ["Main"], "categories": ["residence hall"], "abbreviation": "W", "address": "330 College Street New Haven, CT 06511", "latitude": "41.3082467", "longitude": "-72.9279472", "name": "Welch Hall", "img": "http://business.yale.edu/map/thumbnail/W.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WHITAPT", "address": "375-407 Canner; 511-543 Prospect New Haven, CT 06511", "latitude": "41.3255702", "longitude": "-72.9226870", "name": "Whitehall Apartments", "img": "http://business.yale.edu/map/thumbnail/WHITAPT.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WHIT55", "address": "55 Whitney Avenue New Haven, CT 06511", "latitude": "41.3120530", "longitude": "-72.9219620", "name": "55 Whitney Avenue", "img": "http://business.yale.edu/map/thumbnail/WHIT55.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WHIT70", "address": "70 Whitney Avenue New Haven, CT 06511", "latitude": "41.3123903", "longitude": "-72.9220139", "name": "70 Whitney Avenue", "img": "http://business.yale.edu/map/thumbnail/WHIT70.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WHIT121", "address": "121 Whitney Avenue New Haven, CT 06511", "latitude": "41.3139841", "longitude": "-72.9215132", "name": "121 Whitney Avenue", "img": "http://business.yale.edu/map/thumbnail/WHIT121.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WHIT221", "address": "221 Whitney Avenue New Haven, CT 06511", "latitude": "41.3170147", "longitude": "-72.9201089", "name": "221 Whitney Avenue", "img": "http://business.yale.edu/map/thumbnail/WHIT221.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WHIT221R", "address": "221R Whitney Avenue New Haven, CT 06511", "latitude": "41.3170147", "longitude": "-72.9201089", "name": "Whitney Avenue Garage", "img": "http://business.yale.edu/map/thumbnail/WHIT221R.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WGS", "address": "2 Whitney Avenue New Haven, CT 06511", "latitude": "41.3105115", "longitude": "-72.9225946", "name": "Whitney Grove Square", "img": "http://business.yale.edu/map/thumbnail/WGS.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WINC344", "address": "344 Winchester Avenue New Haven, CT 06511", "latitude": "41.3234525", "longitude": "-72.9283979", "name": "344 Winchester Avenue", "img": "http://business.yale.edu/map/thumbnail/WINC344.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WWW", "address": "25 York Street New Haven, CT 06511", "latitude": "41.3049013", "longitude": "-72.9341806", "name": "Winchester Building", "img": "http://business.yale.edu/map/thumbnail/WWW.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WOOD", "address": "105 Wall Street New Haven, CT 06511", "latitude": "41.3109674", "longitude": "-72.9266445", "name": "Woodbridge Hall", "img": "http://business.yale.edu/map/thumbnail/WOOD.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall"], "abbreviation": "WOOL", "address": "500 College Street New Haven, CT 06511", "latitude": "41.3111487", "longitude": "-72.9258147", "name": "Woolsey Hall", "img": "http://business.yale.edu/map/thumbnail/WOOL.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WNSL", "address": "272 Whitney Avenue New Haven, CT 06511", "latitude": "41.3179998", "longitude": "-72.9196796", "name": "Wright Laboratory", "img": "http://business.yale.edu/map/thumbnail/WNSL.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "WNSLW", "address": "268 Whitney Avenue New Haven, CT 06511", "latitude": "41.3178938", "longitude": "-72.9197318", "name": "Wright Laboratory West", "img": "http://business.yale.edu/map/thumbnail/WNSLW.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YALEBKSTORE", "address": "77 Broadway New Haven, CT 06511", "latitude": "41.3118710", "longitude": "-72.9311437", "name": "Yale Bookstore", "img": "http://business.yale.edu/map/thumbnail/YALEBKSTORE.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "YALEBOWL", "address": "81 Central Avenue New Haven, CT 06515", "latitude": "41.3124227", "longitude": "-72.9634775", "name": "Yale Bowl", "img": "http://business.yale.edu/map/thumbnail/YALEBOWL.jpg" },        
-        { "campuses": ["Main"], "categories": ["museum","lecture hall","library"], "abbreviation": "BAC", "address": "1080 Chapel Street New Haven, CT 06511", "latitude": "41.3080312", "longitude": "-72.9305950", "name": "Yale Center for British Art", "img": "http://business.yale.edu/map/thumbnail/BAC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YSFPFARM", "address": "345 Edwards Street New Haven, CT 06511", "latitude": "42.3353758", "longitude": "-122.8786924", "name": "Yale Farm", "img": "http://business.yale.edu/map/thumbnail/YSFPFARM.jpg" },        
-        { "campuses": ["Main"], "categories": ["athletic facility"], "abbreviation": "YALEFLD", "address": "250 Derby Avenue West Haven, CT 06516", "latitude": "41.3101851", "longitude": "-72.9589408", "name": "Yale Field", "img": "http://business.yale.edu/map/thumbnail/YALEFLD.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YHC", "address": "55 Lock Street New Haven, CT 06511", "latitude": "41.3154485", "longitude": "-72.9279658", "name": "Yale Health Center", "img": "http://business.yale.edu/map/thumbnail/YHC.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YNHH", "address": "20 York Street New Haven, CT 06511", "latitude": "", "longitude": "", "name": "Yale-New Haven Hospital", "img": "http://business.yale.edu/map/thumbnail/YNHH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YNHPH", "address": "184 Liberty Street New Haven, CT 06511", "latitude": "41.3016795", "longitude": "-72.9327789", "name": "Yale-New Haven Psychiatric Hospital", "img": "http://business.yale.edu/map/thumbnail/YNHPH.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YPB", "address": "800 Howard Avenue New Haven, CT 06511", "latitude": "41.3026081", "longitude": "-72.9359205", "name": "Yale Physicians Building", "img": "http://business.yale.edu/map/thumbnail/YPB.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YRT", "address": "1120 Chapel Street New Haven, CT 06511", "latitude": "41.3083882", "longitude": "-72.9314854", "name": "Yale Repertory Theatre", "img": "http://business.yale.edu/map/thumbnail/YRT.jpg" },        
-        { "campuses": ["Main"], "categories": ["lecture hall", "museum"], "abbreviation": "YUAG", "address": "1111 Chapel Street New Haven, CT 06511", "latitude": "41.3083249", "longitude": "-72.9312276", "name": "Yale University Art Gallery", "img": "http://business.yale.edu/map/thumbnail/YUAG.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YKCRWN", "address": "139-143 York Street; 313-319 Crown Street New Haven, CT 06511", "latitude": "41.2066643", "longitude": "-73.1838028", "name": "York-Crown Apartments", "img": "http://business.yale.edu/map/thumbnail/YKCRWN.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YKSPL094", "address": "94 York Square Place New Haven, CT 06511", "latitude": "41.3141675", "longitude": "-72.9297002", "name": "94 York Square Place", "img": "http://business.yale.edu/map/thumbnail/YKSPL094.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YKSPL104", "address": "104 York Square Place New Haven, CT 06511", "latitude": "41.3143087", "longitude": "-72.9293772", "name": "104 York Square Place", "img": "http://business.yale.edu/map/thumbnail/YKSPL104.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YORK100", "address": "100 York Street New Haven, CT 06511", "latitude": "41.3064828", "longitude": "-72.9329993", "name": "100 York Street", "img": "http://business.yale.edu/map/thumbnail/YORK100.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YORK123", "address": "123 York Street New Haven, CT 06511", "latitude": "41.3060750", "longitude": "-72.9318940", "name": "123 York Street", "img": "http://business.yale.edu/map/thumbnail/YORK123.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YORK129", "address": "129 York Street New Haven, CT 06511", "latitude": "41.3064320", "longitude": "-72.9329650", "name": "129 York Street", "img": "http://business.yale.edu/map/thumbnail/YORK129.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YORK149", "address": "149 York Street New Haven, CT 06511", "latitude": "41.3142034", "longitude": "-72.9292167", "name": "149 York Street", "img": "http://business.yale.edu/map/thumbnail/YORK149.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YORK202", "address": "202 York Street New Haven, CT 06511", "latitude": "41.3091320", "longitude": "-72.9315110", "name": "202 York Street", "img": "http://business.yale.edu/map/thumbnail/YORK202.jpg" },        
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "GPSCY", "address": "204 York Street New Haven, CT 06511", "latitude": "41.3093610", "longitude": "-72.9319560", "name": "204 York Street", "img": "http://business.yale.edu/map/thumbnail/GPSCY.jpg" },
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YORK212", "address": "212 York Street New Haven, CT 06511", "latitude": "41.3092047", "longitude": "-72.9310229", "name": "212 York Street", "img": "http://business.yale.edu/map/thumbnail/YORK212.jpg" },
-        { "campuses": ["Main"], "categories": ["place of interest"], "abbreviation": "YORK220", "address": "220 York Street New Haven, CT 06511", "latitude": "41.3093684", "longitude": "-72.9309082", "name": "220 York Street", "img": "http://business.yale.edu/map/thumbnail/YORK220.jpg" },
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-A21", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-A21", "img": "http://business.yale.edu/map/thumbnail/W-A21.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-A42", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-A42", "img": "http://business.yale.edu/map/thumbnail/W-A42.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-B22", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B22", "img": "http://business.yale.edu/map/thumbnail/W-B22.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-B24", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B24", "img": "http://business.yale.edu/map/thumbnail/W-B24.jpg" },        
-        { "campuses": ["West"],  "categories": ["lecture hall"], "abbreviation": "W-B25", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B25", "img": "http://business.yale.edu/map/thumbnail/W-B25.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-B27", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B27", "img": "http://business.yale.edu/map/thumbnail/W-B27.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-B31", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B31", "img": "http://business.yale.edu/map/thumbnail/W-B31.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-B36", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B36", "img": "http://business.yale.edu/map/thumbnail/W-B36.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-B45", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B45", "img": "http://business.yale.edu/map/thumbnail/W-B45.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-B46", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-B46", "img": "http://business.yale.edu/map/thumbnail/W-B46.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-C23", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-C23", "img": "http://business.yale.edu/map/thumbnail/W-C23.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-C27", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-C27", "img": "http://business.yale.edu/map/thumbnail/W-C27.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-C28", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-C28", "img": "http://business.yale.edu/map/thumbnail/W-C28.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-C32", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-C32", "img": "http://business.yale.edu/map/thumbnail/W-C32.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-D18", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-D18", "img": "http://business.yale.edu/map/thumbnail/W-D18.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-D21", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-D21", "img": "http://business.yale.edu/map/thumbnail/W-D21.jpg" },        
-        { "campuses": ["West"],  "categories": ["place of interest"], "abbreviation": "W-D24", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-D24", "img": "http://business.yale.edu/map/thumbnail/W-D24.jpg" },        
-        { "campuses": ["West"],  "abbreviation": "W-D37", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-D37", "img": "http://business.yale.edu/map/thumbnail/W-D37.jpg" },        
-        { "campuses": ["West"],  "abbreviation": "W-E29", "address": "West Campus, 117 Frontage Rd, Orange, CT 06477", "latitude": "41.2518649", "longitude": "-72.9965746", "name": "West-E29", "img": "http://business.yale.edu/map/thumbnail/W-E29.jpg" },        
-        { "campuses": ["West"],  "abbreviation": "W-E35", "address": "West Campus, 137 Frontage Road Orange, CT 06477", "latitude": "31.0768084", "longitude": "-97.4169846", "name": "West-E35", "img": "http://business.yale.edu/map/thumbnail/W-E35.jpg" }
-    ]
+{
+  "defaultLocation": {
+    "latitude": "42.666984",
+    "longitude": "-83.207371"
+  },
+  "locations": [
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "AC",
+      "address": "Athletics Center, Auburn Hills, MI",
+      "latitude": "42.674122",
+      "longitude": "-83.213751",
+      "name": "Athletics Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/AC.JPG",
+      "description": "http:\/\/www.ougrizzlies.com\/facilities\/Athletics-center-orena.html"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "ATC",
+      "address": "Atrium Cafe, Auburn Hills, MI",
+      "latitude": "42.67747",
+      "longitude": "-83.219064",
+      "name": "Atrium Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/ATC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "AD",
+      "address": "Athletic Dome, Auburn Hills, MI",
+      "latitude": "42.674222",
+      "longitude": "-83.207259",
+      "name": "Athletic Dome",
+      "img": "\/MapPortlet\/img\/thumbnails\/AD.JPG",
+      "description": "http:\/\/www.ougrizzlies.com"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Offices"
+      ],
+      "abbreviation": "ANI",
+      "address": "Anibal House, Auburn Hills, MI",
+      "latitude": "42.675836",
+      "longitude": "-83.21425",
+      "name": "Anibal House",
+      "img": "\/MapPortlet\/img\/thumbnails\/ANI.JPG",
+      "description": "http:\/\/www.oakland.edu\/?id=650&sid=3"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "AVN",
+      "address": "Ann V. Nicholson Apartments, Auburn Hills, MI",
+      "latitude": "42.678745",
+      "longitude": "-83.212296",
+      "name": "Ann V. Nicholson Apartments",
+      "img": "\/MapPortlet\/img\/thumbnails\/AVN.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/apartments"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "COB",
+      "address": "Cafe O Bears, Auburn Hills, MI",
+      "latitude": "42.674013",
+      "longitude": "-83.217229",
+      "name": "Cafe O Bears",
+      "img": "\/MapPortlet\/img\/thumbnails\/COB.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "DH",
+      "address": "Dodge Hall, Auburn Hills, MI",
+      "latitude": "42.671607",
+      "longitude": "-83.216719",
+      "name": "Dodge Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/DHE.JPG",
+      "description": "http:\/\/www.oakland.edu\/SECS"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "EH",
+      "address": "Elliott Hall, Auburn Hills, MI",
+      "latitude": "42.671901",
+      "longitude": "-83.213655",
+      "name": "Elliott Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/EH.JPG",
+      "description": "http:\/\/www.oakland.edu\/sba"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Landmarks"
+      ],
+      "abbreviation": "ET",
+      "address": "Elliott Tower, Auburn Hills, MI",
+      "latitude": "42.673601",
+      "longitude": "-83.215733",
+      "name": "Elliott Tower",
+      "img": "\/MapPortlet\/img\/thumbnails\/ET.JPG",
+      "description": "http:\/\/www.oakland.edu\/elliott-tower"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "EC",
+      "address": "Engineering Center, Auburn Hills, MI",
+      "latitude": "42.671789",
+      "longitude": "-83.215214",
+      "name": "Engineering Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/EC.JPG",
+      "description": "https:\/\/www.oakland.edu\/?id=28863&sid=527"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "EBB",
+      "address": "Einstein Bros Bagels, Auburn Hills, MI",
+      "latitude": "42.671789",
+      "longitude": "-83.215214",
+      "name": "Einstein Bros Bagels",
+      "img": "\/MapPortlet\/img\/thumbnails\/EBB.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "FTZ",
+      "address": "Fitzgerald House, Auburn Hills, MI",
+      "latitude": "42.675643",
+      "longitude": "-83.214836",
+      "name": "Fitzgerald House",
+      "img": "\/MapPortlet\/img\/thumbnails\/FTZ.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "GEX",
+      "address": "Grizz Express, Auburn Hills, MI",
+      "latitude": "42.673965",
+      "longitude": "-83.216486",
+      "name": "Grizz Express",
+      "img": "\/MapPortlet\/img\/thumbnails\/GEX.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Health"
+      ],
+      "abbreviation": "GHC",
+      "address": "Graham Health Center, Auburn Hills, MI",
+      "latitude": "42.676744",
+      "longitude": "-83.218016",
+      "name": "Graham Health Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/GHC.JPG",
+      "description": "http:\/\/www.oakland.edu\/ghc"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "GTM",
+      "address": "George T. Matthews Apartments, Auburn Hills, MI",
+      "latitude": "42.677862",
+      "longitude": "-83.212124",
+      "name": "George T. Matthews Apartments",
+      "img": "\/MapPortlet\/img\/thumbnails\/GTM.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/apartments"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "HAM",
+      "address": "Hamlin Hall, Auburn Hills, MI",
+      "latitude": "42.677105",
+      "longitude": "-83.213832",
+      "name": "Hamlin Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/HAM.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "HEC",
+      "address": "Healy Cafe, Auburn Hills, MI",
+      "latitude": "42.671901",
+      "longitude": "-83.213655",
+      "name": "Healy Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/HEC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Health",
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "HHB",
+      "address": "Human Health Building, Auburn Hills, MI",
+      "latitude": "42.677347",
+      "longitude": "-83.219216",
+      "name": "Human Health Building",
+      "img": "\/MapPortlet\/img\/thumbnails\/HHB.JPG",
+      "description": "http:\/\/www.oakland.edu\/hhb"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "HH",
+      "address": "Hannah Hall, Auburn Hills, MI",
+      "latitude": "42.671717",
+      "longitude": "-83.21789",
+      "name": "Hannah Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/HHS.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=hannah%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "HIL",
+      "address": "Hill House, Auburn Hills, MI",
+      "latitude": "42.676489",
+      "longitude": "-83.215003",
+      "name": "Hill House",
+      "img": "\/MapPortlet\/img\/thumbnails\/HIL.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Library"
+      ],
+      "abbreviation": "LIB",
+      "address": "Kresge Library, Auburn Hills, MI",
+      "latitude": "42.672688",
+      "longitude": "-83.215925",
+      "name": "Kresge Library",
+      "img": "\/MapPortlet\/img\/thumbnails\/LIB.JPG",
+      "description": "http:\/\/library.oakland.edu\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "LF",
+      "address": "Lower Fields, Auburn Hills, MI",
+      "latitude": "42.673998",
+      "longitude": "-83.209134",
+      "name": "Lower Fields",
+      "img": "\/MapPortlet\/img\/thumbnails\/LF.JPG",
+      "description": "http:\/\/www.ougrizzlies.com"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Entertainment"
+      ],
+      "abbreviation": "MBH",
+      "address": "Meadow Brook Hall, Rochester, MI",
+      "latitude": "42.672185",
+      "longitude": "-83.201445",
+      "name": "Meadow Brook Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/MBH.JPG",
+      "description": "http:\/\/www.meadowbrookhall.org\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices",
+        "Entertainment"
+      ],
+      "abbreviation": "MBT",
+      "address": "Meadow Brook Theatre",
+      "latitude": "42.67609",
+      "longitude": "-83.21789",
+      "name": "Meadow Brook Theatre",
+      "img": "\/MapPortlet\/img\/thumbnails\/MBT.JPG",
+      "description": "http:\/\/www.mbtheatre.com\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "NFH",
+      "address": "North Foundation Hall, Auburn Hills, MI",
+      "latitude": "42.674558",
+      "longitude": "-83.217723",
+      "name": "North Foundation Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/NFH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=north%20foundation%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Entertainment"
+      ],
+      "abbreviation": "OUAG",
+      "address": "Oakland University Art Gallery, Auburn Hills, MI",
+      "latitude": "42.675828",
+      "longitude": "-83.217867",
+      "name": "Oakland University Art Gallery",
+      "img": "\/MapPortlet\/img\/thumbnails\/MBT.JPG",
+      "description": "http:\/\/www.oakland.edu\/?id=25222&sid=279"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "OUWB",
+      "address": "Oakland University William Beaumont School of Medicine, Auburn Hills, MI",
+      "latitude": "42.674445",
+      "longitude": "-83.215336",
+      "name": "OUWB School of Medicine",
+      "img": "\/MapPortlet\/img\/thumbnails\/OUWB.JPG",
+      "description": "https:\/\/www.oakland.edu\/medicine"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food",
+        "Offices",
+        "Entertainment"
+      ],
+      "abbreviation": "OC",
+      "address": "Oakland Center, Auburn Hills, MI",
+      "latitude": "42.674337",
+      "longitude": "-83.216552",
+      "name": "Oakland Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/OC.JPG",
+      "description": "http:\/\/www.oakland.edu\/oc\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "ODH",
+      "address": "O Dowd Hall, Auburn Hills, MI",
+      "latitude": "42.674491",
+      "longitude": "-83.215296",
+      "name": "O Dowd Hall ",
+      "img": "\/MapPortlet\/img\/thumbnails\/ODH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=o%20dowd%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "OTC",
+      "address": "OutTakes Cafe, Rochester, MI",
+      "latitude": "42.671473",
+      "longitude": "-83.21061",
+      "name": "OutTakes Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/OTC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Housing"
+      ],
+      "abbreviation": "OVH",
+      "address": "Oak View Hall, Auburn Hills, MI",
+      "latitude": "42.678046",
+      "longitude": "-83.215460",
+      "name": "Oak View Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/OVH.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "PH",
+      "address": "Pawley Hall, Rochester, MI",
+      "latitude": "42.671473",
+      "longitude": "-83.21061",
+      "name": "Pawley Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/PH.JPG",
+      "description": "http:\/\/www.oakland.edu\/sehs"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "PFC",
+      "address": "Pioneer Food Court, Rochester, MI",
+      "latitude": "42.674289",
+      "longitude": "-83.216622",
+      "name": "Pioneer Food Court",
+      "img": "\/MapPortlet\/img\/thumbnails\/PFC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Police",
+        "Offices"
+      ],
+      "abbreviation": "PSS",
+      "address": "Police and Support Services, Auburn Hills, MI",
+      "latitude": "42.67128",
+      "longitude": "-83.218895",
+      "name": "Police and Support Services",
+      "img": "\/MapPortlet\/img\/thumbnails\/PSS.JPG",
+      "description": "http:\/\/www.police.oakland.edu\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "PRY",
+      "address": "Pryale House, Auburn Hills, MI",
+      "latitude": "42.675830",
+      "longitude": "-83.213302",
+      "name": "Pryale House",
+      "img": "\/MapPortlet\/img\/thumbnails\/PRY.JPG",
+      "description": "http:\/\/www.oakland.edu\/psychology"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics",
+        "Entertainment"
+      ],
+      "abbreviation": "REC",
+      "address": "Recreation and Athletics Center, Auburn Hills, MI",
+      "latitude": "42.674047",
+      "longitude": "-83.212953",
+      "name": "Recreation and Athletics Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/REC.JPG",
+      "description": "http:\/\/www.oakland.edu\/campusrec\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Landmarks"
+      ],
+      "abbreviation": "SAS",
+      "address": "Saints and Sinners Fountain, Auburn Hills, MI",
+      "latitude": "42.672682",
+      "longitude": "-83.216574",
+      "name": "\"Saints and Sinners\" Fountain",
+      "img": "\/MapPortlet\/img\/thumbnails\/SAS.JPG",
+      "description": "http:\/\/library.oakland.edu\/information\/departments\/archives\/art\/saints.htm"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "SB",
+      "address": "Science Building, Auburn Hills, MI",
+      "latitude": "42.671068",
+      "longitude": "-83.21789",
+      "name": "Science Building",
+      "img": "\/MapPortlet\/img\/thumbnails\/SEB.JPG",
+      "description": "http:\/\/www.oakland.edu\/SECS"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "SERP",
+      "address": "Solar Energy Research Project, Rochester, MI",
+      "latitude": "42.679175",
+      "longitude": "-83.210485",
+      "name": "Solar Energy Research Project",
+      "img": "\/MapPortlet\/img\/thumbnails\/SERP.JPG",
+      "description": "http:\/\/www.oakland.edu\/energy\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "SFH",
+      "address": "South Foundation Hall, Auburn Hills, MI",
+      "latitude": "42.673645",
+      "longitude": "-83.217723",
+      "name": "South Foundation Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/SFH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=south%20foundation%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "SOFC",
+      "address": "Suzanne O. Frankie Cafe, Auburn Hills, MI",
+      "latitude": "42.672688",
+      "longitude": "-83.215925",
+      "name": "Suzanne O. Frankie Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/SOFC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "UF",
+      "address": "Upper Fields, Auburn Hills, MI",
+      "latitude": "42.678139",
+      "longitude": "-83.209659",
+      "name": "Upper Fields",
+      "img": "\/MapPortlet\/img\/thumbnails\/UF.JPG",
+      "description": "http:\/\/www.ougrizzlies.com"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "VDC",
+      "address": "Vandenberg Dining Center, Auburn Hills, MI",
+      "latitude": "42.676884",
+      "longitude": "-83.215882",
+      "name": "Vandenberg Dining Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/VDC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "VWH",
+      "address": "Van Wagoner House, Auburn Hills, MI",
+      "latitude": "42.676602",
+      "longitude": "-83.214334",
+      "name": "Van Wagoner House",
+      "img": "\/MapPortlet\/img\/thumbnails\/VWH.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "VAR",
+      "address": "Varner Hall, Auburn Hills, MI",
+      "latitude": "42.671592",
+      "longitude": "-83.212785",
+      "name": "Varner Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/VH.JPG",
+      "description": "http:\/\/www.oakland.edu\/mtd"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing",
+        "Offices"
+      ],
+      "abbreviation": "VBH",
+      "address": "Vandenberg Hall, Auburn Hills, MI",
+      "latitude": "42.676884",
+      "longitude": "-83.215882",
+      "name": "Vandenberg Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/WVH.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "WH",
+      "address": "Wilson Hall, Auburn Hills, MI",
+      "latitude": "42.675659",
+      "longitude": "-83.217681",
+      "name": "Wilson Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/WH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=wilson%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P1",
+      "address": "42.674433, -83.219268 (P1 - Oakland University Parking Lot)",
+      "latitude": "42.674433",
+      "longitude": "-83.219268",
+      "name": "Parking Lot #1",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P2",
+      "address": "42.675324, -83.216924 (P2 - Oakland University Parking Lot)",
+      "latitude": "42.675324",
+      "longitude": "-83.216924",
+      "name": "Parking Lot #2",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P3",
+      "address": "42.678274, -83.218254 (P3 - Oakland University Parking Lot)",
+      "latitude": "42.678274",
+      "longitude": "-83.218254",
+      "name": "Parking Lot #3",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P5",
+      "address": "42.678112, -83.216157 (P5 - Oakland University Parking Lot)",
+      "latitude": "42.678112",
+      "longitude": "-83.216157",
+      "name": "Parking Lot #5",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P11",
+      "address": "42.676736, -83.209993 (P11 - Oakland University Parking Lot)",
+      "latitude": "42.676736",
+      "longitude": "-83.209993",
+      "name": "Parking Lot #11",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P16",
+      "address": "42.675174, -83.214043 (P16 - Oakland University Parking Lot)",
+      "latitude": "42.675174",
+      "longitude": "-83.214043",
+      "name": "Parking Lot #16",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P17",
+      "address": "42.674819, -83.212724 (P17 - Oakland University Parking Lot)",
+      "latitude": "42.674819",
+      "longitude": "-83.212724",
+      "name": "Parking Lot #17",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P18",
+      "address": "42.674243, -83.214875 (P18 - Oakland University Parking Lot)",
+      "latitude": "42.674243",
+      "longitude": "-83.214875",
+      "name": "Parking Lot #18",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P24",
+      "address": "42.670788, -83.213282 (P24 - Oakland University Parking Lot)",
+      "latitude": "42.670788",
+      "longitude": "-83.213282",
+      "name": "Parking Lot #24",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P26",
+      "address": "42.671778, -83.211924 (P26 - Oakland University Parking Lot)",
+      "latitude": "42.671778",
+      "longitude": "-83.211924",
+      "name": "Parking Lot #26",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P28",
+      "address": "42.671526, -83.210288 (P28 - Oakland University Parking Lot)",
+      "latitude": "42.671526",
+      "longitude": "-83.210288",
+      "name": "Parking Lot #28",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P29",
+      "address": "42.672346, -83.210020 (P29 - Oakland University Parking Structure)",
+      "latitude": "42.672346",
+      "longitude": "-83.210020",
+      "name": "Parking Structure #29",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P32",
+      "address": "42.670117, -83.214886 (P32 - Oakland University Parking Structure)",
+      "latitude": "42.670117",
+      "longitude": "-83.214886",
+      "name": "Parking Structure #32",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P34",
+      "address": "42.670737, -83.214971 (P34 - Oakland University Parking Lot)",
+      "latitude": "42.670737",
+      "longitude": "-83.214971",
+      "name": "Parking Lot #34",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P35",
+      "address": "42.668543, -83.215256 (P35 - Oakland University Parking Lot)",
+      "latitude": "42.668543",
+      "longitude": "-83.215256",
+      "name": "Parking Lot #35",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P36",
+      "address": "42.671222, -83.214982 (P36 - Oakland University Parking Lot)",
+      "latitude": "42.671222",
+      "longitude": "-83.214982",
+      "name": "Parking Lot #36",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P37",
+      "address": "42.668354, -83.216908 (P37 - Oakland University Parking Lot)",
+      "latitude": "42.668354",
+      "longitude": "-83.216908",
+      "name": "Parking Lot #37",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P38",
+      "address": "42.670145, -83.217224 (P38 - Oakland University Parking Lot)",
+      "latitude": "42.670145",
+      "longitude": "-83.217224",
+      "name": "Parking Lot #38",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P41",
+      "address": "42.670539, -83.219225 (P41 - Oakland University Parking Lot)",
+      "latitude": "42.670539",
+      "longitude": "-83.219225",
+      "name": "Parking Lot #41",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P43",
+      "address": "42.671849, -83.219054 (P43 - Oakland University Parking Lot)",
+      "latitude": "42.671849",
+      "longitude": "-83.219054",
+      "name": "Parking Lot #43",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    }
+  ]
 }
