@@ -25,9 +25,9 @@
 <portlet:defineObjects/>
 
 <c:set var="n"><portlet:namespace/></c:set>
-<c:set var="apiUrl">//maps.google.com/maps/api/js?sensor=true</c:set>
+<c:set var="apiUrl">//maps.google.com/maps/api/js?</c:set>
 <c:if test="${ not empty apiKey }">
-    <c:set var="apiUrl">${ apiUrl }&amp;key=${ apiKey }</c:set>
+    <c:set var="apiUrl">${ apiUrl }key=${ apiKey }</c:set>
 </c:if>
 <script src="${apiUrl}"></script>
 <c:set var="usePortalJsLibs" value="${ false }"/>
