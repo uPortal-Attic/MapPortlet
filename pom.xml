@@ -78,7 +78,7 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.8.2</version>
-            </dependency>           
+            </dependency>
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
@@ -290,8 +290,8 @@
             <artifactId>commons-collections</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
-        
+
+
         <!-- ===== Provided Dependencies ================================== -->
         <dependency>
             <groupId>javax.portlet</groupId>
@@ -326,7 +326,7 @@
 
     <build>
         <plugins>
-            <!-- Generates JAXB binding classes -->            
+            <!-- Generates JAXB binding classes -->
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
@@ -386,7 +386,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -538,5 +538,17 @@
             </build>
         </profile>
     </profiles>
-    
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
