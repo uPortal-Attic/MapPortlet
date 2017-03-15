@@ -1,0 +1,1017 @@
+{
+  "defaultLocation": {
+    "latitude": "42.666984",
+    "longitude": "-83.207371"
+  },
+  "locations": [
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "AC",
+      "address": "Athletics Center, Auburn Hills, MI",
+      "latitude": "42.674122",
+      "longitude": "-83.213751",
+      "name": "Athletics Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/AC.JPG",
+      "description": "http:\/\/www.ougrizzlies.com\/facilities\/Athletics-center-orena.html"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "ATC",
+      "address": "Atrium Cafe, Auburn Hills, MI",
+      "latitude": "42.67747",
+      "longitude": "-83.219064",
+      "name": "Atrium Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/ATC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "AD",
+      "address": "Athletic Dome, Auburn Hills, MI",
+      "latitude": "42.674222",
+      "longitude": "-83.207259",
+      "name": "Athletic Dome",
+      "img": "\/MapPortlet\/img\/thumbnails\/AD.JPG",
+      "description": "http:\/\/www.ougrizzlies.com"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Offices"
+      ],
+      "abbreviation": "ANI",
+      "address": "Anibal House, Auburn Hills, MI",
+      "latitude": "42.675836",
+      "longitude": "-83.21425",
+      "name": "Anibal House",
+      "img": "\/MapPortlet\/img\/thumbnails\/ANI.JPG",
+      "description": "http:\/\/www.oakland.edu\/?id=650&sid=3"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "AVN",
+      "address": "Ann V. Nicholson Apartments, Auburn Hills, MI",
+      "latitude": "42.678745",
+      "longitude": "-83.212296",
+      "name": "Ann V. Nicholson Apartments",
+      "img": "\/MapPortlet\/img\/thumbnails\/AVN.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/apartments"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "COB",
+      "address": "Cafe O Bears, Auburn Hills, MI",
+      "latitude": "42.674013",
+      "longitude": "-83.217229",
+      "name": "Cafe O Bears",
+      "img": "\/MapPortlet\/img\/thumbnails\/COB.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "DH",
+      "address": "Dodge Hall, Auburn Hills, MI",
+      "latitude": "42.671607",
+      "longitude": "-83.216719",
+      "name": "Dodge Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/DHE.JPG",
+      "description": "http:\/\/www.oakland.edu\/SECS"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "EH",
+      "address": "Elliott Hall, Auburn Hills, MI",
+      "latitude": "42.671901",
+      "longitude": "-83.213655",
+      "name": "Elliott Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/EH.JPG",
+      "description": "http:\/\/www.oakland.edu\/sba"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Landmarks"
+      ],
+      "abbreviation": "ET",
+      "address": "Elliott Tower, Auburn Hills, MI",
+      "latitude": "42.673601",
+      "longitude": "-83.215733",
+      "name": "Elliott Tower",
+      "img": "\/MapPortlet\/img\/thumbnails\/ET.JPG",
+      "description": "http:\/\/www.oakland.edu\/elliott-tower"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "EC",
+      "address": "Engineering Center, Auburn Hills, MI",
+      "latitude": "42.671789",
+      "longitude": "-83.215214",
+      "name": "Engineering Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/EC.JPG",
+      "description": "https:\/\/www.oakland.edu\/?id=28863&sid=527"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "EBB",
+      "address": "Einstein Bros Bagels, Auburn Hills, MI",
+      "latitude": "42.671789",
+      "longitude": "-83.215214",
+      "name": "Einstein Bros Bagels",
+      "img": "\/MapPortlet\/img\/thumbnails\/EBB.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "FTZ",
+      "address": "Fitzgerald House, Auburn Hills, MI",
+      "latitude": "42.675643",
+      "longitude": "-83.214836",
+      "name": "Fitzgerald House",
+      "img": "\/MapPortlet\/img\/thumbnails\/FTZ.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "GEX",
+      "address": "Grizz Express, Auburn Hills, MI",
+      "latitude": "42.673965",
+      "longitude": "-83.216486",
+      "name": "Grizz Express",
+      "img": "\/MapPortlet\/img\/thumbnails\/GEX.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Health"
+      ],
+      "abbreviation": "GHC",
+      "address": "Graham Health Center, Auburn Hills, MI",
+      "latitude": "42.676744",
+      "longitude": "-83.218016",
+      "name": "Graham Health Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/GHC.JPG",
+      "description": "http:\/\/www.oakland.edu\/ghc"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "GTM",
+      "address": "George T. Matthews Apartments, Auburn Hills, MI",
+      "latitude": "42.677862",
+      "longitude": "-83.212124",
+      "name": "George T. Matthews Apartments",
+      "img": "\/MapPortlet\/img\/thumbnails\/GTM.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/apartments"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "HAM",
+      "address": "Hamlin Hall, Auburn Hills, MI",
+      "latitude": "42.677105",
+      "longitude": "-83.213832",
+      "name": "Hamlin Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/HAM.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "HEC",
+      "address": "Healy Cafe, Auburn Hills, MI",
+      "latitude": "42.671901",
+      "longitude": "-83.213655",
+      "name": "Healy Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/HEC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Health",
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "HHB",
+      "address": "Human Health Building, Auburn Hills, MI",
+      "latitude": "42.677347",
+      "longitude": "-83.219216",
+      "name": "Human Health Building",
+      "img": "\/MapPortlet\/img\/thumbnails\/HHB.JPG",
+      "description": "http:\/\/www.oakland.edu\/hhb"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "HH",
+      "address": "Hannah Hall, Auburn Hills, MI",
+      "latitude": "42.671717",
+      "longitude": "-83.21789",
+      "name": "Hannah Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/HHS.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=hannah%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "HIL",
+      "address": "Hill House, Auburn Hills, MI",
+      "latitude": "42.676489",
+      "longitude": "-83.215003",
+      "name": "Hill House",
+      "img": "\/MapPortlet\/img\/thumbnails\/HIL.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Library"
+      ],
+      "abbreviation": "LIB",
+      "address": "Kresge Library, Auburn Hills, MI",
+      "latitude": "42.672688",
+      "longitude": "-83.215925",
+      "name": "Kresge Library",
+      "img": "\/MapPortlet\/img\/thumbnails\/LIB.JPG",
+      "description": "http:\/\/library.oakland.edu\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "LF",
+      "address": "Lower Fields, Auburn Hills, MI",
+      "latitude": "42.673998",
+      "longitude": "-83.209134",
+      "name": "Lower Fields",
+      "img": "\/MapPortlet\/img\/thumbnails\/LF.JPG",
+      "description": "http:\/\/www.ougrizzlies.com"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Entertainment"
+      ],
+      "abbreviation": "MBH",
+      "address": "Meadow Brook Hall, Rochester, MI",
+      "latitude": "42.672185",
+      "longitude": "-83.201445",
+      "name": "Meadow Brook Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/MBH.JPG",
+      "description": "http:\/\/www.meadowbrookhall.org\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices",
+        "Entertainment"
+      ],
+      "abbreviation": "MBT",
+      "address": "Meadow Brook Theatre",
+      "latitude": "42.67609",
+      "longitude": "-83.21789",
+      "name": "Meadow Brook Theatre",
+      "img": "\/MapPortlet\/img\/thumbnails\/MBT.JPG",
+      "description": "http:\/\/www.mbtheatre.com\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "NFH",
+      "address": "North Foundation Hall, Auburn Hills, MI",
+      "latitude": "42.674558",
+      "longitude": "-83.217723",
+      "name": "North Foundation Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/NFH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=north%20foundation%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Entertainment"
+      ],
+      "abbreviation": "OUAG",
+      "address": "Oakland University Art Gallery, Auburn Hills, MI",
+      "latitude": "42.675828",
+      "longitude": "-83.217867",
+      "name": "Oakland University Art Gallery",
+      "img": "\/MapPortlet\/img\/thumbnails\/MBT.JPG",
+      "description": "http:\/\/www.oakland.edu\/?id=25222&sid=279"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "OUWB",
+      "address": "Oakland University William Beaumont School of Medicine, Auburn Hills, MI",
+      "latitude": "42.674445",
+      "longitude": "-83.215336",
+      "name": "OUWB School of Medicine",
+      "img": "\/MapPortlet\/img\/thumbnails\/OUWB.JPG",
+      "description": "https:\/\/www.oakland.edu\/medicine"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food",
+        "Offices",
+        "Entertainment"
+      ],
+      "abbreviation": "OC",
+      "address": "Oakland Center, Auburn Hills, MI",
+      "latitude": "42.674337",
+      "longitude": "-83.216552",
+      "name": "Oakland Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/OC.JPG",
+      "description": "http:\/\/www.oakland.edu\/oc\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "ODH",
+      "address": "O Dowd Hall, Auburn Hills, MI",
+      "latitude": "42.674491",
+      "longitude": "-83.215296",
+      "name": "O Dowd Hall ",
+      "img": "\/MapPortlet\/img\/thumbnails\/ODH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=o%20dowd%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "OTC",
+      "address": "OutTakes Cafe, Rochester, MI",
+      "latitude": "42.671473",
+      "longitude": "-83.21061",
+      "name": "OutTakes Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/OTC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Housing"
+      ],
+      "abbreviation": "OVH",
+      "address": "Oak View Hall, Auburn Hills, MI",
+      "latitude": "42.678046",
+      "longitude": "-83.215460",
+      "name": "Oak View Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/OVH.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "PH",
+      "address": "Pawley Hall, Rochester, MI",
+      "latitude": "42.671473",
+      "longitude": "-83.21061",
+      "name": "Pawley Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/PH.JPG",
+      "description": "http:\/\/www.oakland.edu\/sehs"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "PFC",
+      "address": "Pioneer Food Court, Rochester, MI",
+      "latitude": "42.674289",
+      "longitude": "-83.216622",
+      "name": "Pioneer Food Court",
+      "img": "\/MapPortlet\/img\/thumbnails\/PFC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Police",
+        "Offices"
+      ],
+      "abbreviation": "PSS",
+      "address": "Police and Support Services, Auburn Hills, MI",
+      "latitude": "42.67128",
+      "longitude": "-83.218895",
+      "name": "Police and Support Services",
+      "img": "\/MapPortlet\/img\/thumbnails\/PSS.JPG",
+      "description": "http:\/\/www.police.oakland.edu\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "PRY",
+      "address": "Pryale House, Auburn Hills, MI",
+      "latitude": "42.675830",
+      "longitude": "-83.213302",
+      "name": "Pryale House",
+      "img": "\/MapPortlet\/img\/thumbnails\/PRY.JPG",
+      "description": "http:\/\/www.oakland.edu\/psychology"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics",
+        "Entertainment"
+      ],
+      "abbreviation": "REC",
+      "address": "Recreation and Athletics Center, Auburn Hills, MI",
+      "latitude": "42.674047",
+      "longitude": "-83.212953",
+      "name": "Recreation and Athletics Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/REC.JPG",
+      "description": "http:\/\/www.oakland.edu\/campusrec\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Landmarks"
+      ],
+      "abbreviation": "SAS",
+      "address": "Saints and Sinners Fountain, Auburn Hills, MI",
+      "latitude": "42.672682",
+      "longitude": "-83.216574",
+      "name": "\"Saints and Sinners\" Fountain",
+      "img": "\/MapPortlet\/img\/thumbnails\/SAS.JPG",
+      "description": "http:\/\/library.oakland.edu\/information\/departments\/archives\/art\/saints.htm"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "SB",
+      "address": "Science Building, Auburn Hills, MI",
+      "latitude": "42.671068",
+      "longitude": "-83.21789",
+      "name": "Science Building",
+      "img": "\/MapPortlet\/img\/thumbnails\/SEB.JPG",
+      "description": "http:\/\/www.oakland.edu\/SECS"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "SERP",
+      "address": "Solar Energy Research Project, Rochester, MI",
+      "latitude": "42.679175",
+      "longitude": "-83.210485",
+      "name": "Solar Energy Research Project",
+      "img": "\/MapPortlet\/img\/thumbnails\/SERP.JPG",
+      "description": "http:\/\/www.oakland.edu\/energy\/"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "SFH",
+      "address": "South Foundation Hall, Auburn Hills, MI",
+      "latitude": "42.673645",
+      "longitude": "-83.217723",
+      "name": "South Foundation Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/SFH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=south%20foundation%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "SOFC",
+      "address": "Suzanne O. Frankie Cafe, Auburn Hills, MI",
+      "latitude": "42.672688",
+      "longitude": "-83.215925",
+      "name": "Suzanne O. Frankie Cafe",
+      "img": "\/MapPortlet\/img\/thumbnails\/SOFC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Athletics"
+      ],
+      "abbreviation": "UF",
+      "address": "Upper Fields, Auburn Hills, MI",
+      "latitude": "42.678139",
+      "longitude": "-83.209659",
+      "name": "Upper Fields",
+      "img": "\/MapPortlet\/img\/thumbnails\/UF.JPG",
+      "description": "http:\/\/www.ougrizzlies.com"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Food"
+      ],
+      "abbreviation": "VDC",
+      "address": "Vandenberg Dining Center, Auburn Hills, MI",
+      "latitude": "42.676884",
+      "longitude": "-83.215882",
+      "name": "Vandenberg Dining Center",
+      "img": "\/MapPortlet\/img\/thumbnails\/VDC.JPG",
+      "description": "http:\/\/www.oakland.edu\/housing\/dining"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing"
+      ],
+      "abbreviation": "VWH",
+      "address": "Van Wagoner House, Auburn Hills, MI",
+      "latitude": "42.676602",
+      "longitude": "-83.214334",
+      "name": "Van Wagoner House",
+      "img": "\/MapPortlet\/img\/thumbnails\/VWH.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "VAR",
+      "address": "Varner Hall, Auburn Hills, MI",
+      "latitude": "42.671592",
+      "longitude": "-83.212785",
+      "name": "Varner Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/VH.JPG",
+      "description": "http:\/\/www.oakland.edu\/mtd"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Housing",
+        "Offices"
+      ],
+      "abbreviation": "VBH",
+      "address": "Vandenberg Hall, Auburn Hills, MI",
+      "latitude": "42.676884",
+      "longitude": "-83.215882",
+      "name": "Vandenberg Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/WVH.JPG",
+      "description": "https:\/\/www.oakland.edu\/housing\/residencehalls"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Academics",
+        "Offices"
+      ],
+      "abbreviation": "WH",
+      "address": "Wilson Hall, Auburn Hills, MI",
+      "latitude": "42.675659",
+      "longitude": "-83.217681",
+      "name": "Wilson Hall",
+      "img": "\/MapPortlet\/img\/thumbnails\/WH.JPG",
+      "description": "http:\/\/www.oakland.edu\/apps\/searchou\/?cx=017797428627749203211%3aosdmnaba-js&cof=FORID%3a11&ie=UTF-8&q=wilson%20hall&h=1000#1000"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P1",
+      "address": "42.674433, -83.219268 (P1 - Oakland University Parking Lot)",
+      "latitude": "42.674433",
+      "longitude": "-83.219268",
+      "name": "Parking Lot #1",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P2",
+      "address": "42.675324, -83.216924 (P2 - Oakland University Parking Lot)",
+      "latitude": "42.675324",
+      "longitude": "-83.216924",
+      "name": "Parking Lot #2",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P3",
+      "address": "42.678274, -83.218254 (P3 - Oakland University Parking Lot)",
+      "latitude": "42.678274",
+      "longitude": "-83.218254",
+      "name": "Parking Lot #3",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P5",
+      "address": "42.678112, -83.216157 (P5 - Oakland University Parking Lot)",
+      "latitude": "42.678112",
+      "longitude": "-83.216157",
+      "name": "Parking Lot #5",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P11",
+      "address": "42.676736, -83.209993 (P11 - Oakland University Parking Lot)",
+      "latitude": "42.676736",
+      "longitude": "-83.209993",
+      "name": "Parking Lot #11",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P16",
+      "address": "42.675174, -83.214043 (P16 - Oakland University Parking Lot)",
+      "latitude": "42.675174",
+      "longitude": "-83.214043",
+      "name": "Parking Lot #16",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P17",
+      "address": "42.674819, -83.212724 (P17 - Oakland University Parking Lot)",
+      "latitude": "42.674819",
+      "longitude": "-83.212724",
+      "name": "Parking Lot #17",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P18",
+      "address": "42.674243, -83.214875 (P18 - Oakland University Parking Lot)",
+      "latitude": "42.674243",
+      "longitude": "-83.214875",
+      "name": "Parking Lot #18",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P24",
+      "address": "42.670788, -83.213282 (P24 - Oakland University Parking Lot)",
+      "latitude": "42.670788",
+      "longitude": "-83.213282",
+      "name": "Parking Lot #24",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P26",
+      "address": "42.671778, -83.211924 (P26 - Oakland University Parking Lot)",
+      "latitude": "42.671778",
+      "longitude": "-83.211924",
+      "name": "Parking Lot #26",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P28",
+      "address": "42.671526, -83.210288 (P28 - Oakland University Parking Lot)",
+      "latitude": "42.671526",
+      "longitude": "-83.210288",
+      "name": "Parking Lot #28",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P29",
+      "address": "42.672346, -83.210020 (P29 - Oakland University Parking Structure)",
+      "latitude": "42.672346",
+      "longitude": "-83.210020",
+      "name": "Parking Structure #29",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P32",
+      "address": "42.670117, -83.214886 (P32 - Oakland University Parking Structure)",
+      "latitude": "42.670117",
+      "longitude": "-83.214886",
+      "name": "Parking Structure #32",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P34",
+      "address": "42.670737, -83.214971 (P34 - Oakland University Parking Lot)",
+      "latitude": "42.670737",
+      "longitude": "-83.214971",
+      "name": "Parking Lot #34",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P35",
+      "address": "42.668543, -83.215256 (P35 - Oakland University Parking Lot)",
+      "latitude": "42.668543",
+      "longitude": "-83.215256",
+      "name": "Parking Lot #35",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P36",
+      "address": "42.671222, -83.214982 (P36 - Oakland University Parking Lot)",
+      "latitude": "42.671222",
+      "longitude": "-83.214982",
+      "name": "Parking Lot #36",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P37",
+      "address": "42.668354, -83.216908 (P37 - Oakland University Parking Lot)",
+      "latitude": "42.668354",
+      "longitude": "-83.216908",
+      "name": "Parking Lot #37",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P38",
+      "address": "42.670145, -83.217224 (P38 - Oakland University Parking Lot)",
+      "latitude": "42.670145",
+      "longitude": "-83.217224",
+      "name": "Parking Lot #38",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P41",
+      "address": "42.670539, -83.219225 (P41 - Oakland University Parking Lot)",
+      "latitude": "42.670539",
+      "longitude": "-83.219225",
+      "name": "Parking Lot #41",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    },
+    {
+      "campuses": [
+        "Main"
+      ],
+      "categories": [
+        "Parking"
+      ],
+      "abbreviation": "P43",
+      "address": "42.671849, -83.219054 (P43 - Oakland University Parking Lot)",
+      "latitude": "42.671849",
+      "longitude": "-83.219054",
+      "name": "Parking Lot #43",
+      "description": "http:\/\/www.oakland.edu\/Parking"
+    }
+  ]
+}
