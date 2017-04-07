@@ -1,6 +1,7 @@
 # Map Portlet
 
-[![Build Status](https://travis-ci.org/Jasig/MapPortlet.svg?branch=master)](https://travis-ci.org/Jasig/MapPortlet)
+[![Linux Build Status](https://travis-ci.org/Jasig/MapPortlet.svg?branch=master)](https://travis-ci.org/Jasig/MapPortlet)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/gi1nk831v4145wso/branch/master?svg=true)](https://ci.appveyor.com/project/ChristianMurphy/mapportlet/branch/master)
 
 The Map Portlet is a JSR-286 portlet includes an API for representing campus locations, including geo coordinates, addresses, categories, etc. Users can search/browse to find particular locations
 
