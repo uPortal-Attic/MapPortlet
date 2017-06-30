@@ -52,3 +52,8 @@ The portlet has one property file: *configuration.properties* and one map file: 
 | scaleControl    | true       |                                           |
 | rotateControl   | false      |                                           |
 | overviewControl | false      |                                           |
+
+### Sample Data
+
+The portlet has sample data in the webapp/demo directory
+
