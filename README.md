@@ -1,5 +1,6 @@
 # Map Portlet
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.jasig.portlet.map/MapPortlet/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.jasig.portlet.map/MapPortlet)
 [![Linux Build Status](https://travis-ci.org/Jasig/MapPortlet.svg?branch=master)](https://travis-ci.org/Jasig/MapPortlet)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/gi1nk831v4145wso/branch/master?svg=true)](https://ci.appveyor.com/project/ChristianMurphy/mapportlet/branch/master)
 
@@ -56,4 +57,3 @@ The portlet has one property file: *configuration.properties* and one map file: 
 ### Sample Data
 
 The portlet has sample data in the webapp/demo directory
-
