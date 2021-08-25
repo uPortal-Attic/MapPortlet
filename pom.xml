@@ -23,7 +23,7 @@
         <http-client.version>4.5.13</http-client.version>
         <jackson.version>1.9.4</jackson.version>
         <jaxb2basics.version>0.6.0</jaxb2basics.version>
-        <spring.version>3.1.0.RELEASE</spring.version>
+        <spring.version>3.2.18.RELEASE</spring.version>
         <resource-server.version>1.0.44</resource-server.version>
     </properties>
 
